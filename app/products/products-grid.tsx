@@ -232,7 +232,7 @@ export default function ProductsGrid({ products }: { products: Product[] }) {
     <div className="bg-cream">
       {/* 頁首 banner */}
       <div className="mx-auto max-w-5xl px-6 pt-6 pb-4 md:px-8">
-        <div className="pt-10 text-center md:pt-12">
+        <div className="pt-5 text-center md:pt-6">
           <h1 className="font-heading text-3xl font-bold text-primary md:text-4xl">
             {lang === 'zh' ? '台灣茶與伴手禮' : lang === 'es' ? 'Té y regalos de Taiwán' : 'Taiwan Tea & Gifts'}
           </h1>
