@@ -7,7 +7,7 @@ import { DOORDASH_URL } from '@/components/order-button'
 
 const copy = {
   eyebrow: { zh: '台式咖啡館 · 紐約 Middletown', en: 'Taiwanese Café · Middletown, NY', es: 'Café taiwanés · Middletown, NY' },
-  headline: { zh: '台灣的味道，為你而做。', en: 'A Taste of Taiwan, Made for You.', es: 'Un sabor de Taiwán, hecho para ti.' },
+  headline: { zh: '台灣的味道，\n為你而做。', en: 'A Taste of Taiwan,\nMade for You.', es: 'Un sabor de Taiwán,\nhecho para ti.' },
   description: {
     zh: '慢燉牛肉麵、滷肉飯、手搖珍奶，還有現烤鳳梨酥。',
     en: 'Slow-braised beef noodle soup, braised pork rice, bubble tea, and fresh-baked pineapple cakes.',
@@ -51,7 +51,7 @@ export function Hero() {
             <p className="mb-3 font-body text-xs font-semibold uppercase tracking-[0.2em] text-white/85 md:text-sm">
               {copy.eyebrow[lang]}
             </p>
-            <p className="font-heading text-4xl font-bold leading-tight drop-shadow-sm sm:text-5xl md:text-6xl">
+            <p className="whitespace-pre-line font-heading text-4xl font-bold leading-tight drop-shadow-sm sm:text-5xl md:text-6xl">
               {copy.headline[lang]}
             </p>
             <p className="mt-4 max-w-md font-body text-base leading-relaxed text-white/90 md:text-lg">

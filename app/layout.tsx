@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { Noto_Serif, Noto_Sans } from "next/font/google"
+import { Noto_Serif, Noto_Serif_TC, Noto_Sans } from "next/font/google"
 import "./globals.css"
 import { LanguageProvider } from "@/lib/i18n/language-context"
 import { CookieConsentBanner } from "@/components/cookie-consent"
@@ -14,6 +14,14 @@ const notoSerif = Noto_Serif({
   weight: ['400', '600', '700'],
   variable: '--font-heading',
   display: 'swap',
+})
+
+// 中文標題字：只載粗體、不預載，瀏覽器只下載頁面上出現的字
+const notoSerifTC = Noto_Serif_TC({
+  weight: ['700'],
+  variable: '--font-heading-zh',
+  display: 'swap',
+  preload: false,
 })
 
 const notoSans = Noto_Sans({
@@ -89,7 +97,7 @@ export default function RootLayout({
       <head>
         <GoogleAnalyticsScript />
       </head>
-      <body className={`${notoSerif.variable} ${notoSans.variable} font-body antialiased`}>
+      <body className={`${notoSerif.variable} ${notoSerifTC.variable} ${notoSans.variable} font-body antialiased`}>
         <JsonLd />
         <FacebookPixelNoScript />
         <GTMNoScript />

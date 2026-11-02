@@ -10,7 +10,7 @@ export default {
   theme: {
   	extend: {
   		fontFamily: {
-  			heading: ['var(--font-heading)', 'Noto Serif', 'serif'],
+  			heading: ['var(--font-heading)', 'var(--font-heading-zh)', 'Noto Serif', 'serif'],
   			body: ['var(--font-body)', 'Noto Sans', 'sans-serif'],
   		},
   		colors: {
