@@ -96,7 +96,39 @@ function PosterCard({ p, language, detail, inStore, eager }: { p: Product; langu
   );
 }
 
-/* ── 個別小卡 ── */
+/* ── 情境照卡（果乾、零食）：橫式照片，品名與價格寫在下方 ── */
+function PhotoCard({ p, language, eager }: { p: Product; language: Language; eager: boolean }) {
+  const other: Language = language === 'zh' ? 'en' : 'zh';
+  return (
+    <Link
+      href={`/product/${p.slug}`}
+      className="group flex flex-col overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-black/5 transition-shadow duration-300 hover:shadow-md"
+    >
+      {/* 直式舊海報、實拍圖完整顯示在格紋桌巾上；橫式情境照剛好填滿 */}
+      <div className="gingham-cloth relative aspect-[3/2] overflow-hidden">
+        <Image
+          src={POSTERS[p.slug]}
+          alt={getProductName(p, language)}
+          fill
+          preload={eager}
+          fetchPriority={eager ? 'high' : undefined}
+          className="object-contain transition-transform duration-500 group-hover:scale-[1.03]"
+          sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 33vw"
+        />
+      </div>
+      <div className="flex items-baseline justify-between gap-3 px-4 py-3">
+        <div className="min-w-0">
+          <h3 className="font-heading text-base font-bold text-primary">{getShortName(p, language)}</h3>
+          <p className="font-heading text-sm text-foreground/60">{getShortName(p, other)}</p>
+        </div>
+        {p.price != null && (
+          <span className="shrink-0 font-heading text-base font-bold text-price">${Number(p.price).toFixed(2)}</span>
+        )}
+      </div>
+    </Link>
+  );
+}
+
 /* ── 沒有海報的商品：菜單式一行（品名、另一語言名稱、價格），不放隨手拍的照片 ── */
 function TextCard({ p, language }: { p: Product; language: Language }) {
   const other: Language = language === 'zh' ? 'en' : 'zh';
@@ -149,7 +181,15 @@ function CategoryBlock({
         </div>
       )}
 
-      {posters.length > 0 && (
+      {posters.length > 0 && catId !== 'tea' && (
+        <div className="mb-8 grid gap-4 sm:grid-cols-2 md:gap-5 lg:grid-cols-3">
+          {posters.map((p, i) => (
+            <PhotoCard key={p.id} p={p} language={language} eager={isFirst && i < 3} />
+          ))}
+        </div>
+      )}
+
+      {posters.length > 0 && catId === 'tea' && (
         <div className="mb-8 flex flex-wrap justify-center gap-4 md:gap-5 [&>*]:w-[calc(50%-0.5rem)] md:[&>*]:w-[calc(33.333%-0.834rem)] lg:[&>*]:w-[calc(25%-0.9375rem)]">
           {posters.map((p, i) => (
             <PosterCard key={p.id} p={p} language={language} detail={detail} inStore={inStore} eager={isFirst && i < 4} />
