@@ -150,7 +150,7 @@ export function MenuFull() {
       </div>
 
       {/* 分類黏頂列 */}
-      <nav className="sticky top-20 z-30 border-y border-black/5 bg-cream/95 backdrop-blur-md">
+      <nav className="sticky top-20 z-30 md:top-[108px] border-y border-black/5 bg-cream/95 backdrop-blur-md">
         <div className="scrollbar-hide mx-auto max-w-6xl overflow-x-auto px-4 py-3">
           <div className="flex min-w-max justify-center gap-2">
             {NAV.map((g) => (
@@ -165,7 +165,7 @@ export function MenuFull() {
 
       <div className="mx-auto max-w-6xl px-6 py-12 md:px-8">
         {/* 人氣推薦 */}
-        <section id="popular" className="scroll-mt-36">
+        <section id="popular" className="scroll-mt-36 md:scroll-mt-44">
           <GroupHeader kicker="Signature · Most Loved" title={lang === 'zh' ? '人氣推薦' : lang === 'es' ? 'Los favoritos' : 'Popular Picks'} />
           <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
             {POPULAR.map((p, i) => (
@@ -198,7 +198,7 @@ export function MenuFull() {
         )}
 
         {/* 飲品（一大類一張卡） */}
-        <section id="drinks" className="scroll-mt-36 pt-6">
+        <section id="drinks" className="scroll-mt-36 md:scroll-mt-44 pt-6">
           <GroupHeader kicker="Hand-Shaken Teas · Coffee" title={lang === 'zh' ? '飲品' : 'Drinks'} />
           <div className="grid items-start gap-5 md:grid-cols-2">
             {DRINK_IDS.map((id) => {
@@ -210,7 +210,7 @@ export function MenuFull() {
         </section>
 
         {/* 套餐 */}
-        <section id="combos" className="scroll-mt-36 pt-6">
+        <section id="combos" className="scroll-mt-36 md:scroll-mt-44 pt-6">
           <GroupHeader kicker="Better Together" title={lang === 'zh' ? '套餐' : 'Combos'} />
           <div className="mx-auto max-w-3xl rounded-2xl border-2 border-dashed border-primary/30 bg-secondary px-6 py-6">
             <p className="mb-4 text-center font-heading text-xl font-bold text-primary">
@@ -279,7 +279,7 @@ function CardSection({ id, kicker, title, items, lang, name, subName, desc, fmt,
   desc: (i: MenuItemData) => string | undefined; fmt: (p: string) => string; icon: LucideIcon
 }) {
   return (
-    <section id={id} className="scroll-mt-36 pt-6">
+    <section id={id} className="scroll-mt-36 md:scroll-mt-44 pt-6">
       <GroupHeader kicker={kicker} title={title} />
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 md:gap-6">
         {items.map((item, i) => (

@@ -252,7 +252,7 @@ export default function ProductsGrid({ products }: { products: Product[] }) {
       </div>
 
       {/* 分類篩選列（黏頂） */}
-      <nav className="sticky top-20 z-30 border-y border-black/5 bg-cream/95 backdrop-blur-md">
+      <nav className="sticky top-20 z-30 md:top-[108px] border-y border-black/5 bg-cream/95 backdrop-blur-md">
         <div className="scrollbar-hide mx-auto max-w-6xl overflow-x-auto px-4 py-3">
           <div className="flex min-w-max justify-center gap-2">
             {visibleFilters.map((f) => (
