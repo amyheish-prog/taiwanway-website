@@ -95,27 +95,23 @@ function PosterCard({ p, language, detail, inStore, eager }: { p: Product; langu
 }
 
 /* ── 個別小卡 ── */
-function TextCard({ p, language, detail }: { p: Product; language: Language; detail: string }) {
+/* ── 沒有海報的商品：菜單式一行（品名、另一語言名稱、價格），不放隨手拍的照片 ── */
+function TextCard({ p, language }: { p: Product; language: Language }) {
+  const other: Language = language === 'zh' ? 'en' : 'zh';
   return (
-    <Link
-      href={`/product/${p.slug}`}
-      className="group relative flex min-h-[104px] flex-col overflow-hidden rounded-2xl bg-white p-4 shadow-sm ring-1 ring-black/5 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md hover:ring-primary/30"
-    >
-      <h3 className="font-body text-[15px] font-bold leading-snug text-foreground group-hover:text-primary">
-        {getShortName(p, language)}
-      </h3>
-      <div className="mt-auto flex items-center justify-between gap-2 border-t border-black/5 pt-2.5">
-        {p.price != null && <span className="font-body text-sm font-bold text-primary">${Number(p.price).toFixed(2)}</span>}
-        <span className="inline-flex items-center gap-0.5 font-body text-xs font-semibold text-primary transition-colors group-hover:text-primary/80">
-          {detail}
-          <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
-        </span>
+    <Link href={`/product/${p.slug}`} className="group flex items-baseline justify-between gap-4 border-b border-border py-4">
+      <div className="min-w-0">
+        <h3 className="font-heading text-base font-bold text-primary group-hover:underline md:text-lg">{getShortName(p, language)}</h3>
+        <p className="font-heading text-sm text-foreground/60">{getShortName(p, other)}</p>
       </div>
+      {p.price != null && (
+        <span className="shrink-0 font-heading text-base font-bold text-price md:text-lg">${Number(p.price).toFixed(2)}</span>
+      )}
     </Link>
   );
 }
 
-const SMALL_GRID = 'grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6';
+const SMALL_GRID = 'grid grid-cols-1 gap-x-12 border-t border-border md:grid-cols-2';
 
 /* ── 單一分類區塊：海報卡 + （茶葉再依形式分小標）小卡 ── */
 function CategoryBlock({
@@ -174,7 +170,7 @@ function CategoryBlock({
                   </div>
                   <div className={SMALL_GRID}>
                     {sub.map((p) => (
-                      <TextCard key={p.id} p={p} language={language} detail={detail} />
+                      <TextCard key={p.id} p={p} language={language} />
                     ))}
                   </div>
                 </div>
@@ -184,7 +180,7 @@ function CategoryBlock({
         ) : (
           <div className={SMALL_GRID}>
             {lists.map((p) => (
-              <TextCard key={p.id} p={p} language={language} detail={detail} />
+              <TextCard key={p.id} p={p} language={language} />
             ))}
           </div>
         ))}

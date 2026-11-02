@@ -45,8 +45,12 @@ export default function ProductDetail({ product }: { product: Product }) {
               <Image src={poster} alt={name} fill preload fetchPriority="high" className="object-contain" sizes="(max-width:768px) 100vw, 640px" />
             </div>
           ) : (
-            <div className="relative aspect-square w-full bg-muted">
-              <Image src={product.image_url} alt={name} fill preload fetchPriority="high" className="object-cover" sizes="(max-width:768px) 100vw, 640px" />
+            // 沒有修過的海報時不放現場隨手拍的照片，改用格紋名稱卡
+            <div className="gingham-cloth flex aspect-[3/2] w-full items-center justify-center p-8">
+              <div className="stitch rounded-2xl bg-card px-8 py-6 text-center shadow-sm">
+                <p className="font-heading text-2xl font-bold text-primary md:text-3xl">{product.name_zh}</p>
+                <p className="mt-1 font-heading text-base text-foreground/70">{product.name_en}</p>
+              </div>
             </div>
           )}
         </div>
