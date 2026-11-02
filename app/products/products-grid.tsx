@@ -145,10 +145,9 @@ function CategoryBlock({
   return (
     <section className="mb-16">
       {showHeader && (
-        <div className="mb-8 text-center">
-          <p className="gingham-chip mb-2 font-body text-xs uppercase tracking-[0.24em] text-brick">{cat.kicker}</p>
-          <h2 className="font-heading text-3xl font-bold text-primary md:text-4xl">{cat.title[lang]}</h2>
-          <span className="mx-auto mt-3 block h-1 w-14 rounded-full bg-primary/70" />
+        <div className="mb-6 text-center">
+          <p className="gingham-chip mb-1 font-body text-[11px] uppercase tracking-[0.2em] text-brick">{cat.kicker}</p>
+          <h2 className="font-heading text-2xl font-bold text-primary md:text-3xl">{cat.title[lang]}</h2>
         </div>
       )}
 
@@ -233,11 +232,11 @@ export default function ProductsGrid({ products }: { products: Product[] }) {
     <div className="bg-cream">
       {/* 頁首 banner */}
       <div className="mx-auto max-w-5xl px-6 pt-6 pb-4 md:px-8">
-        <div className="pt-16 text-center">
+        <div className="pt-10 text-center md:pt-12">
           <p className="gingham-chip font-body text-xs font-semibold uppercase tracking-[0.2em] text-brick">
             {lang === 'zh' ? '台灣茶・果乾・伴手禮' : lang === 'es' ? 'Té · Frutas · Regalos' : 'Tea · Dried Fruit · Gifts'}
           </p>
-          <h1 className="mt-3 font-heading text-4xl font-bold text-primary md:text-6xl">
+          <h1 className="mt-2 font-heading text-3xl font-bold text-primary md:text-4xl">
             {lang === 'zh' ? '台灣茶與伴手禮' : lang === 'es' ? 'Té y regalos de Taiwán' : 'Taiwan Tea & Gifts'}
           </h1>
           <span className="sr-only">
@@ -248,7 +247,7 @@ export default function ProductsGrid({ products }: { products: Product[] }) {
                 : 'Taiwanese Snacks, Tea & Gifts in Middletown, NY | TaiwanWay'}
           </span>
         </div>
-        <p className="mx-auto mt-6 max-w-xl text-center font-body text-base text-muted-foreground md:text-lg">{intro}</p>
+        <p className="mx-auto mt-2 max-w-xl text-center font-body text-sm text-muted-foreground md:text-base">{intro}</p>
       </div>
 
       {/* 分類篩選列（黏頂） */}
@@ -259,8 +258,8 @@ export default function ProductsGrid({ products }: { products: Product[] }) {
               <button
                 key={f.id}
                 onClick={() => setFilter(f.id)}
-                className={`whitespace-nowrap rounded-full px-5 py-2 font-body text-sm font-semibold transition-colors duration-200 ${
-                  filter === f.id ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:bg-primary/10 hover:text-primary'
+                className={`whitespace-nowrap rounded-full border px-5 py-2 font-body text-sm font-semibold transition-colors duration-300 ${
+                  filter === f.id ? 'border-primary/25 bg-secondary text-primary' : 'border-transparent text-muted-foreground hover:bg-secondary/60 hover:text-primary'
                 }`}
               >
                 {f.label[lang]}

@@ -122,15 +122,15 @@ export function MenuFull() {
   return (
     <div className="bg-cream pb-24 md:pb-0">
       {/* 頁首標題 + CTA */}
-      <div className="mx-auto max-w-6xl px-6 pt-24 pb-8 md:px-8">
+      <div className="mx-auto max-w-6xl px-6 pt-10 pb-6 md:px-8 md:pt-12">
         <div className="text-center">
           <p className="font-body text-xs font-semibold uppercase tracking-[0.2em] text-brick">
             {lang === 'zh' ? '台灣茶飲・點心・咖啡・甜點' : lang === 'es' ? 'Té · Comida · Café · Postres' : 'Tea · Food · Coffee · Desserts'}
           </p>
-          <h1 className="mt-3 font-heading text-4xl font-bold text-primary md:text-6xl">
+          <h1 className="mt-2 font-heading text-3xl font-bold text-primary md:text-4xl">
             {heading}
           </h1>
-          <p className="mx-auto mt-4 max-w-xl font-body text-base text-muted-foreground md:text-lg">{intro}</p>
+          <p className="mx-auto mt-2 max-w-xl font-body text-sm text-muted-foreground md:text-base">{intro}</p>
           <span className="sr-only">
             {lang === 'zh'
               ? 'TaiwanWay 菜單 — 牛肉麵、珍珠奶茶、滷肉飯、甜點｜紐約 Middletown'
@@ -139,9 +139,9 @@ export function MenuFull() {
                 : 'TaiwanWay Menu — Beef Noodle Soup, Bubble Tea, Braised Pork Rice & Desserts in Middletown, NY'}
           </span>
         </div>
-        <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-          <OrderButton className="px-6 py-3" />
-          <a href="tel:+18453811002" className="inline-flex items-center gap-2 rounded-full border-2 border-primary px-6 py-3 font-body font-semibold text-primary transition hover:bg-primary hover:text-primary-foreground">
+        <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
+          <OrderButton className="px-5 py-2 text-sm" />
+          <a href="tel:+18453811002" className="inline-flex items-center gap-2 rounded-full border border-primary px-5 py-2 font-body text-sm font-semibold text-primary transition hover:bg-secondary">
             <Phone className="h-4 w-4" />{callLabel}
           </a>
         </div>
@@ -153,7 +153,7 @@ export function MenuFull() {
           <div className="flex min-w-max justify-center gap-2">
             {NAV.map((g) => (
               <a key={g.id} href={`#${g.id}`}
-                className={`whitespace-nowrap rounded-full px-5 py-2 font-body text-sm font-semibold transition-colors duration-200 ${active === g.id ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:bg-primary/10 hover:text-primary'}`}>
+                className={`whitespace-nowrap rounded-full border px-5 py-2 font-body text-sm font-semibold transition-colors duration-300 ${active === g.id ? 'border-primary/25 bg-secondary text-primary' : 'border-transparent text-muted-foreground hover:bg-secondary/60 hover:text-primary'}`}>
                 {g.label[lang]}
               </a>
             ))}
@@ -163,15 +163,15 @@ export function MenuFull() {
 
       <div className="mx-auto max-w-6xl px-6 py-12 md:px-8">
         {/* 人氣推薦 */}
-        <section id="popular" className="scroll-mt-36 md:scroll-mt-44">
+        <section id="popular" className="gingham-cloth -mx-6 scroll-mt-36 px-6 py-8 md:mx-0 md:scroll-mt-44 md:rounded-3xl md:px-8">
           <GroupHeader kicker="Signature · Most Loved" title={lang === 'zh' ? '人氣推薦' : lang === 'es' ? 'Los favoritos' : 'Popular Picks'} />
           <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
             {POPULAR.map((p, i) => (
-              <figure key={p.img}>
+              <figure key={p.img} className="rounded-2xl bg-card p-3 shadow-sm ring-1 ring-black/5">
                 <div className="relative aspect-square overflow-hidden rounded-xl">
                   <Image src={p.img} alt={p.alt[lang]} fill preload={i < 2} fetchPriority={i < 2 ? 'high' : undefined} className="object-cover" sizes="(max-width:768px) 45vw, 22vw" />
                 </div>
-                <figcaption className="mt-3 font-body text-base font-semibold text-foreground">{p.alt[lang]}</figcaption>
+                <figcaption className="mt-3 px-1 pb-1 font-body text-base font-semibold text-foreground">{p.alt[lang]}</figcaption>
               </figure>
             ))}
           </div>
@@ -338,10 +338,9 @@ function DishCard({ icon: Icon, dishIcon, name, sub, desc, options, price, tags 
 
 function GroupHeader({ kicker, title }: { kicker: string; title: string }) {
   return (
-    <div className="mb-8 mt-4 flex flex-col items-center text-center">
-      <p className="gingham-chip font-body text-xs uppercase tracking-[0.24em] text-brick">{kicker}</p>
-      <h2 className="mt-1 font-heading text-4xl font-bold text-primary md:text-5xl">{title}</h2>
-      <span className="mt-3 h-1 w-16 rounded-full bg-primary/70" />
+    <div className="mb-6 mt-2 flex flex-col items-center text-center">
+      <p className="gingham-chip font-body text-[11px] uppercase tracking-[0.2em] text-brick">{kicker}</p>
+      <h2 className="mt-1 font-heading text-2xl font-bold text-primary md:text-3xl">{title}</h2>
     </div>
   )
 }
