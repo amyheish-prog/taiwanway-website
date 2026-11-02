@@ -6,7 +6,7 @@ export const POSTERS: Record<string, string> = {
   'honey-aroma-oolong-tea': '/images/products/honey-aroma-oolong-tea.png',
   'dong-pian-oolong-tea': '/images/products/dong-pian-oolong-tea.png',
   'taiwan-roasted-black-bean-tea-15bags': '/images/products/taiwan-roasted-black-bean-tea-15bags.png',
-  'fullten-dried-guava': '/images/products/fullten-dried-guava.png',
+  'fullten-dried-guava': '/images/products/fullten-dried-guava.jpg',
   'taiwan-osmanthus-plum': '/images/products/taiwan-osmanthus-plum.png',
   'taiwan-perilla-plum': '/images/products/taiwan-perilla-plum.png',
   'jin-he-tai-dried-roselle': '/images/products/jin-he-tai-dried-roselle.png',

@@ -36,6 +36,7 @@ PHOTOS = [
     ("../products/tang-ding-brown-sugar-longan-red-date.jpg", PACKAGING / "04_Longan_Red_Dates.jpg", (2, 3), 800, 0.5, 0.5, 1.0),
     ("../products/huixiang-red-date-chips.jpg", PACKAGING / "05_Red_Date_Crisps.jpg", (2, 3), 800, 0.5, 0.5, 1.0),
     ("../products/jin-he-tai-licorice-preserved-plum.jpg", PACKAGING / "07_Dried_Sour_Plum.jpg", (2, 3), 800, 0.5, 0.5, 1.0),
+    ("../products/fullten-dried-guava.jpg", PACKAGING / "10_Dried_Bamboo_Shoots.jpg", (2, 3), 800, 0.5, 0.5, 1.0),  # 檔名誤標，實為金和泰芭樂乾
     ("bakery-pineapple-cake.jpg", DESKTOP / "暖陽下的鳳梨酥與鳳梨.png", (4, 5), 800, 0.42, 0.55, 1.0),
     ("bakery-egg-rolls.jpg", DESKTOP / "暖陽下的蛋捲.webp", (4, 5), 800, 0.45, 0.55, 1.0),
     ("bakery-cookie-chocolate.jpg", DESKTOP / "暖陽下的巧克力軟餅乾.webp", (8, 5), 800, 0.47, 0.55, 0.85),

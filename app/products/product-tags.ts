@@ -74,7 +74,7 @@ export const PRODUCT_TAGS: Record<string, string[]> = {
   // 果乾蜜餞
   'taiwan-perilla-plum': ['preservedPlum', 'readyToEat'],
   'taiwan-osmanthus-plum': ['preservedPlum', 'floral'],
-  'fullten-dried-guava': ['driedFruit', 'additiveFree'],
+  'fullten-dried-guava': ['driedFruit', 'readyToEat'],  // 實為金和泰芭樂乾，slug 保留舊名避免網址失效
   'fullten-seedless-dried-mandarin': ['driedFruit', 'seedless'],
   'plums-honey-dried-plum-seedless': ['preservedPlum', 'seedless'],
   'plums-guanmiao-pineapple-plum': ['preservedPlum', 'pineapple'],
