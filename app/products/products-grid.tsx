@@ -40,7 +40,7 @@ const TEA_FORMATS: { id: string; label: Record<Lang, string> }[] = [
 
 function categorize(p: Product): CatId {
   const n = p.name_zh || '';
-  if (/梅|果乾|芭樂乾|甜蜜柑|脆片|梨糖|洛神/.test(n)) return 'fruit';
+  if (/梅|果乾|芭樂乾|甜蜜柑|脆片|梨糖|洛神|黑糖磚/.test(n)) return 'fruit';
   if (/豆干|豆乾|魚酥|香菇|鳳梨酥/.test(n)) return 'snack';
   if (/茶|烏龍|黑糖磚|黑豆/.test(n)) return 'tea';
   return 'snack';
