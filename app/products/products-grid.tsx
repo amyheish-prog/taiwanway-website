@@ -85,7 +85,7 @@ function PosterCard({ p, language, detail, inStore, eager }: { p: Product; langu
         <span className="font-body text-sm font-bold text-primary">
           {p.price != null ? `$${Number(p.price).toFixed(2)}` : inStore}
         </span>
-        <span className="inline-flex items-center gap-1 font-body text-xs font-semibold text-primary/70 transition-colors group-hover:text-primary">
+        <span className="inline-flex items-center gap-1 font-body text-xs font-semibold text-primary transition-colors group-hover:text-primary/80">
           {detail}
           <ArrowRight className="h-3.5 w-3.5" />
         </span>
@@ -106,7 +106,7 @@ function TextCard({ p, language, detail }: { p: Product; language: Language; det
       </h3>
       <div className="mt-auto flex items-center justify-between gap-2 border-t border-black/5 pt-2.5">
         {p.price != null && <span className="font-body text-sm font-bold text-primary">${Number(p.price).toFixed(2)}</span>}
-        <span className="inline-flex items-center gap-0.5 font-body text-xs font-semibold text-primary/70 transition-colors group-hover:text-primary">
+        <span className="inline-flex items-center gap-0.5 font-body text-xs font-semibold text-primary transition-colors group-hover:text-primary/80">
           {detail}
           <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
         </span>
@@ -260,7 +260,7 @@ export default function ProductsGrid({ products }: { products: Product[] }) {
                 key={f.id}
                 onClick={() => setFilter(f.id)}
                 className={`whitespace-nowrap rounded-full px-5 py-2 font-body text-sm font-semibold transition-colors duration-200 ${
-                  filter === f.id ? 'bg-primary text-primary-foreground' : 'text-foreground/60 hover:bg-primary/10 hover:text-primary'
+                  filter === f.id ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:bg-primary/10 hover:text-primary'
                 }`}
               >
                 {f.label[lang]}

@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    /* 2026-11 菜單改版配色：米白底、深綠標題、淺綠格紋、紅色 Logo */
+    /* 2026-11 菜單改版配色：米白底、深綠標題、橘色格紋、紅色 Logo */
     --background: 43 60% 97%;
     --foreground: 30 8% 20%;
     --card: 0 0% 100%;
@@ -13,25 +13,26 @@
     --popover-foreground: 30 8% 20%;
     --primary: 148 22% 25%;
     --primary-foreground: 43 60% 97%;
-    --secondary: 88 22% 88%;
+    --secondary: 30 70% 92%;
     --secondary-foreground: 148 22% 20%;
-    --accent: 88 22% 88%;
+    --accent: 30 70% 92%;
     --accent-foreground: 148 22% 20%;
-    --muted: 80 20% 93%;
+    --muted: 36 35% 93%;
     --muted-foreground: 30 6% 38%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
-    --border: 75 14% 84%;
-    --input: 75 14% 84%;
+    --border: 32 22% 85%;
+    --input: 32 22% 85%;
     --ring: 148 22% 25%;
     --radius: 0.75rem;
     --gold: 44 80% 40%;
     --cream: 43 60% 97%;
     --terracotta: 2 58% 44%;
-    --sand: 88 22% 88%;
+    --sand: 30 70% 92%;
     --dark: 148 22% 12%;
     --brick: 2 58% 44%;
     --sage: 92 18% 60%;
+    --gingham: 26 85% 66%;
     --price: 22 30% 33%;
   }
 
@@ -70,18 +71,18 @@
 /* 菜單上下緣的淺綠格紋邊條 */
 .gingham-band {
   height: 14px;
-  background-color: hsl(var(--sage) / 0.35);
+  background-color: hsl(var(--gingham) / 0.35);
   background-image:
-    repeating-linear-gradient(90deg, hsl(var(--sage) / 0.85) 0 10px, transparent 10px 20px),
-    repeating-linear-gradient(0deg, hsl(var(--sage) / 0.45) 0 7px, transparent 7px 14px);
+    repeating-linear-gradient(90deg, hsl(var(--gingham) / 0.85) 0 10px, transparent 10px 20px),
+    repeating-linear-gradient(0deg, hsl(var(--gingham) / 0.45) 0 7px, transparent 7px 14px);
 }
 
 /* 格紋桌巾：整區鋪底用，比邊條淡很多 */
 .gingham-cloth {
   background-color: hsl(var(--background));
   background-image:
-    repeating-linear-gradient(90deg, hsl(var(--sage) / 0.16) 0 22px, transparent 22px 44px),
-    repeating-linear-gradient(0deg, hsl(var(--sage) / 0.16) 0 22px, transparent 22px 44px);
+    repeating-linear-gradient(90deg, hsl(var(--gingham) / 0.16) 0 22px, transparent 22px 44px),
+    repeating-linear-gradient(0deg, hsl(var(--gingham) / 0.16) 0 22px, transparent 22px 44px);
 }
 
 /* 車縫線：卡片或圖片內側一圈虛線，畫在照片上層 */
@@ -107,10 +108,10 @@
   margin-right: 0.5em;
   vertical-align: -0.05em;
   border-radius: 2px;
-  background-color: hsl(var(--sage) / 0.35);
+  background-color: hsl(var(--gingham) / 0.35);
   background-image:
-    repeating-linear-gradient(90deg, hsl(var(--sage)) 0 3px, transparent 3px 6px),
-    repeating-linear-gradient(0deg, hsl(var(--sage) / 0.6) 0 3px, transparent 3px 6px);
+    repeating-linear-gradient(90deg, hsl(var(--gingham)) 0 3px, transparent 3px 6px),
+    repeating-linear-gradient(0deg, hsl(var(--gingham) / 0.6) 0 3px, transparent 3px 6px);
 }
 
 .scrollbar-hide::-webkit-scrollbar {

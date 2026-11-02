@@ -92,7 +92,7 @@ function ReviewCard({
       <div>
         <div className="flex items-center justify-between mb-3">
           <StarRating rating={review.rating} />
-          <span className="text-xs font-body font-semibold px-2 py-0.5 rounded-full bg-[#d32323]/10 text-[#d32323]">
+          <span className="text-xs font-body font-semibold px-2 py-0.5 rounded-full bg-[#d32323]/10 text-[#a51b1b]">
             {review.source}
           </span>
         </div>
@@ -255,7 +255,7 @@ export function Testimonials() {
             href="https://www.google.com/maps/place//@41.4437301,-74.4206521,17z/data=!4m8!3m7!1s0x89c33262597cb655:0x968db5356171d2eb!8m2!3d41.4437301!4d-74.4206521!9m1!1b1"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 font-body text-sm text-foreground/60 hover:text-primary transition-colors"
+            className="inline-flex items-center gap-2 font-body text-sm text-muted-foreground hover:text-primary transition-colors"
           >
             View all reviews on Google →
           </a>
