@@ -4,36 +4,12 @@ import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { useLanguage } from '@/lib/i18n/language-context'
 import { menuCategories, type MenuCategory, type MenuItemData } from '@/lib/menu-categories'
-import { Soup, Salad, CupSoda, Coffee, CakeSlice, MapPin, Phone, Clock, type LucideIcon } from 'lucide-react'
+import { CupSoda, Coffee, CakeSlice, MapPin, Phone, Clock } from 'lucide-react'
 import { OrderButton } from './order-button'
 
 type Lang = 'zh' | 'en' | 'es'
 
 const MAPS = 'https://www.google.com/maps/search/?api=1&query=TaiwanWay+26+South+St+Middletown+NY+10940'
-
-/* 品項 → 紅色線稿 icon（主餐＋甜點） */
-const ICON_SVG: Record<string, string> = {
-  '紅燒牛肉麵': '/images/icons/icon-braised-beef-noodle-soup.svg',
-  '麻醬牛肉乾麵': '/images/icons/icon-sesame-beef-dry-noodles.svg',
-  '古早味滷肉飯': '/images/icons/icon-braised-pork-rice.svg',
-  '雞肉飯': '/images/icons/icon-chicken-rice.svg',
-  '櫻花蝦米糕': '/images/icons/icon-sakura-shrimp-sticky-rice.svg',
-  '台灣鳳梨酥': '/images/icons/dessert-pineapple.png',
-  '每日現做各式起司蛋糕': '/images/icons/dessert-cheesecake.png',
-  '戚風蛋糕': '/images/icons/dessert-chiffon.png',
-}
-
-/* 飲品分類 → 紅色線稿 icon */
-const DRINK_ICON: Record<string, string> = {
-  'taiwanese-black-tea': '/images/icons/drink-black-tea.png',
-  'jasmine': '/images/icons/drink-jasmine.png',
-  'oolong': '/images/icons/drink-oolong.png',
-  'matcha': '/images/icons/drink-matcha.png',
-  'coffee': '/images/icons/drink-coffee.png',
-  'caffeine-free': '/images/icons/drink-caffeine-free.png',
-  'pot-brewed': '/images/icons/drink-pot-brewed.png',
-  'summer': '/images/icons/drink-summer.png',
-}
 
 /* 標籤定義：hot=人氣、rec=主廚推薦、diet=成分/過敏原 */
 type TagKind = 'hot' | 'rec' | 'diet'
@@ -180,29 +156,29 @@ export function MenuFull() {
         {/* 主餐 */}
         {mains && (
           <CardSection id="mains" kicker="Rice Bowls & Noodles" title={lang === 'zh' ? '主餐' : 'Mains'}
-            items={mains.items} lang={lang} name={name} subName={subName} desc={desc} fmt={fmt} icon={Soup} />
+            items={mains.items} lang={lang} name={name} subName={subName} desc={desc} fmt={fmt} />
         )}
 
         {/* 小點 */}
         {sides && (
           <CardSection id="sides" kicker="Small Bites" title={lang === 'zh' ? '小點' : lang === 'es' ? 'Entrantes' : 'Sides'}
-            items={sides.items} lang={lang} name={name} subName={subName} desc={desc} fmt={fmt} icon={Salad} />
+            items={sides.items} lang={lang} name={name} subName={subName} desc={desc} fmt={fmt} />
         )}
 
         {/* 甜點 */}
         {desserts && (
           <CardSection id="desserts" kicker="Sweet Endings" title={lang === 'zh' ? '甜點' : 'Desserts'}
-            items={desserts.items} lang={lang} name={name} subName={subName} desc={desc} fmt={fmt} icon={CakeSlice} />
+            items={desserts.items} lang={lang} name={name} subName={subName} desc={desc} fmt={fmt} />
         )}
 
         {/* 飲品（一大類一張卡） */}
         <section id="drinks" className="scroll-mt-36 md:scroll-mt-44 pt-6">
           <GroupHeader kicker="Hand-Shaken Teas · Coffee" title={lang === 'zh' ? '飲品' : 'Drinks'} />
-          <div className="grid items-start gap-5 md:grid-cols-2">
+          <div className="grid items-start gap-x-12 gap-y-10 md:grid-cols-2">
             {DRINK_IDS.map((id) => {
               const c = catById(id)
               if (!c) return null
-              return <DrinkCard key={id} title={catTitle(c)} icon={DRINK_ICON[id]} items={c.items} name={name} subName={subName} fmt={fmt} />
+              return <DrinkCard key={id} title={catTitle(c)} items={c.items} name={name} subName={subName} fmt={fmt} />
             })}
           </div>
         </section>
@@ -271,17 +247,17 @@ export function MenuFull() {
   )
 }
 
-function CardSection({ id, kicker, title, items, lang, name, subName, desc, fmt, icon }: {
+function CardSection({ id, kicker, title, items, lang, name, subName, desc, fmt }: {
   id: string; kicker: string; title: string; items: MenuItemData[]; lang: Lang
   name: (i: MenuItemData) => string; subName: (i: MenuItemData) => string
-  desc: (i: MenuItemData) => string | undefined; fmt: (p: string) => string; icon: LucideIcon
+  desc: (i: MenuItemData) => string | undefined; fmt: (p: string) => string
 }) {
   return (
     <section id={id} className="scroll-mt-36 md:scroll-mt-44 pt-6">
       <GroupHeader kicker={kicker} title={title} />
-      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 md:gap-6">
+      <div className="grid grid-cols-1 gap-x-12 border-t border-border md:grid-cols-2">
         {items.map((item, i) => (
-          <DishCard key={i} icon={icon} dishIcon={ICON_SVG[item.nameZh]} name={name(item)} sub={subName(item)}
+          <DishCard key={i} name={name(item)} sub={subName(item)}
             desc={desc(item)} options={item.options} price={item.price ? fmt(item.price) : undefined}
             tags={(TAGS[item.nameZh] || []).map((k) => ({ label: T[k].label[lang], kind: T[k].kind }))} />
         ))}
@@ -290,48 +266,35 @@ function CardSection({ id, kicker, title, items, lang, name, subName, desc, fmt,
   )
 }
 
+// 人氣、主廚推薦用紅色小字；成分標籤用灰色小字。不用實心膠囊，跟印刷菜單一樣安靜
 function tagClass(kind: TagKind) {
-  if (kind === 'hot') return 'rounded-full bg-primary px-2 py-0.5 font-body text-[11px] font-semibold text-primary-foreground'
-  if (kind === 'rec') return 'rounded-full bg-brick px-2 py-0.5 font-body text-[11px] font-semibold text-white'
-  return 'rounded-full bg-primary/[0.08] px-2 py-0.5 font-body text-[11px] font-medium text-primary/80'
+  if (kind === 'diet') return 'font-body text-xs text-muted-foreground'
+  return 'font-body text-[11px] font-semibold uppercase tracking-[0.14em] text-brick'
 }
 
-function DishCard({ icon: Icon, dishIcon, name, sub, desc, options, price, tags }: {
-  icon?: LucideIcon; dishIcon?: string; name: string; sub?: string; desc?: string; options?: string; price?: string
+function DishCard({ name, sub, desc, options, price, tags }: {
+  name: string; sub?: string; desc?: string; options?: string; price?: string
   tags?: { label: string; kind: TagKind }[]
 }) {
+  const highlights = tags?.filter((t) => t.kind !== 'diet') ?? []
+  const diet = tags?.filter((t) => t.kind === 'diet') ?? []
   return (
-    <div className="flex flex-col overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-black/5">
-      {dishIcon ? (
-        <div className="px-5 pt-4">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={dishIcon} alt="" className="h-14 w-auto" aria-hidden="true" />
-        </div>
-      ) : Icon ? (
-        <div className="px-5 pt-5">
-          <Icon className="h-7 w-7 text-primary/55" strokeWidth={1.5} aria-hidden="true" />
-        </div>
-      ) : null}
-      <div className="flex flex-1 flex-col px-5 pb-5 pt-2">
-        <h3 className="font-body text-lg font-bold text-foreground">{name}</h3>
-        {sub && <p className="font-body text-sm text-muted-foreground">{sub}</p>}
-        {desc && <p className="mt-1.5 font-body text-sm leading-relaxed text-foreground/70">{desc}</p>}
-        <div className="mt-auto flex items-center justify-between gap-3 pt-3">
-          {tags && tags.length > 0 ? (
-            <div className="flex flex-wrap gap-1.5">
-              {tags.map((t) => (
-                <span key={t.label} className={tagClass(t.kind)}>{t.label}</span>
-              ))}
-            </div>
-          ) : (
-            <span />
-          )}
-          <div className="flex shrink-0 items-baseline gap-2">
-            {options && <span className="font-body text-xs text-muted-foreground">{options}</span>}
-            {price && <span className="whitespace-nowrap font-body text-lg font-bold text-primary">{price}</span>}
-          </div>
+    <div className="border-b border-border py-5">
+      {highlights.length > 0 && (
+        <p className="mb-1 flex gap-3">
+          {highlights.map((t) => <span key={t.label} className={tagClass(t.kind)}>{t.label}</span>)}
+        </p>
+      )}
+      <div className="flex items-baseline justify-between gap-4">
+        <h3 className="font-heading text-lg font-bold text-primary md:text-xl">{name}</h3>
+        <div className="flex shrink-0 items-baseline gap-2">
+          {options && <span className="font-body text-xs text-muted-foreground">{options}</span>}
+          {price && <span className="whitespace-nowrap font-heading text-lg font-bold text-price">{price}</span>}
         </div>
       </div>
+      {sub && <p className="font-heading text-sm text-foreground/70">{sub}</p>}
+      {desc && <p className="mt-1.5 font-body text-sm leading-relaxed text-muted-foreground">{desc}</p>}
+      {diet.length > 0 && <p className={`mt-2 ${tagClass('diet')}`}>{diet.map((t) => t.label).join(' · ')}</p>}
     </div>
   )
 }
@@ -345,29 +308,23 @@ function GroupHeader({ kicker, title }: { kicker: string; title: string }) {
   )
 }
 
-function DrinkCard({ title, icon, items, name, subName, fmt }: {
-  title: string; icon?: string; items: MenuItemData[]
+function DrinkCard({ title, items, name, subName, fmt }: {
+  title: string; items: MenuItemData[]
   name: (i: MenuItemData) => string; subName: (i: MenuItemData) => string; fmt: (p: string) => string
 }) {
   return (
-    <div className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-black/5">
-      <div className="mb-4 flex items-center gap-2.5 border-b border-primary/15 pb-3">
-        {icon && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={icon} alt="" className="h-9 w-auto shrink-0" aria-hidden="true" />
-        )}
-        <h3 className="font-heading text-lg font-bold text-primary">{title}</h3>
-      </div>
+    <div>
+      <h3 className="gingham-chip mb-2 border-b border-primary/20 pb-2 font-heading text-lg font-bold text-primary">{title}</h3>
       <ul className="space-y-3">
         {items.map((item, i) => (
           <li key={i} className="flex items-baseline justify-between gap-3">
             <div className="min-w-0">
-              <p className="font-body text-sm font-semibold text-foreground">{name(item)}</p>
-              <p className="font-body text-xs text-muted-foreground">{subName(item)}</p>
+              <p className="font-heading text-base font-semibold text-foreground">{name(item)}</p>
+              <p className="font-heading text-xs text-foreground/60">{subName(item)}</p>
             </div>
             <div className="flex shrink-0 items-baseline gap-2">
               {item.options && <span className="whitespace-nowrap font-body text-[11px] text-muted-foreground">{item.options}</span>}
-              {item.price && <span className="whitespace-nowrap font-body text-sm font-bold text-primary">{fmt(item.price)}</span>}
+              {item.price && <span className="whitespace-nowrap font-heading text-base font-bold text-price">{fmt(item.price)}</span>}
             </div>
           </li>
         ))}
