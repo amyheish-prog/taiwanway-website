@@ -13,4 +13,10 @@ export const POSTERS: Record<string, string> = {
   'liao-hsin-lan-dried-tofu-shacha': '/images/products/liao-hsin-lan-dried-tofu-shacha.png',
   'sun-moon-lake-stewed-mushrooms': '/images/products/sun-moon-lake-stewed-mushrooms.png',
   'freshly-baked-pineapple-cake-gift-box': '/images/products/freshly-baked-pineapple-cake-gift-box.jpg',
+  'plums-honey-dried-plum-seedless': '/images/products/plums-honey-dried-plum-seedless.jpg',
+  'jin-he-tai-traditional-handmade-plum-cakes': '/images/products/jin-he-tai-traditional-handmade-plum-cakes.jpg',
+  'jin-he-tai-sugar-kumquat-candy': '/images/products/jin-he-tai-sugar-kumquat-candy.jpg',
+  'tang-ding-brown-sugar-longan-red-date': '/images/products/tang-ding-brown-sugar-longan-red-date.jpg',
+  'huixiang-red-date-chips': '/images/products/huixiang-red-date-chips.jpg',
+  'jin-he-tai-licorice-preserved-plum': '/images/products/jin-he-tai-licorice-preserved-plum.jpg',
 };

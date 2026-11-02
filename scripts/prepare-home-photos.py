@@ -11,6 +11,7 @@ from PIL import Image, ImageOps
 DESKTOP = Path.home() / "Desktop"
 MENU = DESKTOP / "TaiwanWay_行銷素材" / "菜單照片"
 STORE = DESKTOP / "Taiwanway 照片"
+PACKAGING = Path.home() / "Downloads" / "taiwanway_10_product_photos_original_packaging"
 WEB8 = DESKTOP / "taiwanway_web_8_images"
 OUT = Path(__file__).resolve().parent.parent / "public" / "images" / "home"
 
@@ -28,6 +29,13 @@ PHOTOS = [
     ("pick-pineapple-cake.jpg", DESKTOP / "暖陽下的鳳梨酥與鳳梨.png", (1, 1), 800, 0.42, 0.6, 0.85),
     ("bakery-gift-box.jpg", DESKTOP / "暖陽下的鳳梨酥禮盒_店內實際包裝.png", (1, 1), 1000, 0.55, 0.55, 1.0),
     ("../products/freshly-baked-pineapple-cake-gift-box.jpg", DESKTOP / "暖陽下的鳳梨酥禮盒_店內實際包裝.png", (2, 3), 1000, 0.6, 0.5, 1.0),
+    # 原包裝實拍（1:1 → 裁成 2:3 海報）
+    ("../products/plums-honey-dried-plum-seedless.jpg", PACKAGING / "01_Honey_Dried_Plum.jpg", (2, 3), 800, 0.5, 0.5, 1.0),
+    ("../products/jin-he-tai-traditional-handmade-plum-cakes.jpg", PACKAGING / "02_Handmade_Plum_Wafer.jpg", (2, 3), 800, 0.5, 0.5, 1.0),
+    ("../products/jin-he-tai-sugar-kumquat-candy.jpg", PACKAGING / "03_Sugar_Kumquat.jpg", (2, 3), 800, 0.5, 0.5, 1.0),
+    ("../products/tang-ding-brown-sugar-longan-red-date.jpg", PACKAGING / "04_Longan_Red_Dates.jpg", (2, 3), 800, 0.5, 0.5, 1.0),
+    ("../products/huixiang-red-date-chips.jpg", PACKAGING / "05_Red_Date_Crisps.jpg", (2, 3), 800, 0.5, 0.5, 1.0),
+    ("../products/jin-he-tai-licorice-preserved-plum.jpg", PACKAGING / "07_Dried_Sour_Plum.jpg", (2, 3), 800, 0.5, 0.5, 1.0),
     ("bakery-pineapple-cake.jpg", DESKTOP / "暖陽下的鳳梨酥與鳳梨.png", (4, 5), 800, 0.42, 0.55, 1.0),
     ("bakery-egg-rolls.jpg", DESKTOP / "暖陽下的蛋捲.webp", (4, 5), 800, 0.45, 0.55, 1.0),
     ("bakery-cookie-chocolate.jpg", DESKTOP / "暖陽下的巧克力軟餅乾.webp", (8, 5), 800, 0.47, 0.55, 0.85),
