@@ -7,8 +7,8 @@ type Price = { label: Record<Language, string>; amount: string }
 
 type BakeryItem = {
   id: string
-  // 沒有照片時顯示格紋名稱卡
-  img?: string
+  // 多張照片時上下疊放（一口味一張）
+  imgs: string[]
   name: Record<Language, string>
   blurb: Record<Language, string>
   prices: Price[]
@@ -18,7 +18,7 @@ type BakeryItem = {
 const ITEMS: BakeryItem[] = [
   {
     id: 'pineapple-cake',
-    img: '/images/home/bakery-pineapple-cake.jpg',
+    imgs: ['/images/home/bakery-pineapple-cake.jpg'],
     name: { zh: '手工鳳梨酥', en: 'Handmade Pineapple Cake', es: 'Pastel de piña artesanal' },
     blurb: {
       zh: '奶香酥皮包台灣土鳳梨內餡，每天手作。',
@@ -32,7 +32,7 @@ const ITEMS: BakeryItem[] = [
   },
   {
     id: 'egg-rolls',
-    img: '/images/home/bakery-egg-rolls.jpg',
+    imgs: ['/images/home/bakery-egg-rolls.jpg'],
     name: { zh: '手工蛋捲', en: 'Handmade Egg Rolls', es: 'Barquillos de huevo artesanales' },
     blurb: {
       zh: '薄脆蛋捲一層層捲起，蛋香濃、入口即化。',
@@ -46,6 +46,7 @@ const ITEMS: BakeryItem[] = [
   },
   {
     id: 'soft-cookies',
+    imgs: ['/images/home/bakery-cookie-chocolate.jpg', '/images/home/bakery-cookie-matcha.jpg'],
     name: { zh: '現烤軟餅乾', en: 'Fresh-Baked Soft Cookies', es: 'Galletas suaves recién horneadas' },
     blurb: {
       zh: '店內現烤，外酥內軟，口味每日輪替。',
@@ -72,17 +73,21 @@ export function BakerySection({ lang }: { lang: Language }) {
       <div className="grid gap-5 sm:grid-cols-3 md:gap-6">
         {ITEMS.map((item) => (
           <article key={item.id} className="overflow-hidden rounded-2xl bg-card shadow-sm ring-1 ring-black/5">
-            {item.img ? (
-              <div className="relative aspect-[4/3] sm:aspect-[4/5]">
-                <Image src={item.img} alt={item.name[lang]} fill preload fetchPriority="high" className="object-cover" sizes="(max-width: 640px) 100vw, 33vw" />
-              </div>
-            ) : (
-              <div className="gingham-cloth flex aspect-[4/3] items-center justify-center p-6 sm:aspect-[4/5]">
-                <p className="stitch rounded-2xl bg-card px-6 py-4 text-center font-heading text-xl font-bold text-primary">
-                  {item.name[lang]}
-                </p>
-              </div>
-            )}
+            <div className="flex aspect-[4/3] flex-col gap-0.5 sm:aspect-[4/5]">
+              {item.imgs.map((src, i) => (
+                <div key={src} className="relative flex-1">
+                  <Image
+                    src={src}
+                    alt={item.imgs.length > 1 ? `${item.name[lang]} — ${item.prices[i].label[lang]}` : item.name[lang]}
+                    fill
+                    preload
+                    fetchPriority="high"
+                    className="object-cover"
+                    sizes="(max-width: 640px) 100vw, 33vw"
+                  />
+                </div>
+              ))}
+            </div>
             <div className="p-5">
               <h3 className="font-heading text-lg font-bold text-primary">{item.name[lang]}</h3>
               <p className="mt-1 font-body text-sm leading-relaxed text-muted-foreground">{item.blurb[lang]}</p>
