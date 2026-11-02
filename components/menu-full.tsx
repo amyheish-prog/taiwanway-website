@@ -100,10 +100,7 @@ export function MenuFull() {
       {/* 頁首標題 + CTA */}
       <div className="mx-auto max-w-6xl px-6 pt-10 pb-6 md:px-8 md:pt-12">
         <div className="text-center">
-          <p className="font-body text-xs font-semibold uppercase tracking-[0.2em] text-brick">
-            {lang === 'zh' ? '台灣茶飲・點心・咖啡・甜點' : lang === 'es' ? 'Té · Comida · Café · Postres' : 'Tea · Food · Coffee · Desserts'}
-          </p>
-          <h1 className="mt-2 font-heading text-3xl font-bold text-primary md:text-4xl">
+          <h1 className="font-heading text-3xl font-bold text-primary md:text-4xl">
             {heading}
           </h1>
           <p className="mx-auto mt-2 max-w-xl font-body text-sm text-muted-foreground md:text-base">{intro}</p>
