@@ -26,7 +26,8 @@ export function Footer() {
       : ['Thank you for stopping by.', 'We hope our flavors become', 'a small part of your everyday.']
 
   return (
-    <footer className="border-t border-black/5 bg-[#f0e7d6] text-foreground">
+    <footer className="bg-secondary text-foreground">
+      <div className="gingham-band" aria-hidden />
       <div className="mx-auto max-w-screen-xl px-6 py-12 md:px-12 md:py-14">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-[auto_1fr_auto] md:items-center md:gap-12">
           {/* 左：磚紅 logo（淺底上清楚可見） */}
@@ -64,14 +65,14 @@ export function Footer() {
                 <Clock className="h-4 w-4 shrink-0 text-primary" />
                 {hoursLabel}
               </p>
-              <p className="pl-6 text-xs text-foreground/50">{closedNote}</p>
+              <p className="pl-6 text-xs text-muted-foreground">{closedNote}</p>
             </div>
             <div className="mt-5 flex items-center justify-center gap-4 md:justify-start">
               <a
                 href="https://www.instagram.com/taiwanway10940/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-foreground/60 transition-colors hover:text-primary"
+                className="text-muted-foreground transition-colors hover:text-primary"
                 aria-label="Instagram"
               >
                 <Instagram className="h-5 w-5" />
@@ -80,7 +81,7 @@ export function Footer() {
                 href="https://www.facebook.com/taiwanway10940/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-foreground/60 transition-colors hover:text-primary"
+                className="text-muted-foreground transition-colors hover:text-primary"
                 aria-label="Facebook"
               >
                 <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
@@ -90,7 +91,7 @@ export function Footer() {
               <span aria-hidden className="h-4 w-px bg-foreground/20" />
               <Link
                 href="/blog"
-                className="font-body text-sm font-medium text-foreground/70 transition-colors hover:text-primary"
+                className="font-body text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
               >
                 {blogLabel}
               </Link>
@@ -108,8 +109,8 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 border-t border-black/10 pt-6 text-center">
-          <p className="font-body text-xs text-foreground/50">
+        <div className="mt-10 border-t border-primary/15 pt-6 text-center">
+          <p className="font-body text-xs text-muted-foreground">
             &copy; 2026 TaiwanWay · Middletown, NY
           </p>
         </div>

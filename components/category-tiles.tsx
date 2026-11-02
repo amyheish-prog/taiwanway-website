@@ -69,7 +69,7 @@ export function CategoryTiles() {
             </div>
             <h2 className="mt-5 font-heading text-2xl font-bold text-primary">{tile.title[lang]}</h2>
             <p className="mt-2 font-body text-base leading-relaxed text-muted-foreground">{tile.blurb[lang]}</p>
-            <span className="mt-3 inline-flex items-center gap-1.5 font-body text-sm font-semibold uppercase tracking-wider text-accent">
+            <span className="mt-3 inline-flex items-center gap-1.5 font-body text-sm font-semibold uppercase tracking-wider text-brick">
               {tile.cta[lang]}
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </span>

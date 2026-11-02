@@ -46,7 +46,7 @@ export function OrderButton({
       <Button
         asChild
         className={cn(
-          'bg-primary text-primary-foreground hover:bg-accent font-body font-semibold rounded-full flex items-center justify-center gap-1.5',
+          'bg-primary text-primary-foreground hover:bg-primary/90 font-body font-semibold rounded-full flex items-center justify-center gap-1.5',
           fullWidth && 'w-full',
           className
         )}
@@ -64,7 +64,7 @@ export function OrderButton({
       <DropdownMenuTrigger asChild>
         <Button
           className={cn(
-            'bg-primary text-primary-foreground hover:bg-accent font-body font-semibold rounded-full flex items-center justify-center gap-1.5',
+            'bg-primary text-primary-foreground hover:bg-primary/90 font-body font-semibold rounded-full flex items-center justify-center gap-1.5',
             fullWidth && 'w-full',
             className
           )}

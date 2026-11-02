@@ -56,7 +56,7 @@ export function Header() {
     >
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[60] focus:bg-gold focus:text-white focus:px-4 focus:py-2 focus:rounded-md focus:font-body"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[60] focus:bg-primary focus:text-white focus:px-4 focus:py-2 focus:rounded-md focus:font-body"
       >
         Skip to main content
       </a>
@@ -68,7 +68,7 @@ export function Header() {
             alt="TaiwanWay"
             width={2246}
             height={506}
-            priority
+            preload
             className="h-10 w-auto md:h-12"
           />
         </Link>
@@ -80,7 +80,7 @@ export function Header() {
               key={item.key}
               href={item.href}
               className={cn(
-                'font-body font-medium text-sm uppercase tracking-wider transition-colors duration-300 hover:text-gold focus-visible:outline-2 focus-visible:outline-[hsl(44,80%,40%)]',
+                'font-body font-medium text-sm uppercase tracking-wider transition-colors duration-300 hover:text-primary focus-visible:outline-2 focus-visible:outline-primary',
                 useDarkText ? 'text-foreground' : 'text-white'
               )}
             >
@@ -100,8 +100,8 @@ export function Header() {
                 className={cn(
                   'flex items-center gap-1.5 transition-colors duration-300',
                   useDarkText
-                    ? 'text-foreground hover:text-gold'
-                    : 'text-white hover:text-gold'
+                    ? 'text-foreground hover:text-primary'
+                    : 'text-white hover:text-primary'
                 )}
               >
                 <Globe className="h-4 w-4" />
@@ -131,7 +131,7 @@ export function Header() {
           {!UBER_ENABLED ? (
             <Button
               asChild
-              className="bg-primary text-primary-foreground hover:bg-accent font-body font-semibold rounded-full px-5 flex items-center gap-1.5"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 font-body font-semibold rounded-full px-5 flex items-center gap-1.5"
             >
               <a href={DOORDASH_URL} target="_blank" rel="noopener noreferrer">
                 🛵 {orderLabel}
@@ -140,7 +140,7 @@ export function Header() {
           ) : (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button className="bg-primary text-primary-foreground hover:bg-accent font-body font-semibold rounded-full px-5 flex items-center gap-1.5">
+                <Button className="bg-primary text-primary-foreground hover:bg-primary/90 font-body font-semibold rounded-full px-5 flex items-center gap-1.5">
                   🛵 {orderLabel}
                   <ChevronDown className="h-3.5 w-3.5" />
                 </Button>
@@ -214,7 +214,7 @@ export function Header() {
                   <Link
                     key={item.key}
                     href={item.href}
-                    className="font-body font-medium text-lg text-foreground hover:text-gold transition-colors"
+                    className="font-body font-medium text-lg text-foreground hover:text-primary transition-colors"
                     onClick={() => setIsOpen(false)}
                   >
                     {t(item.key)}
@@ -224,7 +224,7 @@ export function Header() {
                   {!UBER_ENABLED ? (
                     <Button
                       asChild
-                      className="w-full bg-primary text-primary-foreground hover:bg-accent font-body font-semibold rounded-full flex items-center justify-center gap-1.5"
+                      className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-body font-semibold rounded-full flex items-center justify-center gap-1.5"
                     >
                       <a
                         href={DOORDASH_URL}
@@ -239,7 +239,7 @@ export function Header() {
                     <>
                   <Button
                     onClick={() => setOrderOpen(!orderOpen)}
-                    className="w-full bg-primary text-primary-foreground hover:bg-accent font-body font-semibold rounded-full flex items-center justify-center gap-1.5"
+                    className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-body font-semibold rounded-full flex items-center justify-center gap-1.5"
                   >
                     🛵 {orderLabel}
                     <ChevronDown className={cn('h-4 w-4 transition-transform', orderOpen && 'rotate-180')} />

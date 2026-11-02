@@ -49,7 +49,7 @@ export function PopularPicks() {
       <div className="mx-auto max-w-screen-xl px-6 py-14 md:px-12 md:py-20">
         <div className="mb-8 flex items-end justify-between gap-4">
           <h2 className="font-heading text-3xl font-bold text-primary md:text-4xl">{heading}</h2>
-          <Link href="/menu" className="font-body text-sm font-semibold uppercase tracking-wider text-accent hover:underline">
+          <Link href="/menu" className="font-body text-sm font-semibold uppercase tracking-wider text-brick hover:underline">
             {viewMenu}
           </Link>
         </div>

@@ -4,25 +4,13 @@ import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useLanguage } from '@/lib/i18n/language-context'
-import { menuCategories, type MenuCategory, type MenuItemData } from './menu-carousel'
-import { Soup, CupSoda, Coffee, CakeSlice, MapPin, Phone, Clock, type LucideIcon } from 'lucide-react'
+import { menuCategories, type MenuCategory, type MenuItemData } from '@/lib/menu-categories'
+import { Soup, Salad, CupSoda, Coffee, CakeSlice, MapPin, Phone, Clock, type LucideIcon } from 'lucide-react'
 import { OrderButton } from './order-button'
 
 type Lang = 'zh' | 'en' | 'es'
 
 const MAPS = 'https://www.google.com/maps/search/?api=1&query=TaiwanWay+26+South+St+Middletown+NY+10940'
-
-/* 品項 → 照片檔名 */
-const PHOTOS: Record<string, string> = {
-  '紅燒牛肉麵': 'beef-noodle.jpg',
-  '麻醬牛肉乾麵': 'dried-beef-noodles.png',
-  '古早味滷肉飯': 'braised-pork-rice.jpg',
-  '雞肉飯': 'chicken-rice.jpg',
-  '櫻花蝦米糕': 'sticky-rice.png',
-  '芋頭餅': 'taro-cake.png',
-  '台灣鳳梨酥': 'pineapple-cake.jpg',
-  '每日現做各式起司蛋糕': 'cheesecake.jpg',
-}
 
 /* 品項 → 紅色線稿 icon（主餐＋甜點） */
 const ICON_SVG: Record<string, string> = {
@@ -78,25 +66,26 @@ const TAGS: Record<string, string[]> = {
 
 /* 人氣推薦大卡（品牌卡） */
 const POPULAR = [
-  { img: '/images/menu-cards/beef-noodle-sq.png', alt: { zh: '牛肉麵', en: 'Beef Noodle Soup', es: 'Sopa de fideos' } },
-  { img: '/images/menu-cards/pork-rice-sq-v2.png', alt: { zh: '滷肉飯', en: 'Braised Pork Rice', es: 'Arroz con cerdo' } },
-  { img: '/images/menu-cards/bubble-tea-sq.png', alt: { zh: '黑糖珍珠鮮奶', en: 'Brown Sugar Bubble Milk', es: 'Té de burbujas' } },
-  { img: '/images/menu-cards/dessert-sq.png', alt: { zh: '甜點', en: 'Desserts', es: 'Postres' } },
+  { img: '/images/home/pick-beef-noodle.jpg', alt: { zh: '紅燒牛肉麵', en: 'Braised Beef Noodle Soup', es: 'Sopa de fideos con res' } },
+  { img: '/images/home/pick-pork-rice.jpg', alt: { zh: '滷肉飯', en: 'Braised Pork Rice', es: 'Arroz con cerdo' } },
+  { img: '/images/home/pick-matcha.jpg', alt: { zh: '抹茶拿鐵', en: 'Matcha Latte', es: 'Matcha latte' } },
+  { img: '/images/home/pick-pineapple-cake.jpg', alt: { zh: '台灣鳳梨酥', en: 'Taiwan Pineapple Cake', es: 'Pastel de piña' } },
 ]
 
 const NAV = [
   { id: 'popular', label: { zh: '人氣', en: 'Popular', es: 'Favoritos' } },
   { id: 'mains', label: { zh: '主餐', en: 'Mains', es: 'Platos' } },
+  { id: 'sides', label: { zh: '小點', en: 'Sides', es: 'Entrantes' } },
   { id: 'desserts', label: { zh: '甜點', en: 'Desserts', es: 'Postres' } },
   { id: 'drinks', label: { zh: '飲品', en: 'Drinks', es: 'Bebidas' } },
   { id: 'combos', label: { zh: '套餐', en: 'Combos', es: 'Combos' } },
 ]
 
-const DRINK_IDS = ['taiwanese-black-tea', 'jasmine', 'oolong', 'matcha', 'coffee', 'caffeine-free', 'pot-brewed', 'summer']
+const DRINK_IDS = ['taiwanese-black-tea', 'jasmine', 'oolong', 'matcha', 'coffee', 'caffeine-free', 'pot-brewed', 'winter']
 
 const comboItems = [
   { icon: CupSoda, name: { zh: '珍珠奶茶', en: 'Bubble Tea', es: 'Té de Burbujas' }, price: '$5.00' },
-  { icon: Coffee, name: { zh: '熱茶', en: 'Hot Tea', es: 'Té Caliente' }, price: '$3.00' },
+  { icon: Coffee, name: { zh: '熱茶', en: 'Hot Tea', es: 'Té Caliente' }, price: '$4.00' },
   { icon: CakeSlice, name: { zh: '起司蛋糕', en: 'Cheese Cake', es: 'Pastel de Queso' }, price: '$5.00' },
 ]
 
@@ -130,29 +119,27 @@ export function MenuFull() {
   const callLabel = lang === 'zh' ? '來電洽詢' : lang === 'es' ? 'Llámanos' : 'Call Us'
 
   const mains = catById('main-dishes')
+  const sides = catById('appetizers')
   const desserts = catById('desserts')
 
   return (
     <div className="bg-cream pb-24 md:pb-0">
-      {/* 頁首 banner + CTA */}
+      {/* 頁首標題 + CTA */}
       <div className="mx-auto max-w-6xl px-6 pt-24 pb-8 md:px-8">
-        <h1 className="sr-only">
-          {lang === 'zh'
-            ? 'TaiwanWay 菜單 — 牛肉麵、珍珠奶茶、滷肉飯、甜點｜紐約 Middletown'
-            : lang === 'es'
-              ? 'Menú TaiwanWay — Sopa de Fideos, Bubble Tea, Arroz con Cerdo | Middletown, NY'
-              : 'TaiwanWay Menu — Beef Noodle Soup, Bubble Tea, Braised Pork Rice & Desserts in Middletown, NY'}
-        </h1>
-        <div className="overflow-hidden rounded-2xl">
-          <Image
-            src="/images/menu-banner-wide.png"
-            alt="TaiwanWay Menu — 台灣茶飲・點心・咖啡・甜點"
-            width={2560}
-            height={640}
-            priority
-            className="h-auto w-full"
-            sizes="(max-width:1152px) 100vw, 1152px"
-          />
+        <div className="text-center">
+          <p className="font-body text-xs font-semibold uppercase tracking-[0.2em] text-brick">
+            {lang === 'zh' ? '台灣茶飲・點心・咖啡・甜點' : lang === 'es' ? 'Té · Comida · Café · Postres' : 'Tea · Food · Coffee · Desserts'}
+          </p>
+          <h1 className="mt-3 font-heading text-4xl font-bold text-primary md:text-6xl">
+            {lang === 'zh' ? '菜單' : lang === 'es' ? 'Menú' : 'Menu'}
+          </h1>
+          <span className="sr-only">
+            {lang === 'zh'
+              ? 'TaiwanWay 菜單 — 牛肉麵、珍珠奶茶、滷肉飯、甜點｜紐約 Middletown'
+              : lang === 'es'
+                ? 'Menú TaiwanWay — Sopa de Fideos, Bubble Tea, Arroz con Cerdo | Middletown, NY'
+                : 'TaiwanWay Menu — Beef Noodle Soup, Bubble Tea, Braised Pork Rice & Desserts in Middletown, NY'}
+          </span>
         </div>
         <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
           <OrderButton className="px-6 py-3" />
@@ -168,7 +155,7 @@ export function MenuFull() {
           <div className="flex min-w-max justify-center gap-2">
             {NAV.map((g) => (
               <a key={g.id} href={`#${g.id}`}
-                className={`whitespace-nowrap rounded-full px-5 py-2 font-body text-sm font-semibold transition-colors duration-200 ${active === g.id ? 'bg-primary text-primary-foreground' : 'text-foreground/60 hover:bg-primary/10 hover:text-primary'}`}>
+                className={`whitespace-nowrap rounded-full px-5 py-2 font-body text-sm font-semibold transition-colors duration-200 ${active === g.id ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:bg-primary/10 hover:text-primary'}`}>
                 {g.label[lang]}
               </a>
             ))}
@@ -181,12 +168,13 @@ export function MenuFull() {
         <section id="popular" className="scroll-mt-36">
           <GroupHeader kicker="Signature · Most Loved" title={lang === 'zh' ? '人氣推薦' : lang === 'es' ? 'Los favoritos' : 'Popular Picks'} />
           <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
-            {POPULAR.map((p) => (
-              <div key={p.img} className="overflow-hidden rounded-2xl shadow-sm ring-1 ring-black/5">
-                <div className="relative aspect-square">
-                  <Image src={p.img} alt={p.alt[lang]} fill className="object-cover" sizes="(max-width:768px) 45vw, 22vw" quality={85} />
+            {POPULAR.map((p, i) => (
+              <figure key={p.img}>
+                <div className="relative aspect-square overflow-hidden rounded-xl">
+                  <Image src={p.img} alt={p.alt[lang]} fill preload={i < 2} fetchPriority={i < 2 ? 'high' : undefined} className="object-cover" sizes="(max-width:768px) 45vw, 22vw" />
                 </div>
-              </div>
+                <figcaption className="mt-3 font-body text-base font-semibold text-foreground">{p.alt[lang]}</figcaption>
+              </figure>
             ))}
           </div>
         </section>
@@ -194,15 +182,19 @@ export function MenuFull() {
         {/* 主餐 */}
         {mains && (
           <CardSection id="mains" kicker="Rice Bowls & Noodles" title={lang === 'zh' ? '主餐' : 'Mains'}
-            items={mains.items} lang={lang} name={name} subName={subName} desc={desc} fmt={fmt} icon={Soup}
-            banner={{ src: '/images/menu-cards/mains-banner-wide.png', w: 1962, h: 802 }} textOnly />
+            items={mains.items} lang={lang} name={name} subName={subName} desc={desc} fmt={fmt} icon={Soup} />
+        )}
+
+        {/* 小點 */}
+        {sides && (
+          <CardSection id="sides" kicker="Small Bites" title={lang === 'zh' ? '小點' : lang === 'es' ? 'Entrantes' : 'Sides'}
+            items={sides.items} lang={lang} name={name} subName={subName} desc={desc} fmt={fmt} icon={Salad} />
         )}
 
         {/* 甜點 */}
         {desserts && (
           <CardSection id="desserts" kicker="Sweet Endings" title={lang === 'zh' ? '甜點' : 'Desserts'}
-            items={desserts.items} lang={lang} name={name} subName={subName} desc={desc} fmt={fmt} icon={CakeSlice}
-            banner={{ src: '/images/menu-cards/desserts-banner.png', w: 1536, h: 1024 }} textOnly />
+            items={desserts.items} lang={lang} name={name} subName={subName} desc={desc} fmt={fmt} icon={CakeSlice} />
         )}
 
         {/* 飲品（一大類一張卡） */}
@@ -220,7 +212,7 @@ export function MenuFull() {
         {/* 套餐 */}
         <section id="combos" className="scroll-mt-36 pt-6">
           <GroupHeader kicker="Better Together" title={lang === 'zh' ? '套餐' : 'Combos'} />
-          <div className="mx-auto max-w-3xl rounded-2xl border-2 border-dashed border-primary/30 bg-[#f2e7d2] px-6 py-6">
+          <div className="mx-auto max-w-3xl rounded-2xl border-2 border-dashed border-primary/30 bg-secondary px-6 py-6">
             <p className="mb-4 text-center font-heading text-xl font-bold text-primary">
               {lang === 'zh' ? '超值套餐 · 加點享優惠' : 'Combo Deal · Add to Any Meal'}
             </p>
@@ -281,23 +273,17 @@ export function MenuFull() {
   )
 }
 
-function CardSection({ id, kicker, title, items, lang, name, subName, desc, fmt, icon, banner, textOnly }: {
+function CardSection({ id, kicker, title, items, lang, name, subName, desc, fmt, icon }: {
   id: string; kicker: string; title: string; items: MenuItemData[]; lang: Lang
   name: (i: MenuItemData) => string; subName: (i: MenuItemData) => string
   desc: (i: MenuItemData) => string | undefined; fmt: (p: string) => string; icon: LucideIcon
-  banner?: { src: string; w: number; h: number }; textOnly?: boolean
 }) {
   return (
     <section id={id} className="scroll-mt-36 pt-6">
       <GroupHeader kicker={kicker} title={title} />
-      {banner && (
-        <div className="mb-10 overflow-hidden rounded-2xl shadow-md ring-1 ring-black/5">
-          <Image src={banner.src} alt={title} width={banner.w} height={banner.h} className="h-auto w-full" sizes="(max-width:1152px) 100vw, 1152px" />
-        </div>
-      )}
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 md:gap-6">
         {items.map((item, i) => (
-          <DishCard key={i} photo={textOnly ? undefined : PHOTOS[item.nameZh]} icon={icon} dishIcon={ICON_SVG[item.nameZh]} name={name(item)} sub={subName(item)}
+          <DishCard key={i} icon={icon} dishIcon={ICON_SVG[item.nameZh]} name={name(item)} sub={subName(item)}
             desc={desc(item)} options={item.options} price={item.price ? fmt(item.price) : undefined}
             tags={(TAGS[item.nameZh] || []).map((k) => ({ label: T[k].label[lang], kind: T[k].kind }))} />
         ))}
@@ -308,21 +294,17 @@ function CardSection({ id, kicker, title, items, lang, name, subName, desc, fmt,
 
 function tagClass(kind: TagKind) {
   if (kind === 'hot') return 'rounded-full bg-primary px-2 py-0.5 font-body text-[11px] font-semibold text-primary-foreground'
-  if (kind === 'rec') return 'rounded-full bg-[hsl(44,80%,42%)] px-2 py-0.5 font-body text-[11px] font-semibold text-white'
+  if (kind === 'rec') return 'rounded-full bg-brick px-2 py-0.5 font-body text-[11px] font-semibold text-white'
   return 'rounded-full bg-primary/[0.08] px-2 py-0.5 font-body text-[11px] font-medium text-primary/80'
 }
 
-function DishCard({ photo, icon: Icon, dishIcon, name, sub, desc, options, price, tags }: {
-  photo?: string; icon?: LucideIcon; dishIcon?: string; name: string; sub?: string; desc?: string; options?: string; price?: string
+function DishCard({ icon: Icon, dishIcon, name, sub, desc, options, price, tags }: {
+  icon?: LucideIcon; dishIcon?: string; name: string; sub?: string; desc?: string; options?: string; price?: string
   tags?: { label: string; kind: TagKind }[]
 }) {
   return (
     <div className="flex flex-col overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-black/5">
-      {photo ? (
-        <div className="relative aspect-[4/3]">
-          <Image src={`/images/food/${photo}`} alt={name} fill className="object-cover" sizes="(max-width:640px) 100vw, 33vw" quality={80} />
-        </div>
-      ) : dishIcon ? (
+      {dishIcon ? (
         <div className="px-5 pt-4">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={dishIcon} alt="" className="h-14 w-auto" aria-hidden="true" />
@@ -332,8 +314,8 @@ function DishCard({ photo, icon: Icon, dishIcon, name, sub, desc, options, price
           <Icon className="h-7 w-7 text-primary/55" strokeWidth={1.5} aria-hidden="true" />
         </div>
       ) : null}
-      <div className={`flex flex-1 flex-col ${photo ? 'p-4' : 'px-5 pb-5 pt-2'}`}>
-        <h4 className="font-body text-lg font-bold text-foreground">{name}</h4>
+      <div className="flex flex-1 flex-col px-5 pb-5 pt-2">
+        <h3 className="font-body text-lg font-bold text-foreground">{name}</h3>
         {sub && <p className="font-body text-sm text-muted-foreground">{sub}</p>}
         {desc && <p className="mt-1.5 font-body text-sm leading-relaxed text-foreground/70">{desc}</p>}
         <div className="mt-auto flex items-center justify-between gap-3 pt-3">
@@ -359,8 +341,8 @@ function DishCard({ photo, icon: Icon, dishIcon, name, sub, desc, options, price
 function GroupHeader({ kicker, title }: { kicker: string; title: string }) {
   return (
     <div className="mb-8 mt-4 flex flex-col items-center text-center">
-      <p className="font-body text-xs uppercase tracking-[0.24em] text-primary/60">{kicker}</p>
-      <h2 className="mt-1 font-heading text-4xl font-bold text-[#5b3a2e] md:text-5xl">{title}</h2>
+      <p className="font-body text-xs uppercase tracking-[0.24em] text-brick">{kicker}</p>
+      <h2 className="mt-1 font-heading text-4xl font-bold text-primary md:text-5xl">{title}</h2>
       <span className="mt-3 h-1 w-16 rounded-full bg-primary/70" />
     </div>
   )

@@ -12,8 +12,9 @@ import {
 
 const translations = {
   zh: {
-    description: '按一下「全部接受」，代表您允許我們置放 Cookie 來提升您在本網站上的使用體驗、協助我們分析網站效能和使用狀況，以及讓我們投放相關聯的行銷內容。您可以在下方管理 Cookie 設定。',
+    short: '我們用 Cookie 了解網站的使用狀況，讓網站更好用。',
     acceptAll: '全部接受',
+    necessaryOnly: '僅必要',
     manage: '管理 Cookies',
     settingsTitle: '隱私權偏好設定',
     confirm: '確認選擇',
@@ -30,8 +31,9 @@ const translations = {
     title: 'Cookie 設定',
   },
   en: {
-    description: 'By clicking "Accept All", you agree to the storing of cookies on your device to enhance site navigation, analyze site usage, and assist in our marketing efforts. You can manage your cookie settings below.',
+    short: 'We use cookies to understand how the site is used and make it better.',
     acceptAll: 'Accept All',
+    necessaryOnly: 'Necessary Only',
     manage: 'Manage Cookies',
     settingsTitle: 'Privacy Preference Center',
     confirm: 'Confirm Selection',
@@ -48,8 +50,9 @@ const translations = {
     title: 'Cookie Settings',
   },
   es: {
-    description: 'Al hacer clic en "Aceptar todo", usted acepta el almacenamiento de cookies en su dispositivo para mejorar la navegación del sitio, analizar el uso del sitio y ayudar en nuestros esfuerzos de marketing.',
+    short: 'Usamos cookies para entender cómo se usa el sitio y mejorarlo.',
     acceptAll: 'Aceptar Todo',
+    necessaryOnly: 'Solo necesarias',
     manage: 'Gestionar Cookies',
     settingsTitle: 'Centro de Preferencias de Privacidad',
     confirm: 'Confirmar Selección',
@@ -78,7 +81,7 @@ function Toggle({ checked, onChange, disabled }: { checked: boolean; onChange?: 
       onClick={() => onChange?.(!checked)}
       className={`relative inline-flex h-6 w-11 shrink-0 items-center rounded-full transition-colors duration-200 ${
         disabled ? 'cursor-default' : 'cursor-pointer'
-      } ${checked ? 'bg-[hsl(44,80%,40%)]' : 'bg-white/20'}`}
+      } ${checked ? 'bg-primary' : 'bg-foreground/20'}`}
     >
       <span
         className={`pointer-events-none inline-block h-4 w-4 rounded-full bg-white shadow-sm transition-transform duration-200 ${
@@ -117,6 +120,14 @@ export function CookieConsentBanner() {
     }))
   }
 
+  const handleNecessaryOnly = () => {
+    acceptNecessaryOnly()
+    setIsVisible(false)
+    window.dispatchEvent(new CustomEvent('cookieConsentUpdated', {
+      detail: { analytics: false, marketing: false, preferences: false }
+    }))
+  }
+
   const handleConfirm = () => {
     setCookieConsent(preferences)
     setIsVisible(false)
@@ -127,122 +138,73 @@ export function CookieConsentBanner() {
 
   if (!isVisible) return null
 
+  const rows = [
+    { label: t.necessary, desc: t.necessaryDesc, checked: true, onChange: undefined, alwaysOn: true },
+    { label: t.analytics, desc: t.analyticsDesc, checked: preferences.analytics, onChange: (v: boolean) => setPreferences(p => ({ ...p, analytics: v })) },
+    { label: t.marketing, desc: t.marketingDesc, checked: preferences.marketing, onChange: (v: boolean) => setPreferences(p => ({ ...p, marketing: v })) },
+    { label: t.preferences, desc: t.preferencesDesc, checked: preferences.preferences, onChange: (v: boolean) => setPreferences(p => ({ ...p, preferences: v })) },
+  ]
+
   return (
     <div
-      className={`fixed bottom-0 left-0 right-0 z-50 transition-transform duration-500 ${
-        isVisible ? 'translate-y-0' : 'translate-y-full'
-      }`}
+      role="dialog"
+      aria-label={t.title}
+      className="fixed inset-x-0 bottom-0 z-50 sm:inset-x-auto sm:bottom-5 sm:right-5 sm:w-[380px]"
     >
-      {/* 展開的設定面板 */}
-      {showDetails && (
-        <div className="bg-[#1A0F0A] border-t border-white/[0.08]">
-          <div className="mx-auto max-w-3xl px-6 py-6">
-            <h3 className="font-heading text-lg text-white mb-1">{t.settingsTitle}</h3>
-            <p className="font-body text-sm text-white/60 mb-5">{t.description}</p>
+      <div className="max-h-[80vh] overflow-y-auto border-t border-border bg-card p-4 shadow-[0_-4px_24px_rgba(0,0,0,0.12)] sm:rounded-2xl sm:border">
+        <h2 className="font-heading text-base font-bold text-primary">{showDetails ? t.settingsTitle : t.title}</h2>
+        <p className="mt-1 font-body text-xs leading-relaxed text-muted-foreground sm:text-sm">{t.short}</p>
 
-            <div className="space-y-4">
-              {/* 必要 Cookie */}
-              <div className="flex items-center justify-between gap-4">
-                <div className="flex-1 min-w-0">
+        {showDetails && (
+          <div className="mt-4 space-y-3 border-t border-border pt-4">
+            {rows.map((row) => (
+              <div key={row.label} className="flex items-start justify-between gap-4">
+                <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2">
-                    <span className="font-body text-sm font-medium text-white">{t.necessary}</span>
-                    <span className="font-body text-[11px] text-[hsl(44,80%,40%)] bg-[hsl(44,80%,40%)]/10 px-2 py-0.5 rounded-full">{t.alwaysOn}</span>
+                    <span className="font-body text-sm font-medium text-foreground">{row.label}</span>
+                    {row.alwaysOn && (
+                      <span className="rounded-full bg-secondary px-2 py-0.5 font-body text-[11px] text-primary">{t.alwaysOn}</span>
+                    )}
                   </div>
-                  <p className="font-body text-xs text-white/60 mt-0.5 leading-relaxed">{t.necessaryDesc}</p>
+                  <p className="mt-0.5 font-body text-xs leading-relaxed text-muted-foreground">{row.desc}</p>
                 </div>
-                <Toggle checked={true} disabled />
+                <Toggle checked={row.checked} onChange={row.onChange} disabled={row.alwaysOn} />
               </div>
-
-              <div className="h-px bg-white/[0.06]" />
-
-              {/* 分析 Cookie */}
-              <div className="flex items-center justify-between gap-4">
-                <div className="flex-1 min-w-0">
-                  <span className="font-body text-sm font-medium text-white">{t.analytics}</span>
-                  <p className="font-body text-xs text-white/60 mt-0.5">{t.analyticsDesc}</p>
-                </div>
-                <Toggle checked={preferences.analytics} onChange={(v) => setPreferences(p => ({ ...p, analytics: v }))} />
-              </div>
-
-              <div className="h-px bg-white/[0.06]" />
-
-              {/* 行銷 Cookie */}
-              <div className="flex items-center justify-between gap-4">
-                <div className="flex-1 min-w-0">
-                  <span className="font-body text-sm font-medium text-white">{t.marketing}</span>
-                  <p className="font-body text-xs text-white/60 mt-0.5">{t.marketingDesc}</p>
-                </div>
-                <Toggle checked={preferences.marketing} onChange={(v) => setPreferences(p => ({ ...p, marketing: v }))} />
-              </div>
-
-              <div className="h-px bg-white/[0.06]" />
-
-              {/* 偏好 Cookie */}
-              <div className="flex items-center justify-between gap-4">
-                <div className="flex-1 min-w-0">
-                  <span className="font-body text-sm font-medium text-white">{t.preferences}</span>
-                  <p className="font-body text-xs text-white/60 mt-0.5">{t.preferencesDesc}</p>
-                </div>
-                <Toggle checked={preferences.preferences} onChange={(v) => setPreferences(p => ({ ...p, preferences: v }))} />
-              </div>
-            </div>
+            ))}
           </div>
-        </div>
-      )}
+        )}
 
-      {/* 底部主橫幅 */}
-      <div className="bg-[#2D1810] border-t border-white/[0.08] shadow-[0_-4px_20px_rgba(0,0,0,0.3)]">
-        <div className="mx-auto max-w-3xl px-6 py-4">
-          {!showDetails && (
-            <p className="font-body text-sm text-white/50 leading-relaxed mb-4">
-              {t.description}
-            </p>
+        <div className="mt-3 flex flex-wrap items-center gap-2">
+          <button
+            onClick={() => setShowDetails(!showDetails)}
+            className="mr-auto flex cursor-pointer items-center gap-1 font-body text-sm text-primary underline-offset-4 hover:underline"
+          >
+            {t.manage}
+            <ChevronDown className={`h-3.5 w-3.5 transition-transform duration-200 ${showDetails ? 'rotate-180' : ''}`} />
+          </button>
+          {showDetails ? (
+            <button
+              onClick={handleConfirm}
+              className="cursor-pointer rounded-full border border-primary px-4 py-2 font-body text-sm font-medium text-primary transition-colors hover:bg-secondary"
+            >
+              {t.confirm}
+            </button>
+          ) : (
+            <button
+              onClick={handleNecessaryOnly}
+              className="cursor-pointer rounded-full border border-primary px-4 py-2 font-body text-sm font-medium text-primary transition-colors hover:bg-secondary"
+            >
+              {t.necessaryOnly}
+            </button>
           )}
-          <div className="flex items-center gap-3 flex-wrap">
-            <button
-              onClick={() => setShowDetails(!showDetails)}
-              className="font-body text-sm text-[hsl(44,80%,40%)] hover:text-[hsl(44,80%,60%)] transition-colors cursor-pointer flex items-center gap-1"
-            >
-              {t.manage}
-              <ChevronDown className={`h-3.5 w-3.5 transition-transform duration-200 ${showDetails ? 'rotate-180' : ''}`} />
-            </button>
-            <div className="flex-1" />
-            {showDetails && (
-              <button
-                onClick={handleConfirm}
-                className="font-body text-sm px-5 py-2 rounded-full border border-white/20 text-white hover:bg-white/[0.06] transition-colors cursor-pointer"
-              >
-                {t.confirm}
-              </button>
-            )}
-            <button
-              onClick={handleAcceptAll}
-              className="font-body text-sm font-medium px-5 py-2 rounded-full bg-[hsl(44,80%,40%)] text-white hover:bg-[hsl(44,80%,50%)] transition-colors cursor-pointer"
-            >
-              {t.acceptAll}
-            </button>
-          </div>
+          <button
+            onClick={handleAcceptAll}
+            className="cursor-pointer rounded-full bg-primary px-4 py-2 font-body text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+          >
+            {t.acceptAll}
+          </button>
         </div>
       </div>
     </div>
-  )
-}
-
-/* 用於頁腳的 Cookie 設定按鈕 */
-export function CookieSettingsButton() {
-  const { language } = useLanguage()
-  const t = translations[language]
-
-  const handleOpenSettings = () => {
-    window.dispatchEvent(new CustomEvent('openCookieSettings'))
-  }
-
-  return (
-    <button
-      onClick={handleOpenSettings}
-      className="font-body text-sm text-white/60 hover:text-[hsl(44,80%,40%)] transition-colors cursor-pointer"
-    >
-      {t.title}
-    </button>
   )
 }

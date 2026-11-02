@@ -41,12 +41,12 @@ export default function ProductDetail({ product }: { product: Product }) {
         {/* 主圖 */}
         <div className="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-black/5">
           {poster ? (
-            <div className="relative aspect-[3/2] w-full bg-[#faf7f2]">
-              <Image src={poster} alt={name} fill priority className="object-contain" sizes="(max-width:768px) 100vw, 640px" />
+            <div className="relative aspect-[3/2] w-full bg-muted">
+              <Image src={poster} alt={name} fill preload fetchPriority="high" className="object-contain" sizes="(max-width:768px) 100vw, 640px" />
             </div>
           ) : (
-            <div className="relative aspect-square w-full bg-[#faf7f2]">
-              <Image src={product.image_url} alt={name} fill priority className="object-cover" sizes="(max-width:768px) 100vw, 640px" />
+            <div className="relative aspect-square w-full bg-muted">
+              <Image src={product.image_url} alt={name} fill preload fetchPriority="high" className="object-cover" sizes="(max-width:768px) 100vw, 640px" />
             </div>
           )}
         </div>
@@ -58,7 +58,7 @@ export default function ProductDetail({ product }: { product: Product }) {
           )}
 
           <div className="flex items-start justify-between gap-4">
-            <h1 className="font-heading text-2xl font-bold leading-tight text-[#5b3a2e] md:text-3xl">{name}</h1>
+            <h1 className="font-heading text-2xl font-bold leading-tight text-primary md:text-3xl">{name}</h1>
             {product.price != null && (
               <span className="shrink-0 font-body text-2xl font-bold text-primary">${Number(product.price).toFixed(2)}</span>
             )}
@@ -89,7 +89,7 @@ export default function ProductDetail({ product }: { product: Product }) {
             <p className="mt-1 font-body text-sm font-medium text-foreground">26 South St, Middletown, NY 10940</p>
             <Link
               href="/products"
-              className="mt-5 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-2.5 font-body text-sm font-semibold text-primary-foreground transition hover:bg-accent"
+              className="mt-5 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-2.5 font-body text-sm font-semibold text-primary-foreground transition hover:bg-primary/90"
             >
               <ArrowLeft className="h-4 w-4" />{backLabel}
             </Link>

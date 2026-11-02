@@ -70,7 +70,7 @@ function PosterCard({ p, language, detail, inStore }: { p: Product; language: La
       href={`/product/${p.slug}`}
       className="group flex flex-col overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-black/5 transition-shadow duration-300 hover:shadow-md"
     >
-      <div className="relative aspect-[2/3] overflow-hidden bg-[#faf7f2]">
+      <div className="relative aspect-[2/3] overflow-hidden bg-muted">
         <Image
           src={POSTERS[p.slug]}
           alt={getProductName(p, language)}
@@ -243,7 +243,7 @@ export default function ProductsGrid({ products }: { products: Product[] }) {
             alt="TaiwanWay — Taiwan Tea & Snack 台灣茶伴手禮"
             width={1774}
             height={887}
-            priority
+            preload fetchPriority="high"
             className="h-auto w-full"
             sizes="(max-width:1024px) 100vw, 1024px"
           />

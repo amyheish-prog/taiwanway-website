@@ -59,6 +59,7 @@ export default {
   			terracotta: 'hsl(var(--terracotta))',
   			sand: 'hsl(var(--sand))',
   			dark: 'hsl(var(--dark))',
+  			brick: 'hsl(var(--brick))',
   			sage: 'hsl(var(--sage))',
   			price: 'hsl(var(--price))',
   		},

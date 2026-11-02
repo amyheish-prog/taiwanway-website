@@ -47,7 +47,7 @@ export function VisitUs() {
         </div>
 
         <div className="flex flex-col justify-center">
-          <p className="font-body text-xs font-semibold uppercase tracking-[0.2em] text-accent">{copy.eyebrow[lang]}</p>
+          <p className="font-body text-xs font-semibold uppercase tracking-[0.2em] text-brick">{copy.eyebrow[lang]}</p>
           <h2 className="mt-3 font-heading text-3xl font-bold text-primary md:text-5xl">{copy.title[lang]}</h2>
           <p className="mt-5 max-w-md font-body text-base leading-relaxed text-muted-foreground md:text-lg">{copy.body[lang]}</p>
 

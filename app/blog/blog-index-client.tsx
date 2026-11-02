@@ -44,7 +44,7 @@ export function BlogIndexClient() {
         {/* 標題區 */}
         <header className="mb-12 text-center">
           <p className="mb-3 font-heading text-sm uppercase tracking-[0.28em] text-primary/70">{eyebrow}</p>
-          <h1 className="font-heading text-4xl font-bold text-[#5b3a2e] md:text-5xl">{heading}</h1>
+          <h1 className="font-heading text-4xl font-bold text-primary md:text-5xl">{heading}</h1>
           <span className="mx-auto mt-4 block h-1 w-16 rounded-full bg-primary/70" />
           <p className="mx-auto mt-5 max-w-xl font-body text-base leading-relaxed text-muted-foreground md:text-lg">
             {subheading}
@@ -59,7 +59,7 @@ export function BlogIndexClient() {
               href={`/blog/${post.slug}`}
               className="group block overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-black/5 transition-shadow duration-300 hover:shadow-md"
             >
-              <div className="relative aspect-[16/9] w-full bg-[#faf7f2]">
+              <div className="relative aspect-[16/9] w-full bg-muted">
                 <Image
                   src={post.coverImage}
                   alt={post.title[lang] || post.title.en}
