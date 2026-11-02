@@ -205,7 +205,7 @@ export const translations = {
       hours: '營業時間',
       contact: '聯絡我們',
       followUs: '關注我們',
-      schedule: '週一、二、五、六',
+      schedule: '週一、二、三、五、六',
       allRights: '版權所有',
     },
     about: {
@@ -433,7 +433,7 @@ export const translations = {
       hours: 'Hours',
       contact: 'Contact',
       followUs: 'Follow Us',
-      schedule: 'Mon, Tue, Fri, Sat',
+      schedule: 'Mon, Tue, Wed, Fri, Sat',
       allRights: 'All rights reserved',
     },
     about: {
@@ -661,7 +661,7 @@ export const translations = {
       hours: 'Horario',
       contact: 'Contacto',
       followUs: 'Síguenos',
-      schedule: 'Lun, Mar, Vie, Sáb',
+      schedule: 'Lun, Mar, Mié, Vie, Sáb',
       allRights: 'Todos los derechos reservados',
     },
     about: {
