@@ -43,6 +43,36 @@ def crop(im: Image.Image, ratio, fx: float, fy: float, zoom: float) -> Image.Ima
     return im.crop((round(left), round(top), round(left + cw), round(top + ch)))
 
 
+# 加購三圖：一張橫圖裡並排三個圓，切成三等分並把白底去掉，讓它浮在淡杏色區塊上
+COMBO_SOURCE = DESKTOP / "加購_珍奶熱茶起司蛋糕.png"
+COMBO_NAMES = ["combo-bubble-tea.png", "combo-hot-tea.png", "combo-cheesecake.png"]
+
+
+def white_to_alpha(im: Image.Image) -> Image.Image:
+    rgba = im.convert("RGBA")
+    px = rgba.load()
+    for y in range(rgba.height):
+        for x in range(rgba.width):
+            r, g, b, a0 = px[x, y]
+            # 原圖已有透明度（透明處顏色存成黑色）；再把接近純白的地方也變透明，淡米色圓底保持不透明
+            a = min(a0, max(0, min(255, int((255 - min(r, g, b)) * 255 / 25))))
+            px[x, y] = (r, g, b, a)
+    return rgba
+
+
+def prepare_combo() -> None:
+    im = ImageOps.exif_transpose(Image.open(COMBO_SOURCE)).convert("RGBA")
+    w = im.width // 3
+    for i, name in enumerate(COMBO_NAMES):
+        tile = im.crop((i * w, 0, (i + 1) * w, im.height))
+        side = min(tile.size)
+        left = (tile.width - side) // 2
+        tile = tile.crop((left, 0, left + side, side)).resize((360, 360), Image.Resampling.LANCZOS)
+        dest = OUT / name
+        white_to_alpha(tile).save(dest, "PNG", optimize=True)
+        print(f"{name}: 360x360, {dest.stat().st_size // 1024} KB")
+
+
 def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     for name, src, ratio, width, fx, fy, zoom in PHOTOS:
@@ -53,6 +83,7 @@ def main() -> None:
         dest = OUT / name
         im.save(dest, "JPEG", quality=82, optimize=True, progressive=True)
         print(f"{name}: {im.width}x{im.height}, {dest.stat().st_size // 1024} KB")
+    prepare_combo()
 
 
 if __name__ == "__main__":

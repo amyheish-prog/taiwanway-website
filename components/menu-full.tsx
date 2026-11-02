@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { useLanguage } from '@/lib/i18n/language-context'
 import { menuCategories, type MenuCategory, type MenuItemData } from '@/lib/menu-categories'
-import { CupSoda, Coffee, CakeSlice, MapPin, Phone, Clock } from 'lucide-react'
+import { MapPin, Phone, Clock } from 'lucide-react'
 import { OrderButton } from './order-button'
 
 type Lang = 'zh' | 'en' | 'es'
@@ -57,9 +57,9 @@ const NAV = [
 const DRINK_IDS = ['taiwanese-black-tea', 'jasmine', 'oolong', 'matcha', 'coffee', 'caffeine-free', 'pot-brewed', 'winter']
 
 const comboItems = [
-  { icon: CupSoda, name: { zh: '珍珠奶茶', en: 'Bubble Tea', es: 'Té de Burbujas' }, price: '$5.00' },
-  { icon: Coffee, name: { zh: '熱茶', en: 'Hot Tea', es: 'Té Caliente' }, price: '$4.00' },
-  { icon: CakeSlice, name: { zh: '起司蛋糕', en: 'Cheese Cake', es: 'Pastel de Queso' }, price: '$5.00' },
+  { img: '/images/home/combo-bubble-tea.png', name: { zh: '珍珠奶茶', en: 'Bubble Tea', es: 'Té de Burbujas' }, price: '+$5.00' },
+  { img: '/images/home/combo-hot-tea.png', name: { zh: '熱茶', en: 'Hot Tea', es: 'Té Caliente' }, price: '+$4.00' },
+  { img: '/images/home/combo-cheesecake.png', name: { zh: '起司蛋糕', en: 'Cheesecake', es: 'Pastel de Queso' }, price: '+$5.00' },
 ]
 
 export function MenuFull() {
@@ -103,7 +103,7 @@ export function MenuFull() {
           <h1 className="font-heading text-3xl font-bold text-primary md:text-4xl">
             {heading}
           </h1>
-          <p className="mx-auto mt-2 max-w-xl font-body text-sm text-muted-foreground md:text-base">{intro}</p>
+          <p className="mx-auto mt-3 max-w-md text-balance font-body text-sm leading-relaxed text-muted-foreground md:text-base">{intro}</p>
           <span className="sr-only">
             {lang === 'zh'
               ? 'TaiwanWay 菜單 — 牛肉麵、珍珠奶茶、滷肉飯、甜點｜紐約 Middletown'
@@ -183,23 +183,18 @@ export function MenuFull() {
         {/* 套餐 */}
         <section id="combos" className="scroll-mt-36 md:scroll-mt-44 pt-6">
           <GroupHeader kicker="Better Together" title={lang === 'zh' ? '套餐' : 'Combos'} />
-          <div className="mx-auto max-w-3xl rounded-2xl border-2 border-dashed border-primary/30 bg-secondary px-6 py-6">
-            <p className="mb-4 text-center font-heading text-xl font-bold text-primary">
-              {lang === 'zh' ? '超值套餐 · 加點享優惠' : 'Combo Deal · Add to Any Meal'}
+          <div className="stitch mx-auto max-w-3xl rounded-2xl bg-secondary px-6 py-8">
+            <p className="text-center font-heading text-xl font-bold text-primary">
+              {lang === 'zh' ? '加購優惠' : lang === 'es' ? 'Agrega a tu plato' : 'Add to Any Main Dish'}
             </p>
-            <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
-              {comboItems.map((c) => {
-                const Icon = c.icon
-                return (
-                  <div key={c.name.en} className="flex items-center gap-3">
-                    <Icon className="h-8 w-8 text-primary" strokeWidth={1.5} aria-hidden="true" />
-                    <div>
-                      <p className="font-body font-semibold text-foreground">{c.name[lang]}</p>
-                      <p className="font-body font-bold text-primary">{c.price}</p>
-                    </div>
-                  </div>
-                )
-              })}
+            <div className="mt-6 grid grid-cols-3 gap-4">
+              {comboItems.map((c) => (
+                <div key={c.name.en} className="text-center">
+                  <Image src={c.img} alt={c.name[lang]} width={360} height={360} className="mx-auto h-auto w-full max-w-[200px]" sizes="200px" />
+                  <p className="mt-2 font-heading text-base font-semibold text-foreground">{c.name[lang]}</p>
+                  <p className="font-heading text-base font-bold text-price">{c.price}</p>
+                </div>
+              ))}
             </div>
           </div>
         </section>
