@@ -4,32 +4,35 @@
 
 @layer base {
   :root {
-    --background: 35 33% 96%;
-    --foreground: 17 40% 12%;
-    --card: 35 33% 96%;
-    --card-foreground: 17 40% 12%;
-    --popover: 35 33% 96%;
-    --popover-foreground: 17 40% 12%;
-    --primary: 8 62% 45%;
-    --primary-foreground: 35 33% 96%;
-    --secondary: 36 25% 74%;
-    --secondary-foreground: 17 40% 12%;
-    --accent: 8 58% 36%;
-    --accent-foreground: 35 33% 96%;
-    --muted: 30 20% 90%;
-    --muted-foreground: 17 20% 40%;
+    /* 2026-11 菜單改版配色：米白底、深綠標題、淺綠格紋、紅色 Logo */
+    --background: 43 60% 97%;
+    --foreground: 30 8% 20%;
+    --card: 0 0% 100%;
+    --card-foreground: 30 8% 20%;
+    --popover: 43 60% 97%;
+    --popover-foreground: 30 8% 20%;
+    --primary: 148 22% 25%;
+    --primary-foreground: 43 60% 97%;
+    --secondary: 88 22% 88%;
+    --secondary-foreground: 148 22% 20%;
+    --accent: 2 58% 44%;
+    --accent-foreground: 43 60% 97%;
+    --muted: 80 20% 93%;
+    --muted-foreground: 30 6% 38%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
-    --border: 30 15% 85%;
-    --input: 30 15% 85%;
-    --ring: 8 62% 45%;
-    --radius: 0.5rem;
+    --border: 75 14% 84%;
+    --input: 75 14% 84%;
+    --ring: 148 22% 25%;
+    --radius: 0.75rem;
     --gold: 44 80% 40%;
-    --cream: 35 33% 96%;
-    --terracotta: 8 62% 45%;
-    --sand: 36 25% 74%;
-    --dark: 17 40% 8%;
-    --brick: 8 62% 45%;
+    --cream: 43 60% 97%;
+    --terracotta: 2 58% 44%;
+    --sand: 88 22% 88%;
+    --dark: 148 22% 12%;
+    --brick: 2 58% 44%;
+    --sage: 92 18% 60%;
+    --price: 22 30% 33%;
   }
 
   html {
@@ -62,6 +65,15 @@
 
 .animate-slide-in-right {
   animation: slideInRight 0.8s ease-out forwards;
+}
+
+/* 菜單上下緣的淺綠格紋邊條 */
+.gingham-band {
+  height: 14px;
+  background-color: hsl(var(--sage) / 0.35);
+  background-image:
+    repeating-linear-gradient(90deg, hsl(var(--sage) / 0.85) 0 10px, transparent 10px 20px),
+    repeating-linear-gradient(0deg, hsl(var(--sage) / 0.45) 0 7px, transparent 7px 14px);
 }
 
 .scrollbar-hide::-webkit-scrollbar {

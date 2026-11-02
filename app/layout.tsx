@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { Playfair_Display, Inter } from "next/font/google"
+import { Noto_Serif, Noto_Sans } from "next/font/google"
 import { cookies } from "next/headers"
 import "./globals.css"
 import { LanguageProvider } from "@/lib/i18n/language-context"
@@ -16,16 +16,16 @@ const LANG_ATTR: Record<string, string> = {
   es: 'es',
 }
 
-const playfairDisplay = Playfair_Display({
+const notoSerif = Noto_Serif({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+  weight: ['400', '600', '700'],
   variable: '--font-heading',
   display: 'swap',
 })
 
-const inter = Inter({
+const notoSans = Noto_Sans({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
+  weight: ['400', '500', '600', '700'],
   variable: '--font-body',
   display: 'swap',
 })
@@ -100,7 +100,7 @@ export default async function RootLayout({
       <head>
         <GoogleAnalyticsScript />
       </head>
-      <body className={`${playfairDisplay.variable} ${inter.variable} font-body antialiased`}>
+      <body className={`${notoSerif.variable} ${notoSans.variable} font-body antialiased`}>
         <JsonLd />
         <FacebookPixelNoScript />
         <GTMNoScript />

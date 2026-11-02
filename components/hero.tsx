@@ -3,74 +3,80 @@
 import { useLanguage } from '@/lib/i18n/language-context'
 import Link from 'next/link'
 import Image from 'next/image'
-import { BookOpen } from 'lucide-react'
+import { DOORDASH_URL } from '@/components/order-button'
+
+const copy = {
+  eyebrow: { zh: '台式咖啡館 · 紐約 Middletown', en: 'Taiwanese Café · Middletown, NY', es: 'Café taiwanés · Middletown, NY' },
+  headline: { zh: '台灣的味道，為你而做。', en: 'A Taste of Taiwan, Made for You.', es: 'Un sabor de Taiwán, hecho para ti.' },
+  description: {
+    zh: '慢燉牛肉麵、滷肉飯、手搖珍奶，還有現烤鳳梨酥。',
+    en: 'Slow-braised beef noodle soup, braised pork rice, bubble tea, and fresh-baked pineapple cakes.',
+    es: 'Sopa de fideos con res, arroz con cerdo estofado, bubble tea y pasteles de piña recién horneados.',
+  },
+  order: { zh: 'DoorDash 外送', en: 'Order on DoorDash', es: 'Pedir en DoorDash' },
+  menu: { zh: '看菜單', en: 'View Menu', es: 'Ver menú' },
+  // 畫面顯示品牌標語，真 h1 用關鍵字完整的在地描述（給螢幕閱讀器與搜尋引擎）
+  srHeading: {
+    zh: 'TaiwanWay 台灣味 — 紐約 Middletown 家鄉味台式咖啡館｜牛肉麵、滷肉飯、珍珠奶茶、鳳梨酥',
+    en: 'TaiwanWay — Home-Style Taiwanese Café in Middletown, NY | Beef Noodle Soup, Braised Pork Rice, Bubble Tea & Pineapple Cake',
+    es: 'TaiwanWay — Café taiwanés casero en Middletown, NY | Sopa de fideos con res, arroz con cerdo estofado, bubble tea',
+  },
+  alt: {
+    zh: 'TaiwanWay 紅燒牛肉麵，配酸菜、青蔥與青江菜，擺在灑滿陽光的木桌上',
+    en: 'TaiwanWay braised beef noodle soup with pickled greens, scallions and bok choy on a sunlit wood table',
+    es: 'Sopa de fideos con res de TaiwanWay con mostaza encurtida, cebollín y bok choy en una mesa soleada',
+  },
+}
 
 export function Hero() {
-  const { language } = useLanguage()
-  const lang = ['zh', 'en', 'es'].includes(language) ? language : 'en'
-
-  const tagline = 'A Cozy Taste of Taiwan'
-
-  const headline1 = lang === 'zh' ? '台灣的味道，' : lang === 'es' ? 'Un sabor de Taiwán,' : 'A Taste of Taiwan,'
-  const headline2 = lang === 'zh' ? '為你而做。' : lang === 'es' ? 'hecho para ti.' : 'Made for You.'
-
-  const description = lang === 'zh'
-    ? '滷肉飯、牛肉麵、珍珠奶茶，還有更多家鄉味，從我們的家鄉，端上你的桌。'
-    : lang === 'es'
-      ? 'Arroz con cerdo, fideos con res, té de burbujas y más — de nuestra tierra a tu mesa.'
-      : 'Braised Pork Rice, Beef Noodle Soup, Bubble Tea, and more cozy favorites — from our hometown to your table.'
-
-  const viewMenu = lang === 'zh' ? '看菜單' : lang === 'es' ? 'Ver menú' : 'View Menu'
-
-  // SEO/GEO：畫面顯示品牌標語，但真 h1 用關鍵字完整的在地描述（螢幕閱讀器/搜尋引擎讀）
-  const srHeading = lang === 'zh'
-    ? 'TaiwanWay 台灣味 — 紐約 Middletown 家鄉味台式咖啡館｜牛肉麵、滷肉飯、珍珠奶茶、鳳梨酥'
-    : lang === 'es'
-      ? 'TaiwanWay — Café taiwanés casero en Middletown, NY | Sopa de fideos con res, arroz con cerdo estofado, bubble tea'
-      : 'TaiwanWay — Home-Style Taiwanese Café in Middletown, NY | Beef Noodle Soup, Braised Pork Rice, Bubble Tea & Pineapple Cake'
+  const { language: lang } = useLanguage()
 
   return (
-    <section className="relative w-full bg-cream">
-      <div className="relative h-[440px] w-full overflow-hidden sm:h-[500px] md:h-[560px]">
+    <section className="relative w-full">
+      <div className="relative h-[560px] w-full overflow-hidden md:h-[min(78vh,680px)]">
         <Image
-          src="/images/store/hero-food.png"
-          alt={lang === 'zh'
-            ? 'TaiwanWay 招牌 — 滷肉飯、珍珠奶茶、牛肉麵擺在木桌上'
-            : 'TaiwanWay signatures — braised pork rice, bubble tea and beef noodle soup on a wood table'}
+          src="/images/home/hero.jpg"
+          alt={copy.alt[lang]}
           fill
-          priority
-          className="object-cover object-right"
+          preload
+          fetchPriority="high"
+          className="object-cover object-[60%_center]"
           sizes="100vw"
-          quality={85}
         />
-        {/* 左側米色柔化，確保文字清楚（手機也可讀） */}
-        <div className="absolute inset-0 bg-gradient-to-r from-cream from-5% via-cream/85 via-40% to-transparent to-70%" />
-        <div className="absolute inset-0 bg-gradient-to-t from-cream/60 to-transparent md:hidden" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-transparent md:bg-gradient-to-r md:from-black/70 md:via-black/40 md:via-45%" />
 
-        <div className="relative z-10 mx-auto flex h-full max-w-screen-xl items-center px-6 md:px-12">
-          <div className="max-w-lg text-left">
-            <h1 className="sr-only">{srHeading}</h1>
-            <p className="mb-2 font-heading text-base italic text-primary/80 md:text-lg">{tagline}</p>
-            <div className="font-heading text-4xl font-bold leading-[1.08] sm:text-5xl md:text-6xl">
-              <span className="text-[#5b3a2e]">{headline1}</span>
-              <br />
-              <span className="text-primary">{headline2}</span>
-            </div>
-            <p className="mt-5 max-w-md font-body text-base leading-relaxed text-foreground/75 md:text-lg">
-              {description}
+        <div className="relative z-10 mx-auto flex h-full max-w-screen-xl items-end px-6 pb-12 md:items-center md:px-12 md:pb-0">
+          <div className="max-w-xl text-white">
+            <h1 className="sr-only">{copy.srHeading[lang]}</h1>
+            <p className="mb-3 font-body text-xs font-semibold uppercase tracking-[0.2em] text-white/85 md:text-sm">
+              {copy.eyebrow[lang]}
             </p>
-            <div className="mt-7">
+            <p className="font-heading text-4xl font-bold leading-tight drop-shadow-sm sm:text-5xl md:text-6xl">
+              {copy.headline[lang]}
+            </p>
+            <p className="mt-4 max-w-md font-body text-base leading-relaxed text-white/90 md:text-lg">
+              {copy.description[lang]}
+            </p>
+            <div className="mt-7 flex flex-wrap gap-3">
+              <a
+                href={DOORDASH_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center rounded-full bg-cream px-7 py-3.5 font-body text-base font-semibold text-primary shadow-lg transition-colors hover:bg-secondary"
+              >
+                {copy.order[lang]}
+              </a>
               <Link
                 href="/menu"
-                className="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-3.5 font-heading text-lg font-bold text-primary-foreground shadow-lg shadow-primary/25 transition-all duration-300 hover:scale-105 hover:bg-accent"
+                className="inline-flex items-center rounded-full border-2 border-white/90 px-7 py-3 font-body text-base font-semibold text-white transition-colors hover:bg-white hover:text-primary"
               >
-                <BookOpen className="h-5 w-5" />
-                {viewMenu}
+                {copy.menu[lang]}
               </Link>
             </div>
           </div>
         </div>
       </div>
+      <div className="gingham-band" aria-hidden />
     </section>
   )
 }
