@@ -56,7 +56,6 @@ const TAGS: Record<string, string[]> = {
   '雞肉飯': ['chicken'],
   '櫻花蝦米糕': ['rec', 'seafood'],
   '芋頭餅': ['veg'],
-  '涼拌花生芹菜': ['veg', 'peanut'],
   '台式泡菜': ['veg'],
   '台灣鳳梨酥': ['rec', 'dairy', 'egg'],
   '每日現做各式起司蛋糕': ['dairy', 'egg'],

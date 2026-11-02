@@ -157,7 +157,6 @@ export const menuCategories: MenuCategory[] = [
     image: '/images/taiwanese-kimchi-v3.jpg',
     items: [
       { nameZh: '芋頭餅', nameEn: 'Fried Taro Cakes', nameEs: 'Pasteles de Taro Fritos', descZh: '酥脆金黃、內餡香濃的芋頭小點', descEn: 'Crispy golden pastry with fragrant taro filling', descEs: 'Pastelitos crujientes con relleno aromático de taro', price: '$6.95 / 2pcs' },
-      { nameZh: '涼拌花生芹菜', nameEn: 'Chilled Peanuts with Celery', nameEs: 'Cacahuetes Fríos con Apio', descZh: '滷花生、爽脆芹菜、甜胡蘿蔔，清爽開胃', descEn: 'Marinated peanuts, crisp celery and sweet carrots in a light savory dressing', descEs: 'Cacahuetes marinados, apio crujiente y zanahorias dulces', price: '4.50' },
       { nameZh: '台式泡菜', nameEn: 'Taiwanese Kimchi', nameEs: 'Kimchi Taiwanés', descZh: '微酸微甜的台式醃高麗菜', descEn: 'Tangy-sweet Taiwanese-style pickled cabbage', descEs: 'Col encurtida taiwanesa agridulce', price: '4.95' },
       { nameZh: '炒酸菜', nameEn: 'Stir-Fried Pickled Mustard Greens', nameEs: 'Mostaza Encurtida Salteada', descZh: '4 oz，手炒酸菜，配麵配飯都對味', descEn: '4 oz, wok-tossed pickled mustard greens, great with noodles or rice', descEs: '4 oz, mostaza encurtida salteada, ideal con fideos o arroz', price: '2.85' },
       { nameZh: '手炒辣椒醬', nameEn: 'House-Made Chili Sauce', nameEs: 'Salsa de Chile Casera', descZh: '4 oz，店內手炒辣椒醬', descEn: '4 oz, our own wok-fried chili sauce', descEs: '4 oz, nuestra salsa de chile salteada', price: '4.85' },
