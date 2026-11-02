@@ -28,6 +28,8 @@ PHOTOS = [
     ("pick-pineapple-cake.jpg", DESKTOP / "暖陽下的鳳梨酥與鳳梨.png", (1, 1), 800, 0.42, 0.6, 0.85),
     ("bakery-gift-box.jpg", DESKTOP / "暖陽下的鳳梨酥禮盒_店內實際包裝.png", (1, 1), 1000, 0.55, 0.55, 1.0),
     ("../products/freshly-baked-pineapple-cake-gift-box.jpg", DESKTOP / "暖陽下的鳳梨酥禮盒_店內實際包裝.png", (2, 3), 1000, 0.6, 0.5, 1.0),
+    ("bakery-pineapple-cake.jpg", DESKTOP / "暖陽下的鳳梨酥與鳳梨.png", (4, 5), 800, 0.42, 0.55, 1.0),
+    ("bakery-egg-rolls.jpg", MENU / "蛋捲.png", (4, 5), 800, 0.47, 0.45, 0.88),
     ("visit-exterior.jpg", MENU / "Taiwanway flower.jpg", (4, 5), 1000, 0.5, 0.55, 1.0),
     ("visit-interior.jpg", STORE / "IMG_4969.JPG", (3, 2), 1400, 0.5, 0.5, 1.0),
 ]

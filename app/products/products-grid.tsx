@@ -8,10 +8,11 @@ import type { Product } from '@/types/product';
 import { getProductName, type Language } from '@/types/product';
 import { getShortName } from './product-short-names';
 import { POSTERS } from './posters';
+import { BakerySection } from '@/components/bakery-section';
 import { MapPin, Phone, Clock, ArrowRight } from 'lucide-react';
 
 type CatId = 'tea' | 'fruit' | 'snack';
-type FilterId = 'all' | 'new' | CatId | 'gift';
+type FilterId = 'all' | 'new' | 'bakery' | CatId | 'gift';
 type Lang = 'zh' | 'en' | 'es';
 
 const CATS: { id: CatId; kicker: string; title: Record<Lang, string> }[] = [
@@ -23,6 +24,7 @@ const CATS: { id: CatId; kicker: string; title: Record<Lang, string> }[] = [
 const FILTERS: { id: FilterId; label: Record<Lang, string> }[] = [
   { id: 'all', label: { zh: '全部', en: 'All', es: 'Todos' } },
   { id: 'new', label: { zh: '🆕 新到貨', en: '🆕 New Arrivals', es: '🆕 Novedades' } },
+  { id: 'bakery', label: { zh: '手工烘焙', en: 'Bakery', es: 'Panadería' } },
   { id: 'tea', label: { zh: '茶葉', en: 'Tea', es: 'Té' } },
   { id: 'fruit', label: { zh: '果乾蜜餞', en: 'Dried Fruit', es: 'Fruta Seca' } },
   { id: 'snack', label: { zh: '零食', en: 'Snacks', es: 'Snacks' } },
@@ -217,12 +219,15 @@ export default function ProductsGrid({ products }: { products: Product[] }) {
     blocks = CATS.map((c) => ({ catId: c.id, items: grouped[c.id] }));
   } else if (filter === 'gift') {
     blocks = CATS.map((c) => ({ catId: c.id, items: grouped[c.id].filter(isGift) })).filter((b) => b.items.length);
+  } else if (filter === 'bakery') {
+    blocks = [];
   } else if (filter === 'new') {
     blocks = CATS.map((c) => ({ catId: c.id, items: grouped[c.id].filter(isActiveNewArrival) })).filter((b) => b.items.length);
   } else {
     blocks = [{ catId: filter, items: grouped[filter] }];
   }
-  const nothing = blocks.every((b) => b.items.length === 0);
+  const showBakery = filter === 'all' || filter === 'bakery';
+  const nothing = !showBakery && blocks.every((b) => b.items.length === 0);
 
   return (
     <div className="bg-cream">
@@ -263,13 +268,14 @@ export default function ProductsGrid({ products }: { products: Product[] }) {
       </nav>
 
       <div className="mx-auto max-w-6xl px-6 py-8 md:px-8">
+        {showBakery && <BakerySection lang={language} />}
         {nothing ? (
           <p className="py-16 text-center font-body text-muted-foreground">{emptyLabel}</p>
         ) : (
           blocks.map((b, i) => (
             <CategoryBlock
               key={b.catId}
-              isFirst={i === 0}
+              isFirst={i === 0 && !showBakery}
               catId={b.catId}
               items={b.items}
               showHeader={filter === 'all' || filter === 'gift' || filter === 'new'}
