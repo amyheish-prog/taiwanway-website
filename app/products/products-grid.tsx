@@ -7,7 +7,7 @@ import { useLanguage } from '@/lib/i18n/language-context';
 import type { Product } from '@/types/product';
 import { getProductName, type Language } from '@/types/product';
 import { getShortName } from './product-short-names';
-import { POSTERS } from './posters';
+import { POSTERS, LANDSCAPE } from './posters';
 import { BakerySection } from '@/components/bakery-section';
 import { MapPin, Phone, Clock, ArrowRight } from 'lucide-react';
 
@@ -168,7 +168,10 @@ function CategoryBlock({
   inStore: string;
 }) {
   if (!items.length) return null;
-  const posters = items.filter((p) => POSTERS[p.slug]);
+  // 茶葉保留直式海報；果乾零食、以及任何有橫式情境照的商品用橫式卡
+  const isPhoto = (p: Product) => catId !== 'tea' || LANDSCAPE.has(p.slug);
+  const photos = items.filter((p) => POSTERS[p.slug] && isPhoto(p));
+  const posters = items.filter((p) => POSTERS[p.slug] && !isPhoto(p));
   const lists = items.filter((p) => !POSTERS[p.slug]);
   const cat = CATS.find((c) => c.id === catId)!;
 
@@ -181,15 +184,15 @@ function CategoryBlock({
         </div>
       )}
 
-      {posters.length > 0 && catId !== 'tea' && (
+      {photos.length > 0 && (
         <div className="mb-8 grid gap-4 sm:grid-cols-2 md:gap-5 lg:grid-cols-3">
-          {posters.map((p, i) => (
+          {photos.map((p, i) => (
             <PhotoCard key={p.id} p={p} language={language} eager={isFirst && i < 3} />
           ))}
         </div>
       )}
 
-      {posters.length > 0 && catId === 'tea' && (
+      {posters.length > 0 && (
         <div className="mb-8 flex flex-wrap justify-center gap-4 md:gap-5 [&>*]:w-[calc(50%-0.5rem)] md:[&>*]:w-[calc(33.333%-0.834rem)] lg:[&>*]:w-[calc(25%-0.9375rem)]">
           {posters.map((p, i) => (
             <PosterCard key={p.id} p={p} language={language} detail={detail} inStore={inStore} eager={isFirst && i < 4} />

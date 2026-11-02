@@ -20,3 +20,11 @@ export const POSTERS: Record<string, string> = {
   'huixiang-red-date-chips': '/images/products/huixiang-red-date-chips.jpg',
   'jin-he-tai-licorice-preserved-plum': '/images/products/jin-he-tai-licorice-preserved-plum.jpg',
 };
+
+/** 橫式 3:2 情境照：不論在哪個分類都用橫式卡片（品名寫在照片下方） */
+export const LANDSCAPE = new Set([
+  'plums-honey-dried-plum-seedless',
+  'jin-he-tai-traditional-handmade-plum-cakes',
+  'jin-he-tai-sugar-kumquat-candy',
+  'tang-ding-brown-sugar-longan-red-date',
+]);
