@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
-import Link from 'next/link'
 import { useLanguage } from '@/lib/i18n/language-context'
 import { menuCategories, type MenuCategory, type MenuItemData } from '@/lib/menu-categories'
 import { Soup, Salad, CupSoda, Coffee, CakeSlice, MapPin, Phone, Clock, type LucideIcon } from 'lucide-react'
@@ -131,8 +130,9 @@ export function MenuFull() {
             {lang === 'zh' ? '台灣茶飲・點心・咖啡・甜點' : lang === 'es' ? 'Té · Comida · Café · Postres' : 'Tea · Food · Coffee · Desserts'}
           </p>
           <h1 className="mt-3 font-heading text-4xl font-bold text-primary md:text-6xl">
-            {lang === 'zh' ? '菜單' : lang === 'es' ? 'Menú' : 'Menu'}
+            {heading}
           </h1>
+          <p className="mx-auto mt-4 max-w-xl font-body text-base text-muted-foreground md:text-lg">{intro}</p>
           <span className="sr-only">
             {lang === 'zh'
               ? 'TaiwanWay 菜單 — 牛肉麵、珍珠奶茶、滷肉飯、甜點｜紐約 Middletown'

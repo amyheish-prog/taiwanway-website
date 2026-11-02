@@ -200,7 +200,6 @@ export default function ProductsGrid({ products }: { products: Product[] }) {
 
   const inStore = lang === 'zh' ? '店內販售' : lang === 'es' ? 'En tienda' : 'In-store';
   const detail = lang === 'zh' ? '看詳情' : lang === 'es' ? 'Ver más' : 'Details';
-  const title = lang === 'zh' ? '台灣零食' : lang === 'es' ? 'Snacks Taiwaneses' : 'Taiwanese Snacks';
   const intro =
     lang === 'zh'
       ? '嚴選台灣好茶、果乾蜜餞與傳統零嘴——歡迎到店選購，把家鄉味帶回家。'
