@@ -341,7 +341,7 @@ function DishCard({ icon: Icon, dishIcon, name, sub, desc, options, price, tags 
 function GroupHeader({ kicker, title }: { kicker: string; title: string }) {
   return (
     <div className="mb-8 mt-4 flex flex-col items-center text-center">
-      <p className="font-body text-xs uppercase tracking-[0.24em] text-brick">{kicker}</p>
+      <p className="gingham-chip font-body text-xs uppercase tracking-[0.24em] text-brick">{kicker}</p>
       <h2 className="mt-1 font-heading text-4xl font-bold text-primary md:text-5xl">{title}</h2>
       <span className="mt-3 h-1 w-16 rounded-full bg-primary/70" />
     </div>

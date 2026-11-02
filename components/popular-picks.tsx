@@ -45,7 +45,7 @@ export function PopularPicks() {
   })
 
   return (
-    <section className="bg-muted/60">
+    <section className="gingham-cloth">
       <div className="mx-auto max-w-screen-xl px-6 py-14 md:px-12 md:py-20">
         <div className="mb-8 flex items-end justify-between gap-4">
           <h2 className="font-heading text-3xl font-bold text-primary md:text-4xl">{heading}</h2>
@@ -56,7 +56,7 @@ export function PopularPicks() {
 
         <div className="-mx-6 flex snap-x gap-4 overflow-x-auto px-6 pb-2 scrollbar-hide md:mx-0 md:grid md:grid-cols-5 md:gap-6 md:overflow-visible md:px-0">
           {items.map(({ key, img, name, price }) => (
-            <Link key={key} href="/menu" className="group w-[62%] shrink-0 snap-start sm:w-[40%] md:w-auto">
+            <Link key={key} href="/menu" className="group w-[62%] shrink-0 snap-start rounded-2xl bg-card p-3 shadow-sm ring-1 ring-black/5 sm:w-[40%] md:w-auto">
               <div className="relative aspect-square overflow-hidden rounded-xl bg-card">
                 <Image
                   src={img}
@@ -66,10 +66,10 @@ export function PopularPicks() {
                   sizes="(max-width: 640px) 62vw, (max-width: 768px) 40vw, 20vw"
                 />
               </div>
-              <p className="mt-3 font-body text-base font-semibold text-foreground">
+              <p className="mt-3 px-1 font-body text-base font-semibold text-foreground">
                 {name}
               </p>
-              <p className="mt-0.5 font-body text-base font-semibold text-price">{price}</p>
+              <p className="mt-0.5 px-1 pb-1 font-body text-base font-semibold text-price">{price}</p>
             </Link>
           ))}
         </div>

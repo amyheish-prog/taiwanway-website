@@ -26,7 +26,7 @@ export function VisitUs() {
       <div className="gingham-band" aria-hidden />
       <div className="mx-auto grid max-w-screen-xl gap-10 px-6 py-14 md:grid-cols-[1fr_1.1fr] md:gap-16 md:px-12 md:py-24">
         <div className="grid grid-cols-[3fr_2fr] gap-4">
-          <div className="relative aspect-[4/5] overflow-hidden rounded-2xl">
+          <div className="stitch relative aspect-[4/5] overflow-hidden rounded-2xl">
             <Image
               src="/images/home/visit-exterior.jpg"
               alt={lang === 'zh' ? 'TaiwanWay 店門口與開花的樹' : 'TaiwanWay storefront on South Street with a tree in bloom'}
@@ -35,7 +35,7 @@ export function VisitUs() {
               sizes="(max-width: 768px) 60vw, 30vw"
             />
           </div>
-          <div className="relative mt-12 aspect-[3/4] overflow-hidden rounded-2xl">
+          <div className="stitch relative mt-12 aspect-[3/4] overflow-hidden rounded-2xl">
             <Image
               src="/images/home/visit-interior.jpg"
               alt={lang === 'zh' ? 'TaiwanWay 店內座位與壁爐' : 'Seating and fireplace inside TaiwanWay'}
@@ -47,7 +47,7 @@ export function VisitUs() {
         </div>
 
         <div className="flex flex-col justify-center">
-          <p className="font-body text-xs font-semibold uppercase tracking-[0.2em] text-brick">{copy.eyebrow[lang]}</p>
+          <p className="gingham-chip font-body text-xs font-semibold uppercase tracking-[0.2em] text-brick">{copy.eyebrow[lang]}</p>
           <h2 className="mt-3 font-heading text-3xl font-bold text-primary md:text-5xl">{copy.title[lang]}</h2>
           <p className="mt-5 max-w-md font-body text-base leading-relaxed text-muted-foreground md:text-lg">{copy.body[lang]}</p>
 

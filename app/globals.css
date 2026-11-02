@@ -76,6 +76,43 @@
     repeating-linear-gradient(0deg, hsl(var(--sage) / 0.45) 0 7px, transparent 7px 14px);
 }
 
+/* 格紋桌巾：整區鋪底用，比邊條淡很多 */
+.gingham-cloth {
+  background-color: hsl(var(--background));
+  background-image:
+    repeating-linear-gradient(90deg, hsl(var(--sage) / 0.16) 0 22px, transparent 22px 44px),
+    repeating-linear-gradient(0deg, hsl(var(--sage) / 0.16) 0 22px, transparent 22px 44px);
+}
+
+/* 車縫線：卡片或圖片內側一圈虛線，畫在照片上層 */
+.stitch {
+  position: relative;
+}
+.stitch::after {
+  content: '';
+  position: absolute;
+  inset: 10px;
+  z-index: 1;
+  border: 1.5px dashed hsl(var(--background) / 0.9);
+  border-radius: 0.6rem;
+  pointer-events: none;
+}
+
+/* 小標前的格紋小方塊 */
+.gingham-chip::before {
+  content: '';
+  display: inline-block;
+  width: 0.9em;
+  height: 0.9em;
+  margin-right: 0.5em;
+  vertical-align: -0.05em;
+  border-radius: 2px;
+  background-color: hsl(var(--sage) / 0.35);
+  background-image:
+    repeating-linear-gradient(90deg, hsl(var(--sage)) 0 3px, transparent 3px 6px),
+    repeating-linear-gradient(0deg, hsl(var(--sage) / 0.6) 0 3px, transparent 3px 6px);
+}
+
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }

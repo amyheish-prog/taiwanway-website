@@ -22,7 +22,7 @@ export function BakeryFeature() {
   return (
     <section className="bg-background">
       <div className="mx-auto grid max-w-screen-xl items-center gap-8 px-6 py-14 md:grid-cols-2 md:gap-16 md:px-12 md:py-24">
-        <div className="relative aspect-square overflow-hidden rounded-2xl">
+        <div className="stitch relative aspect-square overflow-hidden rounded-2xl">
           <Image
             src="/images/home/bakery-gift-box.jpg"
             alt={copy.title[lang]}
@@ -32,7 +32,7 @@ export function BakeryFeature() {
           />
         </div>
         <div>
-          <p className="font-body text-xs font-semibold uppercase tracking-[0.2em] text-brick">{copy.eyebrow[lang]}</p>
+          <p className="gingham-chip font-body text-xs font-semibold uppercase tracking-[0.2em] text-brick">{copy.eyebrow[lang]}</p>
           <h2 className="mt-3 font-heading text-3xl font-bold text-primary md:text-5xl">{copy.title[lang]}</h2>
           <p className="mt-5 max-w-md font-body text-base leading-relaxed text-muted-foreground md:text-lg">{copy.body[lang]}</p>
           <Link
