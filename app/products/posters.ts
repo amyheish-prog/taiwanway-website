@@ -27,4 +27,5 @@ export const LANDSCAPE = new Set([
   'jin-he-tai-traditional-handmade-plum-cakes',
   'jin-he-tai-sugar-kumquat-candy',
   'tang-ding-brown-sugar-longan-red-date',
+  'huixiang-red-date-chips',
 ]);
