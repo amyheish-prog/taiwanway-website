@@ -31,8 +31,8 @@ PHOTOS = [
     ("../products/freshly-baked-pineapple-cake-gift-box.jpg", DESKTOP / "暖陽下的鳳梨酥禮盒_店內實際包裝.png", (2, 3), 1000, 0.6, 0.5, 1.0),
     # 零食情境照（橫式 3:2，商品卡下方另顯示品名）
     ("../products/plums-honey-dried-plum-seedless.jpg", DESKTOP / "暖陽下的蜂蜜無籽梅肉.webp", (3, 2), 1200, 0.5, 0.5, 1.0),
+    ("../products/jin-he-tai-traditional-handmade-plum-cakes.jpg", DESKTOP / "古早味手工梅餅午後茶點 (1).png", (3, 2), 1200, 0.5, 0.5, 1.0),
     # 原包裝實拍（1:1 → 裁成 2:3 海報）
-    ("../products/jin-he-tai-traditional-handmade-plum-cakes.jpg", PACKAGING / "02_Handmade_Plum_Wafer.jpg", (2, 3), 800, 0.5, 0.5, 1.0),
     ("../products/jin-he-tai-sugar-kumquat-candy.jpg", PACKAGING / "03_Sugar_Kumquat.jpg", (2, 3), 800, 0.5, 0.5, 1.0),
     ("../products/tang-ding-brown-sugar-longan-red-date.jpg", PACKAGING / "04_Longan_Red_Dates.jpg", (2, 3), 800, 0.5, 0.5, 1.0),
     ("../products/huixiang-red-date-chips.jpg", PACKAGING / "05_Red_Date_Crisps.jpg", (2, 3), 800, 0.5, 0.5, 1.0),
