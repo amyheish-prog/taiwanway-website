@@ -1,6 +1,5 @@
 import type { Metadata } from "next"
 import { Noto_Serif, Noto_Sans } from "next/font/google"
-import { cookies } from "next/headers"
 import "./globals.css"
 import { LanguageProvider } from "@/lib/i18n/language-context"
 import { CookieConsentBanner } from "@/components/cookie-consent"
@@ -9,12 +8,6 @@ import { AnalyticsProvider, GoogleAnalyticsScript, FacebookPixelNoScript, GTMNoS
 import { JsonLd } from "@/components/json-ld"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
-
-const LANG_ATTR: Record<string, string> = {
-  zh: 'zh-TW',
-  en: 'en',
-  es: 'es',
-}
 
 const notoSerif = Noto_Serif({
   subsets: ['latin'],
@@ -86,17 +79,13 @@ export const metadata: Metadata = {
   },
 }
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  const cookieStore = await cookies()
-  const langCookie = cookieStore.get('taiwanway-language')?.value
-  const htmlLang = LANG_ATTR[langCookie ?? ''] ?? 'en'
-
   return (
-    <html lang={htmlLang}>
+    <html lang="en">
       <head>
         <GoogleAnalyticsScript />
       </head>
