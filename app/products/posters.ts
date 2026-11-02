@@ -12,4 +12,5 @@ export const POSTERS: Record<string, string> = {
   'jin-he-tai-dried-roselle': '/images/products/jin-he-tai-dried-roselle.png',
   'liao-hsin-lan-dried-tofu-shacha': '/images/products/liao-hsin-lan-dried-tofu-shacha.png',
   'sun-moon-lake-stewed-mushrooms': '/images/products/sun-moon-lake-stewed-mushrooms.png',
+  'freshly-baked-pineapple-cake-gift-box': '/images/products/freshly-baked-pineapple-cake-gift-box.jpg',
 };

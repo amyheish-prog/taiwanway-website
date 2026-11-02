@@ -64,7 +64,7 @@ function teaFormat(p: Product): string {
 }
 
 /* ── 海報卡 ── */
-function PosterCard({ p, language, detail, inStore }: { p: Product; language: Language; detail: string; inStore: string }) {
+function PosterCard({ p, language, detail, inStore, eager }: { p: Product; language: Language; detail: string; inStore: string; eager: boolean }) {
   return (
     <Link
       href={`/product/${p.slug}`}
@@ -75,6 +75,8 @@ function PosterCard({ p, language, detail, inStore }: { p: Product; language: La
           src={POSTERS[p.slug]}
           alt={getProductName(p, language)}
           fill
+          preload={eager}
+          fetchPriority={eager ? 'high' : undefined}
           className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
           sizes="(max-width:768px) 50vw, 33vw"
         />
@@ -120,6 +122,7 @@ function CategoryBlock({
   catId,
   items,
   showHeader,
+  isFirst,
   lang,
   language,
   detail,
@@ -128,6 +131,7 @@ function CategoryBlock({
   catId: CatId;
   items: Product[];
   showHeader: boolean;
+  isFirst: boolean;
   lang: Lang;
   language: Language;
   detail: string;
@@ -142,16 +146,16 @@ function CategoryBlock({
     <section className="mb-16">
       {showHeader && (
         <div className="mb-8 text-center">
-          <p className="mb-2 font-heading text-xs uppercase tracking-[0.28em] text-primary/60">{cat.kicker}</p>
-          <h2 className="font-heading text-3xl font-bold text-foreground md:text-4xl">{cat.title[lang]}</h2>
+          <p className="gingham-chip mb-2 font-body text-xs uppercase tracking-[0.24em] text-brick">{cat.kicker}</p>
+          <h2 className="font-heading text-3xl font-bold text-primary md:text-4xl">{cat.title[lang]}</h2>
           <span className="mx-auto mt-3 block h-1 w-14 rounded-full bg-primary/70" />
         </div>
       )}
 
       {posters.length > 0 && (
         <div className="mb-8 grid grid-cols-2 gap-5 md:grid-cols-3 md:gap-6">
-          {posters.map((p) => (
-            <PosterCard key={p.id} p={p} language={language} detail={detail} inStore={inStore} />
+          {posters.map((p, i) => (
+            <PosterCard key={p.id} p={p} language={language} detail={detail} inStore={inStore} eager={isFirst && i < 3} />
           ))}
         </div>
       )}
@@ -230,23 +234,20 @@ export default function ProductsGrid({ products }: { products: Product[] }) {
     <div className="bg-cream">
       {/* 頁首 banner */}
       <div className="mx-auto max-w-5xl px-6 pt-6 pb-4 md:px-8">
-        <h1 className="sr-only">
-          {lang === 'zh'
-            ? '台灣零食・茶葉・伴手禮｜紐約 Middletown TaiwanWay 台灣味'
-            : lang === 'es'
-              ? 'Snacks, Té y Regalos Taiwaneses en Middletown, NY | TaiwanWay'
-              : 'Taiwanese Snacks, Tea & Gifts in Middletown, NY | TaiwanWay'}
-        </h1>
-        <div className="overflow-hidden rounded-2xl shadow-sm ring-1 ring-black/5">
-          <Image
-            src="/images/products/gift-wall-banner-wide.png"
-            alt="TaiwanWay — Taiwan Tea & Snack 台灣茶伴手禮"
-            width={1774}
-            height={887}
-            preload fetchPriority="high"
-            className="h-auto w-full"
-            sizes="(max-width:1024px) 100vw, 1024px"
-          />
+        <div className="pt-16 text-center">
+          <p className="gingham-chip font-body text-xs font-semibold uppercase tracking-[0.2em] text-brick">
+            {lang === 'zh' ? '台灣茶・果乾・伴手禮' : lang === 'es' ? 'Té · Frutas · Regalos' : 'Tea · Dried Fruit · Gifts'}
+          </p>
+          <h1 className="mt-3 font-heading text-4xl font-bold text-primary md:text-6xl">
+            {lang === 'zh' ? '台灣茶與伴手禮' : lang === 'es' ? 'Té y regalos de Taiwán' : 'Taiwan Tea & Gifts'}
+          </h1>
+          <span className="sr-only">
+            {lang === 'zh'
+              ? '台灣零食・茶葉・伴手禮｜紐約 Middletown TaiwanWay 台灣味'
+              : lang === 'es'
+                ? 'Snacks, Té y Regalos Taiwaneses en Middletown, NY | TaiwanWay'
+                : 'Taiwanese Snacks, Tea & Gifts in Middletown, NY | TaiwanWay'}
+          </span>
         </div>
         <p className="mx-auto mt-6 max-w-xl text-center font-body text-base text-muted-foreground md:text-lg">{intro}</p>
       </div>
@@ -274,9 +275,10 @@ export default function ProductsGrid({ products }: { products: Product[] }) {
         {nothing ? (
           <p className="py-16 text-center font-body text-muted-foreground">{emptyLabel}</p>
         ) : (
-          blocks.map((b) => (
+          blocks.map((b, i) => (
             <CategoryBlock
               key={b.catId}
+              isFirst={i === 0}
               catId={b.catId}
               items={b.items}
               showHeader={filter === 'all' || filter === 'gift' || filter === 'new'}
