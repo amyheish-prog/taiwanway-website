@@ -32,7 +32,7 @@ export function FaqClient() {
   const home = lang === 'zh' ? '首頁' : lang === 'es' ? 'Inicio' : 'Home'
 
   return (
-    <main className="min-h-screen bg-cream pb-20 pt-28">
+    <main className="min-h-screen bg-cream pb-20 pt-8">
       <div className="mx-auto max-w-3xl px-6">
         {/* 麵包屑 */}
         <nav aria-label="Breadcrumb" className="mb-8 font-body text-sm text-muted-foreground">

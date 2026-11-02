@@ -78,7 +78,7 @@ function PosterCard({ p, language, detail, inStore, eager }: { p: Product; langu
           preload={eager}
           fetchPriority={eager ? 'high' : undefined}
           className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-          sizes="(max-width:768px) 50vw, 33vw"
+          sizes="(max-width:768px) 50vw, (max-width:1024px) 33vw, 25vw"
         />
       </div>
       <div className="flex items-center justify-between gap-2 px-4 py-3">
@@ -148,9 +148,9 @@ function CategoryBlock({
       )}
 
       {posters.length > 0 && (
-        <div className="mb-8 grid grid-cols-2 gap-5 md:grid-cols-3 md:gap-6">
+        <div className="mb-8 flex flex-wrap justify-center gap-4 md:gap-5 [&>*]:w-[calc(50%-0.5rem)] md:[&>*]:w-[calc(33.333%-0.834rem)] lg:[&>*]:w-[calc(25%-0.9375rem)]">
           {posters.map((p, i) => (
-            <PosterCard key={p.id} p={p} language={language} detail={detail} inStore={inStore} eager={isFirst && i < 3} />
+            <PosterCard key={p.id} p={p} language={language} detail={detail} inStore={inStore} eager={isFirst && i < 4} />
           ))}
         </div>
       )}

@@ -21,7 +21,7 @@ export function PineappleCakePostClient() {
         : `${post.readingMinutes} min read`
 
   return (
-    <main className="min-h-screen bg-cream pt-28 pb-20">
+    <main className="min-h-screen bg-cream pt-8 pb-20">
       <div className="mx-auto max-w-2xl px-4">
         <nav aria-label="Breadcrumb" className="mb-6 text-sm text-muted-foreground">
           <ol className="flex items-center gap-2 flex-wrap">

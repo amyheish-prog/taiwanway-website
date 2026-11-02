@@ -25,7 +25,7 @@ export default function ProductDetail({ product }: { product: Product }) {
         : 'Available in store · Come visit us';
 
   return (
-    <div className="min-h-screen bg-cream pb-16 pt-24">
+    <div className="min-h-screen bg-cream pb-16 pt-8">
       <div className="mx-auto max-w-2xl px-6">
         {/* 麵包屑 */}
         <nav aria-label="Breadcrumb" className="mb-6 font-body text-sm text-muted-foreground">

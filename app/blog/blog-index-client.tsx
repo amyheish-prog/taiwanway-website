@@ -24,7 +24,7 @@ export function BlogIndexClient() {
     lang === 'zh' ? `${n} 分鐘閱讀` : lang === 'es' ? `${n} min de lectura` : `${n} min read`
 
   return (
-    <main className="min-h-screen bg-cream pb-20 pt-28">
+    <main className="min-h-screen bg-cream pb-20 pt-8">
       <div className="mx-auto max-w-3xl px-6">
         {/* 麵包屑 */}
         <nav aria-label="Breadcrumb" className="mb-8 font-body text-sm text-muted-foreground">
