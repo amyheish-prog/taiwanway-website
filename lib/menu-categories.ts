@@ -156,10 +156,12 @@ export const menuCategories: MenuCategory[] = [
     subtitleEs: 'Bocados Clásicos Taiwaneses',
     image: '/images/taiwanese-kimchi-v3.jpg',
     items: [
-      { nameZh: '芋頭餅', nameEn: 'Fried Taro Cakes', nameEs: 'Pasteles de Taro Fritos', descZh: '酥脆金黃、內餡香濃的芋頭小點', descEn: 'Crispy golden pastry with fragrant taro filling', descEs: 'Pastelitos crujientes con relleno aromático de taro', price: '$6.95 / 2pcs' },
+      { nameZh: '蟹殼黃', nameEn: 'Flaky Sesame Pastry', nameEs: 'Pastelito de Sésamo Hojaldrado', descZh: '金黃芝麻酥皮，層層酥脆（1 個 / 2 個）', descEn: 'Golden sesame crust with delicate, flaky layers (1 pc / 2 pcs)', descEs: 'Corteza dorada de sésamo con capas hojaldradas (1 / 2 piezas)', price: '$3.50 / $7.00' },
       { nameZh: '台式泡菜', nameEn: 'Taiwanese Kimchi', nameEs: 'Kimchi Taiwanés', descZh: '微酸微甜的台式醃高麗菜', descEn: 'Tangy-sweet Taiwanese-style pickled cabbage', descEs: 'Col encurtida taiwanesa agridulce', price: '4.95' },
       { nameZh: '炒酸菜', nameEn: 'Stir-Fried Pickled Mustard Greens', nameEs: 'Mostaza Encurtida Salteada', descZh: '4 oz，手炒酸菜，配麵配飯都對味', descEn: '4 oz, wok-tossed pickled mustard greens, great with noodles or rice', descEs: '4 oz, mostaza encurtida salteada, ideal con fideos o arroz', price: '2.85' },
       { nameZh: '手炒辣椒醬', nameEn: 'House-Made Chili Sauce', nameEs: 'Salsa de Chile Casera', descZh: '4 oz，店內手炒辣椒醬', descEn: '4 oz, our own wok-fried chili sauce', descEs: '4 oz, nuestra salsa de chile salteada', price: '4.85' },
+      { nameZh: '滷蛋', nameEn: 'Braised Egg', nameEs: 'Huevo Estofado', descZh: '入味滷蛋，配主餐剛好', descEn: 'A savory braised egg to complete your meal', descEs: 'Huevo estofado para acompañar tu plato', price: '2.00' },
+      { nameZh: '肉燥', nameEn: 'Braised Pork Topping', nameEs: 'Cerdo Estofado (Topping)', descZh: '4 oz，加在飯或麵上', descEn: '4 oz, a savory braised pork topping for rice or noodles', descEs: '4 oz, cerdo estofado para arroz o fideos', price: '3.50' },
     ],
   },
   {
