@@ -29,4 +29,5 @@ export const LANDSCAPE = new Set([
   'tang-ding-brown-sugar-longan-red-date',
   'huixiang-red-date-chips',
   'taiwan-roasted-black-bean-tea-15bags',
+  'jin-he-tai-licorice-preserved-plum',
 ]);
