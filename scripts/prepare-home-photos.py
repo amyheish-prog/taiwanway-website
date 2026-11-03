@@ -13,37 +13,38 @@ MENU = DESKTOP / "TaiwanWay_行銷素材" / "菜單照片"
 STORE = DESKTOP / "Taiwanway 照片"
 PACKAGING = Path.home() / "Downloads" / "taiwanway_10_product_photos_original_packaging"
 WEB8 = DESKTOP / "taiwanway_web_8_images"
+PHOTOS_DIR = DESKTOP / "TaiwanWay_網站照片"  # 網站用的情境照原圖
 OUT = Path(__file__).resolve().parent.parent / "public" / "images" / "home"
 
 # (輸出檔名, 來源, 寬高比, 輸出寬度, 焦點 x, 焦點 y, 縮放)
 # 縮放 < 1 會往焦點裁進去，用來切掉 Gemini 修圖留在右下角的星形標記
 PHOTOS = [
-    ("hero.jpg", DESKTOP / "暖陽下的台式紅燒牛肉麵.png", (3, 2), 1536, 0.5, 0.5, 1.0),
-    ("category-kitchen.jpg", DESKTOP / "暖陽下的滷肉飯.png", (4, 5), 900, 0.5, 0.5, 1.0),
-    ("category-drinks.jpg", DESKTOP / "暖陽下的黑糖珍珠鮮奶.png", (4, 5), 900, 0.5, 0.5, 1.0),
-    ("category-shop.jpg", DESKTOP / "暖陽下的鳳梨酥禮盒_店內實際包裝.png", (4, 5), 900, 0.55, 0.5, 1.0),
-    ("pick-beef-noodle.jpg", DESKTOP / "暖陽下的牛肉麵_外帶碗.png", (1, 1), 800, 0.58, 0.52, 0.85),
+    ("hero.jpg", PHOTOS_DIR / "暖陽下的台式紅燒牛肉麵.png", (3, 2), 1536, 0.5, 0.5, 1.0),
+    ("category-kitchen.jpg", PHOTOS_DIR / "暖陽下的滷肉飯.png", (4, 5), 900, 0.5, 0.5, 1.0),
+    ("category-drinks.jpg", PHOTOS_DIR / "暖陽下的黑糖珍珠鮮奶.png", (4, 5), 900, 0.5, 0.5, 1.0),
+    ("category-shop.jpg", PHOTOS_DIR / "暖陽下的鳳梨酥禮盒_店內實際包裝.png", (4, 5), 900, 0.55, 0.5, 1.0),
+    ("pick-beef-noodle.jpg", PHOTOS_DIR / "暖陽下的牛肉麵_外帶碗.png", (1, 1), 800, 0.58, 0.52, 0.85),
     ("pick-pork-rice.jpg", WEB8 / "02_braised_pork_rice.jpg", (1, 1), 800, 0.5, 0.5, 1.0),
-    ("pick-chicken-rice.jpg", DESKTOP / "暖陽下的雞肉飯.png", (1, 1), 800, 0.52, 0.54, 0.78),
-    ("pick-matcha.jpg", DESKTOP / "暖陽下的黑糖抹茶珍珠.png", (1, 1), 800, 0.5, 0.48, 0.92),
-    ("pick-pineapple-cake.jpg", DESKTOP / "暖陽下的鳳梨酥與鳳梨.png", (1, 1), 800, 0.42, 0.6, 0.85),
-    ("bakery-gift-box.jpg", DESKTOP / "暖陽下的鳳梨酥禮盒_店內實際包裝.png", (1, 1), 1000, 0.55, 0.55, 1.0),
-    ("../products/freshly-baked-pineapple-cake-gift-box.jpg", DESKTOP / "暖陽下的鳳梨酥禮盒_店內實際包裝.png", (2, 3), 1000, 0.6, 0.5, 1.0),
+    ("pick-chicken-rice.jpg", PHOTOS_DIR / "暖陽下的雞肉飯.png", (1, 1), 800, 0.52, 0.54, 0.78),
+    ("pick-matcha.jpg", PHOTOS_DIR / "暖陽下的黑糖抹茶珍珠.png", (1, 1), 800, 0.5, 0.48, 0.92),
+    ("pick-pineapple-cake.jpg", PHOTOS_DIR / "暖陽下的鳳梨酥與鳳梨.png", (1, 1), 800, 0.42, 0.6, 0.85),
+    ("bakery-gift-box.jpg", PHOTOS_DIR / "暖陽下的鳳梨酥禮盒_店內實際包裝.png", (1, 1), 1000, 0.55, 0.55, 1.0),
+    ("../products/freshly-baked-pineapple-cake-gift-box.jpg", PHOTOS_DIR / "暖陽下的鳳梨酥禮盒_店內實際包裝.png", (2, 3), 1000, 0.6, 0.5, 1.0),
     # 零食情境照（橫式 3:2，商品卡下方另顯示品名）
-    ("../products/plums-honey-dried-plum-seedless.jpg", DESKTOP / "暖陽下的蜂蜜無籽梅肉.webp", (3, 2), 1200, 0.5, 0.5, 1.0),
-    ("../products/jin-he-tai-traditional-handmade-plum-cakes.jpg", DESKTOP / "古早味手工梅餅午後茶點 (1).png", (3, 2), 1200, 0.5, 0.5, 1.0),
-    ("../products/jin-he-tai-sugar-kumquat-candy.jpg", DESKTOP / "暖陽下的糖金橘.webp", (3, 2), 1200, 0.5, 0.5, 1.0),
-    ("../products/tang-ding-brown-sugar-longan-red-date.jpg", DESKTOP / "暖陽下的桂圓紅棗黑糖磚.webp", (3, 2), 1200, 0.5, 0.5, 1.0),
-    ("../products/huixiang-red-date-chips.jpg", DESKTOP / "暖陽下的紅棗脆片.webp", (3, 2), 1200, 0.5, 0.5, 1.0),
-    ("../products/taiwan-roasted-black-bean-tea-15bags.jpg", DESKTOP / "暖陽下的烘焙黑豆茶.webp", (3, 2), 1200, 0.5, 0.5, 1.0),
-    ("../products/jin-he-tai-licorice-preserved-plum.jpg", DESKTOP / "暖陽下的甘草金頌李.webp", (3, 2), 1200, 0.5, 0.5, 1.0),
-    ("../products/liao-hsin-lan-dried-tofu-shacha.jpg", DESKTOP / "暖陽下的廖心蘭豆干_香菇.webp", (3, 2), 1200, 0.5, 0.5, 1.0),
-    ("../products/fullten-dried-guava.jpg", DESKTOP / "台灣芭樂乾暖心茶點擺拍.png", (3, 2), 1200, 0.5, 0.5, 1.0),
+    ("../products/plums-honey-dried-plum-seedless.jpg", PHOTOS_DIR / "暖陽下的蜂蜜無籽梅肉.webp", (3, 2), 1200, 0.5, 0.5, 1.0),
+    ("../products/jin-he-tai-traditional-handmade-plum-cakes.jpg", PHOTOS_DIR / "古早味手工梅餅午後茶點 (1).png", (3, 2), 1200, 0.5, 0.5, 1.0),
+    ("../products/jin-he-tai-sugar-kumquat-candy.jpg", PHOTOS_DIR / "暖陽下的糖金橘.webp", (3, 2), 1200, 0.5, 0.5, 1.0),
+    ("../products/tang-ding-brown-sugar-longan-red-date.jpg", PHOTOS_DIR / "暖陽下的桂圓紅棗黑糖磚.webp", (3, 2), 1200, 0.5, 0.5, 1.0),
+    ("../products/huixiang-red-date-chips.jpg", PHOTOS_DIR / "暖陽下的紅棗脆片.webp", (3, 2), 1200, 0.5, 0.5, 1.0),
+    ("../products/taiwan-roasted-black-bean-tea-15bags.jpg", PHOTOS_DIR / "暖陽下的烘焙黑豆茶.webp", (3, 2), 1200, 0.5, 0.5, 1.0),
+    ("../products/jin-he-tai-licorice-preserved-plum.jpg", PHOTOS_DIR / "暖陽下的甘草金頌李.webp", (3, 2), 1200, 0.5, 0.5, 1.0),
+    ("../products/liao-hsin-lan-dried-tofu-shacha.jpg", PHOTOS_DIR / "暖陽下的廖心蘭豆干_香菇.webp", (3, 2), 1200, 0.5, 0.5, 1.0),
+    ("../products/fullten-dried-guava.jpg", PHOTOS_DIR / "台灣芭樂乾暖心茶點擺拍.png", (3, 2), 1200, 0.5, 0.5, 1.0),
     # 原包裝實拍（1:1 → 裁成 2:3 海報）
-    ("bakery-pineapple-cake.jpg", DESKTOP / "暖陽下的鳳梨酥與鳳梨.png", (4, 5), 800, 0.42, 0.55, 1.0),
-    ("bakery-egg-rolls.jpg", DESKTOP / "暖陽下的蛋捲.webp", (4, 5), 800, 0.45, 0.55, 1.0),
-    ("bakery-cookie-chocolate.jpg", DESKTOP / "暖陽下的巧克力軟餅乾.webp", (8, 5), 800, 0.47, 0.55, 0.85),
-    ("bakery-cookie-matcha.jpg", DESKTOP / "暖陽下的抹茶軟餅乾.webp", (8, 5), 800, 0.5, 0.55, 0.85),
+    ("bakery-pineapple-cake.jpg", PHOTOS_DIR / "暖陽下的鳳梨酥與鳳梨.png", (4, 5), 800, 0.42, 0.55, 1.0),
+    ("bakery-egg-rolls.jpg", PHOTOS_DIR / "暖陽下的蛋捲.webp", (4, 5), 800, 0.45, 0.55, 1.0),
+    ("bakery-cookie-chocolate.jpg", PHOTOS_DIR / "暖陽下的巧克力軟餅乾.webp", (8, 5), 800, 0.47, 0.55, 0.85),
+    ("bakery-cookie-matcha.jpg", PHOTOS_DIR / "暖陽下的抹茶軟餅乾.webp", (8, 5), 800, 0.5, 0.55, 0.85),
     ("visit-exterior.jpg", MENU / "Taiwanway flower.jpg", (4, 5), 1000, 0.5, 0.55, 1.0),
     ("visit-interior.jpg", STORE / "IMG_4969.JPG", (3, 2), 1400, 0.5, 0.5, 1.0),
 ]
@@ -60,7 +61,7 @@ def crop(im: Image.Image, ratio, fx: float, fy: float, zoom: float) -> Image.Ima
 
 
 # 加購三圖：一張橫圖裡並排三個圓，切成三等分並把白底去掉，讓它浮在淡杏色區塊上
-COMBO_SOURCE = DESKTOP / "加購_珍奶熱茶起司蛋糕.png"
+COMBO_SOURCE = PHOTOS_DIR / "加購_珍奶熱茶起司蛋糕.png"
 COMBO_NAMES = ["combo-bubble-tea.png", "combo-hot-tea.png", "combo-cheesecake.png"]
 
 
