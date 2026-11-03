@@ -10,7 +10,7 @@ export const POSTERS: Record<string, string> = {
   'taiwan-osmanthus-plum': '/images/products/taiwan-osmanthus-plum.png',
   'taiwan-perilla-plum': '/images/products/taiwan-perilla-plum.png',
   'jin-he-tai-dried-roselle': '/images/products/jin-he-tai-dried-roselle.png',
-  'liao-hsin-lan-dried-tofu-shacha': '/images/products/liao-hsin-lan-dried-tofu-shacha.png',
+  'liao-hsin-lan-dried-tofu-shacha': '/images/products/liao-hsin-lan-dried-tofu-shacha.jpg',
   'sun-moon-lake-stewed-mushrooms': '/images/products/sun-moon-lake-stewed-mushrooms.png',
   'freshly-baked-pineapple-cake-gift-box': '/images/products/freshly-baked-pineapple-cake-gift-box.jpg',
   'plums-honey-dried-plum-seedless': '/images/products/plums-honey-dried-plum-seedless.jpg',
@@ -30,4 +30,5 @@ export const LANDSCAPE = new Set([
   'huixiang-red-date-chips',
   'taiwan-roasted-black-bean-tea-15bags',
   'jin-he-tai-licorice-preserved-plum',
+  'liao-hsin-lan-dried-tofu-shacha',
 ]);

@@ -84,7 +84,7 @@ export const PRODUCT_TAGS: Record<string, string[]> = {
   'tomita-plum-heart-candy': ['plumCandy', 'additiveFree'],
   'huixiang-red-date-chips': ['redDate', 'additiveFree'],
   // 零食
-  'liao-hsin-lan-dried-tofu-shacha': ['driedTofu', 'shacha', 'readyToEat'],
+  'liao-hsin-lan-dried-tofu-shacha': ['driedTofu', 'readyToEat'],  // 四種口味，slug 保留舊名
   'sun-moon-lake-stewed-mushrooms': ['mushroom', 'readyToEat'],
   'te-yu-fish-crackers-original': ['fishCracker', 'award'],
   'freshly-baked-pineapple-cake-gift-box': ['bakedFresh', 'giftBox', 'signature'],
