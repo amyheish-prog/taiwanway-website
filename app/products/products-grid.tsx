@@ -7,27 +7,27 @@ import { useLanguage } from '@/lib/i18n/language-context';
 import type { Product } from '@/types/product';
 import { getProductName, type Language } from '@/types/product';
 import { getShortName } from './product-short-names';
-import { POSTERS, LANDSCAPE } from './posters';
+import { POSTERS } from './posters';
 import { BakerySection } from '@/components/bakery-section';
-import { MapPin, Phone, Clock, ArrowRight } from 'lucide-react';
+import { MapPin, Phone, Clock } from 'lucide-react';
 
 type CatId = 'tea' | 'fruit' | 'snack';
 type FilterId = 'all' | 'new' | 'bakery' | CatId | 'gift';
 type Lang = 'zh' | 'en' | 'es';
 
 const CATS: { id: CatId; kicker: string; title: Record<Lang, string> }[] = [
-  { id: 'tea', kicker: 'Taiwan Tea', title: { zh: '台灣好茶', en: 'Taiwan Tea', es: 'Té de Taiwán' } },
   { id: 'fruit', kicker: 'Dried Fruit & Preserves', title: { zh: '台灣果乾蜜餞', en: 'Dried Fruit & Preserves', es: 'Frutas Secas y Confitadas' } },
   { id: 'snack', kicker: 'Snacks & Crackers', title: { zh: '零食餅乾', en: 'Snacks & Crackers', es: 'Snacks y Galletas' } },
+  { id: 'tea', kicker: 'Taiwan Tea', title: { zh: '台灣好茶', en: 'Taiwan Tea', es: 'Té de Taiwán' } },
 ];
 
 const FILTERS: { id: FilterId; label: Record<Lang, string> }[] = [
   { id: 'all', label: { zh: '全部', en: 'All', es: 'Todos' } },
   { id: 'new', label: { zh: '🆕 新到貨', en: '🆕 New Arrivals', es: '🆕 Novedades' } },
   { id: 'bakery', label: { zh: '手工烘焙', en: 'Bakery', es: 'Panadería' } },
-  { id: 'tea', label: { zh: '茶葉', en: 'Tea', es: 'Té' } },
   { id: 'fruit', label: { zh: '果乾蜜餞', en: 'Dried Fruit', es: 'Fruta Seca' } },
   { id: 'snack', label: { zh: '零食', en: 'Snacks', es: 'Snacks' } },
+  { id: 'tea', label: { zh: '茶葉', en: 'Tea', es: 'Té' } },
   { id: 'gift', label: { zh: '禮盒', en: 'Gift Boxes', es: 'Regalos' } },
 ];
 
@@ -65,38 +65,7 @@ function teaFormat(p: Product): string {
   return 'looseTea';
 }
 
-/* ── 海報卡 ── */
-function PosterCard({ p, language, detail, inStore, eager }: { p: Product; language: Language; detail: string; inStore: string; eager: boolean }) {
-  return (
-    <Link
-      href={`/product/${p.slug}`}
-      className="group flex flex-col overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-black/5 transition-shadow duration-300 hover:shadow-md"
-    >
-      <div className="relative aspect-[2/3] overflow-hidden bg-muted">
-        <Image
-          src={POSTERS[p.slug]}
-          alt={getProductName(p, language)}
-          fill
-          preload={eager}
-          fetchPriority={eager ? 'high' : undefined}
-          className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-          sizes="(max-width:768px) 50vw, (max-width:1024px) 33vw, 25vw"
-        />
-      </div>
-      <div className="flex items-center justify-between gap-2 px-4 py-3">
-        <span className="font-body text-sm font-bold text-primary">
-          {p.price != null ? `$${Number(p.price).toFixed(2)}` : inStore}
-        </span>
-        <span className="inline-flex items-center gap-1 font-body text-xs font-semibold text-primary transition-colors group-hover:text-primary/80">
-          {detail}
-          <ArrowRight className="h-3.5 w-3.5" />
-        </span>
-      </div>
-    </Link>
-  );
-}
-
-/* ── 情境照卡（果乾、零食）：橫式照片，品名與價格寫在下方 ── */
+/* ── 商品照卡：橫式照片，品名與價格寫在下方 ── */
 function PhotoCard({ p, language, eager }: { p: Product; language: Language; eager: boolean }) {
   const other: Language = language === 'zh' ? 'en' : 'zh';
   return (
@@ -147,7 +116,7 @@ function TextCard({ p, language }: { p: Product; language: Language }) {
 
 const SMALL_GRID = 'grid grid-cols-1 gap-x-12 border-t border-border md:grid-cols-2';
 
-/* ── 單一分類區塊：海報卡 + （茶葉再依形式分小標）小卡 ── */
+/* ── 單一分類區塊：照片卡 + （茶葉再依形式分小標）文字列 ── */
 function CategoryBlock({
   catId,
   items,
@@ -155,8 +124,6 @@ function CategoryBlock({
   isFirst,
   lang,
   language,
-  detail,
-  inStore,
 }: {
   catId: CatId;
   items: Product[];
@@ -164,14 +131,9 @@ function CategoryBlock({
   isFirst: boolean;
   lang: Lang;
   language: Language;
-  detail: string;
-  inStore: string;
 }) {
   if (!items.length) return null;
-  // 茶葉保留直式海報；果乾零食、以及任何有橫式情境照的商品用橫式卡
-  const isPhoto = (p: Product) => catId !== 'tea' || LANDSCAPE.has(p.slug);
-  const photos = items.filter((p) => POSTERS[p.slug] && isPhoto(p));
-  const posters = items.filter((p) => POSTERS[p.slug] && !isPhoto(p));
+  const photos = items.filter((p) => POSTERS[p.slug]);
   const lists = items.filter((p) => !POSTERS[p.slug]);
   const cat = CATS.find((c) => c.id === catId)!;
 
@@ -188,14 +150,6 @@ function CategoryBlock({
         <div className="mb-8 grid gap-4 sm:grid-cols-2 md:gap-5 lg:grid-cols-3">
           {photos.map((p, i) => (
             <PhotoCard key={p.id} p={p} language={language} eager={isFirst && i < 3} />
-          ))}
-        </div>
-      )}
-
-      {posters.length > 0 && (
-        <div className="mb-8 flex flex-wrap justify-center gap-4 md:gap-5 [&>*]:w-[calc(50%-0.5rem)] md:[&>*]:w-[calc(33.333%-0.834rem)] lg:[&>*]:w-[calc(25%-0.9375rem)]">
-          {posters.map((p, i) => (
-            <PosterCard key={p.id} p={p} language={language} detail={detail} inStore={inStore} eager={isFirst && i < 4} />
           ))}
         </div>
       )}
@@ -238,8 +192,6 @@ export default function ProductsGrid({ products }: { products: Product[] }) {
   const lang: Lang = (['zh', 'en', 'es'] as const).includes(language as Lang) ? (language as Lang) : 'en';
   const [filter, setFilter] = useState<FilterId>('all');
 
-  const inStore = lang === 'zh' ? '店內販售' : lang === 'es' ? 'En tienda' : 'In-store';
-  const detail = lang === 'zh' ? '看詳情' : lang === 'es' ? 'Ver más' : 'Details';
   const intro =
     lang === 'zh'
       ? '嚴選台灣好茶、果乾蜜餞與傳統零嘴——歡迎到店選購，把家鄉味帶回家。'
@@ -324,8 +276,6 @@ export default function ProductsGrid({ products }: { products: Product[] }) {
               showHeader={filter === 'all' || filter === 'gift' || filter === 'new'}
               lang={lang}
               language={language}
-              detail={detail}
-              inStore={inStore}
             />
           ))
         )}

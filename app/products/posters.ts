@@ -1,5 +1,5 @@
 /**
- * 有精緻直式海報的商品（slug → 海報路徑）
+ * 有商品照的商品（slug → 圖片路徑）；新圖用橫式 3:2 情境照
  * 商品列表卡、詳情頁主圖、Product 結構化資料共用。
  */
 export const POSTERS: Record<string, string> = {
@@ -21,15 +21,3 @@ export const POSTERS: Record<string, string> = {
   'jin-he-tai-licorice-preserved-plum': '/images/products/jin-he-tai-licorice-preserved-plum.jpg',
 };
 
-/** 橫式 3:2 情境照：不論在哪個分類都用橫式卡片（品名寫在照片下方） */
-export const LANDSCAPE = new Set([
-  'plums-honey-dried-plum-seedless',
-  'jin-he-tai-traditional-handmade-plum-cakes',
-  'jin-he-tai-sugar-kumquat-candy',
-  'tang-ding-brown-sugar-longan-red-date',
-  'huixiang-red-date-chips',
-  'taiwan-roasted-black-bean-tea-15bags',
-  'jin-he-tai-licorice-preserved-plum',
-  'liao-hsin-lan-dried-tofu-shacha',
-  'fullten-dried-guava',
-]);
