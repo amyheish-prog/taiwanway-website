@@ -41,9 +41,9 @@ export const faqs = [
   },
   {
     q_en: 'Do you have vegetarian or vegan options?',
-    a_en: 'Yes. Vegetarian-friendly options include all our teas (jasmine green, oolong, matcha, brown sugar bubble tea), homemade pineapple cake, and side dishes like Taiwanese kimchi and chilled peanuts with celery. Please ask staff for the latest vegetarian menu.',
+    a_en: 'Yes. Vegetarian-friendly options include all our teas (jasmine green, oolong, matcha, brown sugar bubble tea), homemade pineapple cake, and side dishes like Taiwanese kimchi. Please ask staff for the latest vegetarian menu.',
     q_zh: '有素食選項嗎？',
-    a_zh: '有。所有飲品（茉莉綠茶、烏龍茶、抹茶、黑糖珍奶）、自製鳳梨酥、台式泡菜、涼拌花生小菜皆為素食。詳細素食菜單請詢問店員。',
+    a_zh: '有。所有飲品（茉莉綠茶、烏龍茶、抹茶、黑糖珍奶）、自製鳳梨酥、台式泡菜皆為素食。詳細素食菜單請詢問店員。',
     q_es: '¿Tienen opciones vegetarianas o veganas?',
     a_es: 'Sí. Todas nuestras bebidas, el pastel de piña casero y varios acompañamientos como el kimchi taiwanés son vegetarianos. Pregunte al personal por el menú actualizado.',
   },

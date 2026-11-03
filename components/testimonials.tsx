@@ -64,7 +64,7 @@ function StarRating({ rating }: { rating: number }) {
           className={`w-4 h-4 ${
             i < rating
               ? 'fill-[hsl(44,80%,40%)] text-[hsl(44,80%,40%)]'
-              : 'fill-none text-[#2D1810]/20'
+              : 'fill-none text-foreground/20'
           }`}
         />
       ))}
@@ -85,20 +85,20 @@ function ReviewCard({
   return (
     <div
       className="flex-shrink-0 w-[300px] sm:w-[340px] min-h-[220px] bg-white rounded-2xl p-6 shadow-md
-                 border border-[#2D1810]/5 flex flex-col justify-between
+                 border border-foreground/5 flex flex-col justify-between
                  hover:shadow-lg transition-shadow duration-300"
     >
       {/* 星級評分與來源 */}
       <div>
         <div className="flex items-center justify-between mb-3">
           <StarRating rating={review.rating} />
-          <span className="text-xs font-body font-semibold px-2 py-0.5 rounded-full bg-[#d32323]/10 text-[#d32323]">
+          <span className="text-xs font-body font-semibold px-2 py-0.5 rounded-full bg-[#d32323]/10 text-[#a51b1b]">
             {review.source}
           </span>
         </div>
 
         {/* 評論內容 */}
-        <p className="font-body text-sm leading-relaxed text-[#2D1810]/80">
+        <p className="font-body text-sm leading-relaxed text-foreground/80">
           &ldquo;
           {expanded || !shouldTruncate
             ? review.text
@@ -107,7 +107,7 @@ function ReviewCard({
           {shouldTruncate && !expanded && (
             <button
               onClick={() => setExpanded(true)}
-              className="ml-1 text-[hsl(17,45%,47%)] font-semibold hover:underline text-sm"
+              className="ml-1 text-brick font-semibold hover:underline text-sm"
             >
               {readMoreLabels[language] || readMoreLabels.en}
             </button>
@@ -116,7 +116,7 @@ function ReviewCard({
       </div>
 
       {/* 評論者名稱 */}
-      <p className="mt-4 font-body font-semibold text-sm text-[#2D1810]">
+      <p className="mt-4 font-body font-semibold text-sm text-foreground">
         {review.name}
       </p>
     </div>
@@ -191,15 +191,13 @@ export function Testimonials() {
       className="relative bg-cream py-20 overflow-hidden"
     >
       {/* 背景裝飾 */}
-      <div className="absolute -top-32 -left-32 h-[400px] w-[400px] rounded-full bg-[hsl(44,80%,40%)]/[0.04] blur-3xl" />
-      <div className="absolute -bottom-24 -right-24 h-[300px] w-[300px] rounded-full bg-[hsl(17,45%,57%)]/[0.05] blur-3xl" />
+      <div className="absolute -top-32 -left-32 h-[400px] w-[400px] rounded-full bg-sage/10 blur-3xl" />
+      <div className="absolute -bottom-24 -right-24 h-[300px] w-[300px] rounded-full bg-brick/5 blur-3xl" />
 
       <div className="relative mx-auto max-w-6xl px-4">
         {/* 區塊標題 */}
         <div
-          className={`text-center mb-14 transition-all duration-700 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}
+          className="text-center mb-14"
         >
           <h2 className="font-heading text-4xl md:text-5xl font-bold text-primary mb-4">
             {sectionTitles[language] || sectionTitles.en}
@@ -227,11 +225,7 @@ export function Testimonials() {
         </div>
 
         {/* 評論卡片輪播 */}
-        <div
-          className={`transition-all duration-700 delay-300 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}
-        >
+        <div>
           <div
             ref={scrollRef}
             onMouseEnter={() => setIsPaused(true)}
@@ -255,15 +249,13 @@ export function Testimonials() {
 
         {/* Yelp 連結 */}
         <div
-          className={`text-center mt-10 transition-all duration-700 delay-500 ${
-            isVisible ? 'opacity-100' : 'opacity-0'
-          }`}
+          className="text-center mt-10"
         >
           <a
             href="https://www.google.com/maps/place//@41.4437301,-74.4206521,17z/data=!4m8!3m7!1s0x89c33262597cb655:0x968db5356171d2eb!8m2!3d41.4437301!4d-74.4206521!9m1!1b1"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 font-body text-sm text-foreground/60 hover:text-primary transition-colors"
+            className="inline-flex items-center gap-2 font-body text-sm text-muted-foreground hover:text-primary transition-colors"
           >
             View all reviews on Google →
           </a>

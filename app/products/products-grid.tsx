@@ -8,24 +8,26 @@ import type { Product } from '@/types/product';
 import { getProductName, type Language } from '@/types/product';
 import { getShortName } from './product-short-names';
 import { POSTERS } from './posters';
-import { MapPin, Phone, Clock, ArrowRight } from 'lucide-react';
+import { BakerySection } from '@/components/bakery-section';
+import { MapPin, Phone, Clock } from 'lucide-react';
 
 type CatId = 'tea' | 'fruit' | 'snack';
-type FilterId = 'all' | 'new' | CatId | 'gift';
+type FilterId = 'all' | 'new' | 'bakery' | CatId | 'gift';
 type Lang = 'zh' | 'en' | 'es';
 
 const CATS: { id: CatId; kicker: string; title: Record<Lang, string> }[] = [
-  { id: 'tea', kicker: 'Taiwan Tea', title: { zh: '台灣好茶', en: 'Taiwan Tea', es: 'Té de Taiwán' } },
   { id: 'fruit', kicker: 'Dried Fruit & Preserves', title: { zh: '台灣果乾蜜餞', en: 'Dried Fruit & Preserves', es: 'Frutas Secas y Confitadas' } },
   { id: 'snack', kicker: 'Snacks & Crackers', title: { zh: '零食餅乾', en: 'Snacks & Crackers', es: 'Snacks y Galletas' } },
+  { id: 'tea', kicker: 'Taiwan Tea', title: { zh: '台灣好茶', en: 'Taiwan Tea', es: 'Té de Taiwán' } },
 ];
 
 const FILTERS: { id: FilterId; label: Record<Lang, string> }[] = [
   { id: 'all', label: { zh: '全部', en: 'All', es: 'Todos' } },
   { id: 'new', label: { zh: '🆕 新到貨', en: '🆕 New Arrivals', es: '🆕 Novedades' } },
-  { id: 'tea', label: { zh: '茶葉', en: 'Tea', es: 'Té' } },
+  { id: 'bakery', label: { zh: '手工烘焙', en: 'Bakery', es: 'Panadería' } },
   { id: 'fruit', label: { zh: '果乾蜜餞', en: 'Dried Fruit', es: 'Fruta Seca' } },
   { id: 'snack', label: { zh: '零食', en: 'Snacks', es: 'Snacks' } },
+  { id: 'tea', label: { zh: '茶葉', en: 'Tea', es: 'Té' } },
   { id: 'gift', label: { zh: '禮盒', en: 'Gift Boxes', es: 'Regalos' } },
 ];
 
@@ -38,7 +40,7 @@ const TEA_FORMATS: { id: string; label: Record<Lang, string> }[] = [
 
 function categorize(p: Product): CatId {
   const n = p.name_zh || '';
-  if (/梅|果乾|芭樂乾|甜蜜柑|脆片|梨糖|洛神/.test(n)) return 'fruit';
+  if (/梅|果乾|芭樂乾|甜蜜柑|脆片|梨糖|洛神|黑糖磚|金頌李|金橘/.test(n)) return 'fruit';
   if (/豆干|豆乾|魚酥|香菇|鳳梨酥/.test(n)) return 'snack';
   if (/茶|烏龍|黑糖磚|黑豆/.test(n)) return 'tea';
   return 'snack';
@@ -63,95 +65,91 @@ function teaFormat(p: Product): string {
   return 'looseTea';
 }
 
-/* ── 海報卡 ── */
-function PosterCard({ p, language, detail, inStore }: { p: Product; language: Language; detail: string; inStore: string }) {
+/* ── 商品照卡：橫式照片，品名與價格寫在下方 ── */
+function PhotoCard({ p, language, eager }: { p: Product; language: Language; eager: boolean }) {
+  const other: Language = language === 'zh' ? 'en' : 'zh';
   return (
     <Link
       href={`/product/${p.slug}`}
       className="group flex flex-col overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-black/5 transition-shadow duration-300 hover:shadow-md"
     >
-      <div className="relative aspect-[2/3] overflow-hidden bg-[#faf7f2]">
+      {/* 直式舊海報、實拍圖完整顯示在格紋桌巾上；橫式情境照剛好填滿 */}
+      <div className="gingham-cloth relative aspect-[3/2] overflow-hidden">
         <Image
           src={POSTERS[p.slug]}
           alt={getProductName(p, language)}
           fill
-          className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-          sizes="(max-width:768px) 50vw, 33vw"
+          preload={eager}
+          fetchPriority={eager ? 'high' : undefined}
+          className="object-contain transition-transform duration-500 group-hover:scale-[1.03]"
+          sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 33vw"
         />
       </div>
-      <div className="flex items-center justify-between gap-2 px-4 py-3">
-        <span className="font-body text-sm font-bold text-primary">
-          {p.price != null ? `$${Number(p.price).toFixed(2)}` : inStore}
-        </span>
-        <span className="inline-flex items-center gap-1 font-body text-xs font-semibold text-primary/70 transition-colors group-hover:text-primary">
-          {detail}
-          <ArrowRight className="h-3.5 w-3.5" />
-        </span>
+      <div className="flex items-baseline justify-between gap-3 px-4 py-3">
+        <div className="min-w-0">
+          <h3 className="font-heading text-base font-bold text-primary">{getShortName(p, language)}</h3>
+          <p className="font-heading text-sm text-foreground/60">{getShortName(p, other)}</p>
+        </div>
+        {p.price != null && (
+          <span className="shrink-0 font-heading text-base font-bold text-price">${Number(p.price).toFixed(2)}</span>
+        )}
       </div>
     </Link>
   );
 }
 
-/* ── 個別小卡 ── */
-function TextCard({ p, language, detail }: { p: Product; language: Language; detail: string }) {
+/* ── 沒有海報的商品：菜單式一行（品名、另一語言名稱、價格），不放隨手拍的照片 ── */
+function TextCard({ p, language }: { p: Product; language: Language }) {
+  const other: Language = language === 'zh' ? 'en' : 'zh';
   return (
-    <Link
-      href={`/product/${p.slug}`}
-      className="group relative flex min-h-[104px] flex-col overflow-hidden rounded-2xl bg-white p-4 shadow-sm ring-1 ring-black/5 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md hover:ring-primary/30"
-    >
-      <h3 className="font-body text-[15px] font-bold leading-snug text-foreground group-hover:text-primary">
-        {getShortName(p, language)}
-      </h3>
-      <div className="mt-auto flex items-center justify-between gap-2 border-t border-black/5 pt-2.5">
-        {p.price != null && <span className="font-body text-sm font-bold text-primary">${Number(p.price).toFixed(2)}</span>}
-        <span className="inline-flex items-center gap-0.5 font-body text-xs font-semibold text-primary/70 transition-colors group-hover:text-primary">
-          {detail}
-          <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
-        </span>
+    <Link href={`/product/${p.slug}`} className="group flex items-baseline justify-between gap-4 border-b border-border py-4">
+      <div className="min-w-0">
+        <h3 className="font-heading text-base font-bold text-primary group-hover:underline md:text-lg">{getShortName(p, language)}</h3>
+        <p className="font-heading text-sm text-foreground/60">{getShortName(p, other)}</p>
       </div>
+      {p.price != null && (
+        <span className="shrink-0 font-heading text-base font-bold text-price md:text-lg">${Number(p.price).toFixed(2)}</span>
+      )}
     </Link>
   );
 }
 
-const SMALL_GRID = 'grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6';
+const SMALL_GRID = 'grid grid-cols-1 gap-x-12 border-t border-border md:grid-cols-2';
 
-/* ── 單一分類區塊：海報卡 + （茶葉再依形式分小標）小卡 ── */
+/* ── 單一分類區塊：照片卡 + （茶葉再依形式分小標）文字列 ── */
 function CategoryBlock({
   catId,
   items,
   showHeader,
+  isFirst,
   lang,
   language,
-  detail,
-  inStore,
 }: {
   catId: CatId;
   items: Product[];
   showHeader: boolean;
+  isFirst: boolean;
   lang: Lang;
   language: Language;
-  detail: string;
-  inStore: string;
 }) {
   if (!items.length) return null;
-  const posters = items.filter((p) => POSTERS[p.slug]);
+  const photos = items.filter((p) => POSTERS[p.slug]);
   const lists = items.filter((p) => !POSTERS[p.slug]);
   const cat = CATS.find((c) => c.id === catId)!;
 
   return (
     <section className="mb-16">
       {showHeader && (
-        <div className="mb-8 text-center">
-          <p className="mb-2 font-heading text-xs uppercase tracking-[0.28em] text-primary/60">{cat.kicker}</p>
-          <h2 className="font-heading text-3xl font-bold text-foreground md:text-4xl">{cat.title[lang]}</h2>
-          <span className="mx-auto mt-3 block h-1 w-14 rounded-full bg-primary/70" />
+        <div className="mb-6 text-center">
+          <p className="gingham-chip mb-1 font-body text-[11px] uppercase tracking-[0.2em] text-brick">{cat.kicker}</p>
+          <h2 className="font-heading text-2xl font-bold text-primary md:text-3xl">{cat.title[lang]}</h2>
         </div>
       )}
 
-      {posters.length > 0 && (
-        <div className="mb-8 grid grid-cols-2 gap-5 md:grid-cols-3 md:gap-6">
-          {posters.map((p) => (
-            <PosterCard key={p.id} p={p} language={language} detail={detail} inStore={inStore} />
+      {photos.length > 0 && (
+        <div className="mb-8 grid gap-4 sm:grid-cols-2 md:gap-5 lg:grid-cols-3">
+          {photos.map((p, i) => (
+            <PhotoCard key={p.id} p={p} language={language} eager={isFirst && i < 3} />
           ))}
         </div>
       )}
@@ -171,7 +169,7 @@ function CategoryBlock({
                   </div>
                   <div className={SMALL_GRID}>
                     {sub.map((p) => (
-                      <TextCard key={p.id} p={p} language={language} detail={detail} />
+                      <TextCard key={p.id} p={p} language={language} />
                     ))}
                   </div>
                 </div>
@@ -181,7 +179,7 @@ function CategoryBlock({
         ) : (
           <div className={SMALL_GRID}>
             {lists.map((p) => (
-              <TextCard key={p.id} p={p} language={language} detail={detail} />
+              <TextCard key={p.id} p={p} language={language} />
             ))}
           </div>
         ))}
@@ -194,9 +192,6 @@ export default function ProductsGrid({ products }: { products: Product[] }) {
   const lang: Lang = (['zh', 'en', 'es'] as const).includes(language as Lang) ? (language as Lang) : 'en';
   const [filter, setFilter] = useState<FilterId>('all');
 
-  const inStore = lang === 'zh' ? '店內販售' : lang === 'es' ? 'En tienda' : 'In-store';
-  const detail = lang === 'zh' ? '看詳情' : lang === 'es' ? 'Ver más' : 'Details';
-  const title = lang === 'zh' ? '台灣零食' : lang === 'es' ? 'Snacks Taiwaneses' : 'Taiwanese Snacks';
   const intro =
     lang === 'zh'
       ? '嚴選台灣好茶、果乾蜜餞與傳統零嘴——歡迎到店選購，把家鄉味帶回家。'
@@ -219,48 +214,45 @@ export default function ProductsGrid({ products }: { products: Product[] }) {
     blocks = CATS.map((c) => ({ catId: c.id, items: grouped[c.id] }));
   } else if (filter === 'gift') {
     blocks = CATS.map((c) => ({ catId: c.id, items: grouped[c.id].filter(isGift) })).filter((b) => b.items.length);
+  } else if (filter === 'bakery') {
+    blocks = [];
   } else if (filter === 'new') {
     blocks = CATS.map((c) => ({ catId: c.id, items: grouped[c.id].filter(isActiveNewArrival) })).filter((b) => b.items.length);
   } else {
     blocks = [{ catId: filter, items: grouped[filter] }];
   }
-  const nothing = blocks.every((b) => b.items.length === 0);
+  const showBakery = filter === 'all' || filter === 'bakery';
+  const nothing = !showBakery && blocks.every((b) => b.items.length === 0);
 
   return (
     <div className="bg-cream">
       {/* 頁首 banner */}
       <div className="mx-auto max-w-5xl px-6 pt-6 pb-4 md:px-8">
-        <h1 className="sr-only">
-          {lang === 'zh'
-            ? '台灣零食・茶葉・伴手禮｜紐約 Middletown TaiwanWay 台灣味'
-            : lang === 'es'
-              ? 'Snacks, Té y Regalos Taiwaneses en Middletown, NY | TaiwanWay'
-              : 'Taiwanese Snacks, Tea & Gifts in Middletown, NY | TaiwanWay'}
-        </h1>
-        <div className="overflow-hidden rounded-2xl shadow-sm ring-1 ring-black/5">
-          <Image
-            src="/images/products/gift-wall-banner-wide.png"
-            alt="TaiwanWay — Taiwan Tea & Snack 台灣茶伴手禮"
-            width={1774}
-            height={887}
-            priority
-            className="h-auto w-full"
-            sizes="(max-width:1024px) 100vw, 1024px"
-          />
+        <div className="pt-5 text-center md:pt-6">
+          <h1 className="font-heading text-3xl font-bold text-primary md:text-4xl">
+            {lang === 'zh' ? '台灣茶與伴手禮' : lang === 'es' ? 'Té y regalos de Taiwán' : 'Taiwan Tea & Gifts'}
+          </h1>
+          <span className="sr-only">
+            {lang === 'zh'
+              ? '台灣零食・茶葉・伴手禮｜紐約 Middletown TaiwanWay 台灣味'
+              : lang === 'es'
+                ? 'Snacks, Té y Regalos Taiwaneses en Middletown, NY | TaiwanWay'
+                : 'Taiwanese Snacks, Tea & Gifts in Middletown, NY | TaiwanWay'}
+          </span>
         </div>
-        <p className="mx-auto mt-6 max-w-xl text-center font-body text-base text-muted-foreground md:text-lg">{intro}</p>
+        <p className="mx-auto mt-2 max-w-xl text-center font-body text-sm text-muted-foreground md:text-base">{intro}</p>
       </div>
 
       {/* 分類篩選列（黏頂） */}
-      <nav className="sticky top-20 z-30 border-y border-black/5 bg-cream/95 backdrop-blur-md">
+      <nav className="sticky top-20 z-30 md:top-[108px] border-y border-black/5 bg-cream/95 backdrop-blur-md">
         <div className="scrollbar-hide mx-auto max-w-6xl overflow-x-auto px-4 py-3">
           <div className="flex min-w-max justify-center gap-2">
             {visibleFilters.map((f) => (
               <button
                 key={f.id}
                 onClick={() => setFilter(f.id)}
-                className={`whitespace-nowrap rounded-full px-5 py-2 font-body text-sm font-semibold transition-colors duration-200 ${
-                  filter === f.id ? 'bg-primary text-primary-foreground' : 'text-foreground/60 hover:bg-primary/10 hover:text-primary'
+                className={`whitespace-nowrap rounded-full border px-5 py-2 font-body text-sm font-semibold transition-colors duration-300 ${
+                  filter === f.id ? 'border-primary/25 bg-secondary text-primary' : 'border-transparent text-muted-foreground hover:bg-secondary/60 hover:text-primary'
                 }`}
               >
                 {f.label[lang]}
@@ -271,19 +263,19 @@ export default function ProductsGrid({ products }: { products: Product[] }) {
       </nav>
 
       <div className="mx-auto max-w-6xl px-6 py-8 md:px-8">
+        {showBakery && <BakerySection lang={language} />}
         {nothing ? (
           <p className="py-16 text-center font-body text-muted-foreground">{emptyLabel}</p>
         ) : (
-          blocks.map((b) => (
+          blocks.map((b, i) => (
             <CategoryBlock
               key={b.catId}
+              isFirst={i === 0 && !showBakery}
               catId={b.catId}
               items={b.items}
               showHeader={filter === 'all' || filter === 'gift' || filter === 'new'}
               lang={lang}
               language={language}
-              detail={detail}
-              inStore={inStore}
             />
           ))
         )}

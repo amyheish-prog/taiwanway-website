@@ -50,7 +50,7 @@ export default async function ProductsPage() {
   const products = await getProducts();
 
   return (
-    <div className="min-h-screen bg-cream pt-24">
+    <div className="min-h-screen bg-cream">
       <ProductsGrid products={products} />
     </div>
   );

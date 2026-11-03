@@ -21,7 +21,7 @@ export function PineappleCakePostClient() {
         : `${post.readingMinutes} min read`
 
   return (
-    <main className="min-h-screen bg-cream pt-28 pb-20">
+    <main className="min-h-screen bg-cream pt-8 pb-20">
       <div className="mx-auto max-w-2xl px-4">
         <nav aria-label="Breadcrumb" className="mb-6 text-sm text-muted-foreground">
           <ol className="flex items-center gap-2 flex-wrap">
@@ -50,7 +50,7 @@ export function PineappleCakePostClient() {
               <span aria-hidden>·</span>
               <span>{minutesLabel}</span>
             </div>
-            <h1 className="font-heading text-3xl md:text-4xl font-bold text-[#5b3a2e] leading-tight mb-5">
+            <h1 className="font-heading text-3xl md:text-4xl font-bold text-primary leading-tight mb-5">
               {post.title[language] || post.title.en}
             </h1>
             <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl bg-sand/30 shadow-sm">
@@ -58,7 +58,7 @@ export function PineappleCakePostClient() {
                 src={post.coverImage}
                 alt="Taiwanese pineapple cake (鳳梨酥) cut open to show native pineapple and winter melon filling"
                 fill
-                priority
+                preload fetchPriority="high"
                 className="object-cover"
                 sizes="(min-width: 768px) 640px, 100vw"
               />

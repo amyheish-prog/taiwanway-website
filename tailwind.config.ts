@@ -10,8 +10,8 @@ export default {
   theme: {
   	extend: {
   		fontFamily: {
-  			heading: ['var(--font-heading)', 'Playfair Display', 'serif'],
-  			body: ['var(--font-body)', 'Inter', 'sans-serif'],
+  			heading: ['var(--font-heading)', 'var(--font-heading-zh)', 'Noto Serif', 'serif'],
+  			body: ['var(--font-body)', 'Noto Sans', 'sans-serif'],
   		},
   		colors: {
   			background: 'hsl(var(--background))',
@@ -59,6 +59,9 @@ export default {
   			terracotta: 'hsl(var(--terracotta))',
   			sand: 'hsl(var(--sand))',
   			dark: 'hsl(var(--dark))',
+  			brick: 'hsl(var(--brick))',
+  			sage: 'hsl(var(--sage))',
+  			price: 'hsl(var(--price))',
   		},
   		borderRadius: {
   			lg: 'var(--radius)',

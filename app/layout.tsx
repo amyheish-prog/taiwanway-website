@@ -1,6 +1,5 @@
 import type { Metadata } from "next"
-import { Playfair_Display, Inter } from "next/font/google"
-import { cookies } from "next/headers"
+import { Noto_Serif, Noto_Serif_TC, Noto_Sans } from "next/font/google"
 import "./globals.css"
 import { LanguageProvider } from "@/lib/i18n/language-context"
 import { CookieConsentBanner } from "@/components/cookie-consent"
@@ -10,22 +9,24 @@ import { JsonLd } from "@/components/json-ld"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 
-const LANG_ATTR: Record<string, string> = {
-  zh: 'zh-TW',
-  en: 'en',
-  es: 'es',
-}
-
-const playfairDisplay = Playfair_Display({
+const notoSerif = Noto_Serif({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+  weight: ['400', '600', '700'],
   variable: '--font-heading',
   display: 'swap',
 })
 
-const inter = Inter({
+// 中文標題字：只載粗體、不預載，瀏覽器只下載頁面上出現的字
+const notoSerifTC = Noto_Serif_TC({
+  weight: ['700'],
+  variable: '--font-heading-zh',
+  display: 'swap',
+  preload: false,
+})
+
+const notoSans = Noto_Sans({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
+  weight: ['400', '500', '600', '700'],
   variable: '--font-body',
   display: 'swap',
 })
@@ -86,21 +87,17 @@ export const metadata: Metadata = {
   },
 }
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  const cookieStore = await cookies()
-  const langCookie = cookieStore.get('taiwanway-language')?.value
-  const htmlLang = LANG_ATTR[langCookie ?? ''] ?? 'en'
-
   return (
-    <html lang={htmlLang}>
+    <html lang="en">
       <head>
         <GoogleAnalyticsScript />
       </head>
-      <body className={`${playfairDisplay.variable} ${inter.variable} font-body antialiased`}>
+      <body className={`${notoSerif.variable} ${notoSerifTC.variable} ${notoSans.variable} font-body antialiased`}>
         <JsonLd />
         <FacebookPixelNoScript />
         <GTMNoScript />

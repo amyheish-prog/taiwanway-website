@@ -25,11 +25,11 @@ export function StorySection() {
       : 'TaiwanWay storefront — historic red-brick building at 26 South St, Middletown NY'
 
   return (
-    <section className="bg-[#FAF7F2] py-16 md:py-20">
+    <section className="bg-muted py-16 md:py-20">
       <div className="mx-auto max-w-5xl px-6 md:px-4">
         {/* 引言（置中） */}
         <blockquote className="mx-auto max-w-2xl text-center">
-          <p className="font-heading text-2xl italic leading-relaxed text-[#2D1810] md:text-3xl">
+          <p className="font-heading text-2xl italic leading-relaxed text-primary md:text-3xl">
             {quote}
           </p>
         </blockquote>

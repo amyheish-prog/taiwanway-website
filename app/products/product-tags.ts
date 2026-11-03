@@ -74,7 +74,7 @@ export const PRODUCT_TAGS: Record<string, string[]> = {
   // 果乾蜜餞
   'taiwan-perilla-plum': ['preservedPlum', 'readyToEat'],
   'taiwan-osmanthus-plum': ['preservedPlum', 'floral'],
-  'fullten-dried-guava': ['driedFruit', 'additiveFree'],
+  'fullten-dried-guava': ['driedFruit', 'readyToEat'],  // 實為金和泰芭樂乾，slug 保留舊名避免網址失效
   'fullten-seedless-dried-mandarin': ['driedFruit', 'seedless'],
   'plums-honey-dried-plum-seedless': ['preservedPlum', 'seedless'],
   'plums-guanmiao-pineapple-plum': ['preservedPlum', 'pineapple'],
@@ -84,7 +84,7 @@ export const PRODUCT_TAGS: Record<string, string[]> = {
   'tomita-plum-heart-candy': ['plumCandy', 'additiveFree'],
   'huixiang-red-date-chips': ['redDate', 'additiveFree'],
   // 零食
-  'liao-hsin-lan-dried-tofu-shacha': ['driedTofu', 'shacha', 'readyToEat'],
+  'liao-hsin-lan-dried-tofu-shacha': ['driedTofu', 'readyToEat'],  // 四種口味，slug 保留舊名
   'sun-moon-lake-stewed-mushrooms': ['mushroom', 'readyToEat'],
   'te-yu-fish-crackers-original': ['fishCracker', 'award'],
   'freshly-baked-pineapple-cake-gift-box': ['bakedFresh', 'giftBox', 'signature'],

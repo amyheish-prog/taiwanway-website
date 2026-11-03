@@ -10,6 +10,8 @@ type LanguageContextType = {
   t: <T = string>(key: string) => T
 }
 
+const HTML_LANG: Record<Language, string> = { zh: 'zh-TW', en: 'en', es: 'es' }
+
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
 
 function getInitialLanguage(): Language {
@@ -45,13 +47,13 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     setLanguageState(lang)
     if (typeof window !== 'undefined') {
       setCookie(LANGUAGE_COOKIE_NAME, lang, { expires: 365 })
-      document.documentElement.lang = lang
+      document.documentElement.lang = HTML_LANG[lang]
     }
   }, [])
 
   useEffect(() => {
     if (isHydrated) {
-      document.documentElement.lang = language
+      document.documentElement.lang = HTML_LANG[language]
     }
   }, [language, isHydrated])
 

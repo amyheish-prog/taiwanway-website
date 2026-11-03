@@ -3,59 +3,75 @@
 import { useLanguage } from '@/lib/i18n/language-context'
 import Link from 'next/link'
 import Image from 'next/image'
+import { getProductById, type Product } from '@/lib/menu-data'
+import type { Language } from '@/lib/i18n/translations'
 
-type Card = { img: string; alt: Record<string, string> }
+// 名稱與價格取自 menu-data，或（menu-data 沒有的飲品）取自菜單翻譯檔；這裡只決定露出哪幾道、用哪張照片
+type Pick = { img: string } & ({ productId: string } | { menuKey: string })
 
-const cards: Card[] = [
-  { img: '/images/menu-cards/beef-noodle-sq.png', alt: { zh: '牛肉麵', en: 'Beef Noodle Soup', es: 'Sopa de fideos con res' } },
-  { img: '/images/menu-cards/pork-rice-sq-v2.png', alt: { zh: '滷肉飯', en: 'Braised Pork Rice', es: 'Arroz con cerdo' } },
-  { img: '/images/menu-cards/bubble-tea-sq.png', alt: { zh: '黑糖珍珠鮮奶', en: 'Brown Sugar Bubble Milk', es: 'Té de burbujas' } },
-  { img: '/images/menu-cards/dessert-sq.png', alt: { zh: '甜點推薦', en: 'Dessert Favorites', es: 'Postres' } },
+const picks: Pick[] = [
+  { productId: 'braised-beef-noodle-soup', img: '/images/home/pick-beef-noodle.jpg' },
+  { productId: 'braised-pork-rice', img: '/images/home/pick-pork-rice.jpg' },
+  { productId: 'chiayi-chicken-rice', img: '/images/home/pick-chicken-rice.jpg' },
+  { menuKey: 'menu.drinksList.categories.matcha.items.matchaLatte', img: '/images/home/pick-matcha.jpg' },
+  { productId: 'pineapple-cake', img: '/images/home/pick-pineapple-cake.jpg' },
 ]
 
-export function PopularPicks() {
-  const { language } = useLanguage()
-  const lang = ['zh', 'en', 'es'].includes(language) ? language : 'en'
+const fromLabel: Record<Language, string> = { zh: '起', en: 'From', es: 'Desde' }
 
-  const heading = lang === 'zh' ? '人氣推薦' : lang === 'es' ? 'Los favoritos' : 'Popular Picks'
-  const viewMenu = lang === 'zh' ? '查看完整菜單' : lang === 'es' ? 'Ver menú completo' : 'View Full Menu'
+function priceLabel(p: Product, lang: Language) {
+  if (p.priceRange) {
+    const amount = `$${p.priceRange.regular.toFixed(2)}`
+    return lang === 'zh' ? `${amount} ${fromLabel.zh}` : `${fromLabel[lang]} ${amount}`
+  }
+  return p.price ? `$${p.price.toFixed(2)}` : ''
+}
+
+export function PopularPicks() {
+  const { language: lang, t } = useLanguage()
+
+  const heading = lang === 'zh' ? '人氣推薦' : lang === 'es' ? 'Los favoritos' : 'Our Favorites'
+  const viewMenu = lang === 'zh' ? '完整菜單' : lang === 'es' ? 'Menú completo' : 'Full Menu'
+
+  const items = picks.flatMap((pick) => {
+    if ('menuKey' in pick) {
+      const item = t<{ name: string; price: string } | string>(pick.menuKey)
+      return typeof item === 'object' ? [{ key: pick.menuKey, img: pick.img, name: item.name, price: `$${item.price}` }] : []
+    }
+    const product = getProductById(pick.productId)
+    return product
+      ? [{ key: product.id, img: pick.img, name: product.name[lang] ?? product.name.en, price: priceLabel(product, lang) }]
+      : []
+  })
 
   return (
-    <section className="relative bg-cream">
-      <div className="mx-auto max-w-screen-xl px-6 pb-14 md:px-12 md:pb-20">
-        <div className="mb-8 flex flex-col items-center">
+    <section className="gingham-cloth">
+      <div className="mx-auto max-w-screen-xl px-6 py-14 md:px-12 md:py-20">
+        <div className="mb-8 flex items-end justify-between gap-4">
           <h2 className="font-heading text-3xl font-bold text-primary md:text-4xl">{heading}</h2>
-          <span className="mt-2 h-1 w-16 rounded-full bg-primary/70" />
-        </div>
-
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
-          {cards.map((c) => (
-            <Link
-              key={c.img}
-              href="/menu"
-              className="group block overflow-hidden rounded-2xl shadow-sm ring-1 ring-black/5 transition-shadow duration-300 hover:shadow-lg"
-            >
-              <div className="relative aspect-square w-full">
-                <Image
-                  src={c.img}
-                  alt={c.alt[lang]}
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                  sizes="(max-width: 768px) 45vw, 22vw"
-                  quality={85}
-                />
-              </div>
-            </Link>
-          ))}
-        </div>
-
-        <div className="mt-10 flex justify-center">
-          <Link
-            href="/menu"
-            className="inline-flex items-center rounded-full border-2 border-primary px-8 py-3 font-body font-semibold text-primary transition-colors duration-300 hover:bg-primary hover:text-primary-foreground"
-          >
+          <Link href="/menu" className="font-body text-sm font-semibold uppercase tracking-wider text-brick hover:underline">
             {viewMenu}
           </Link>
+        </div>
+
+        <div className="-mx-6 flex snap-x gap-4 overflow-x-auto px-6 pb-2 scrollbar-hide md:mx-0 md:grid md:grid-cols-5 md:gap-6 md:overflow-visible md:px-0">
+          {items.map(({ key, img, name, price }) => (
+            <Link key={key} href="/menu" className="group w-[62%] shrink-0 snap-start rounded-2xl bg-card p-3 shadow-sm ring-1 ring-black/5 sm:w-[40%] md:w-auto">
+              <div className="relative aspect-square overflow-hidden rounded-xl bg-card">
+                <Image
+                  src={img}
+                  alt={name}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                  sizes="(max-width: 640px) 62vw, (max-width: 768px) 40vw, 20vw"
+                />
+              </div>
+              <p className="mt-3 px-1 font-body text-base font-semibold text-foreground">
+                {name}
+              </p>
+              <p className="mt-0.5 px-1 pb-1 font-body text-base font-semibold text-price">{price}</p>
+            </Link>
+          ))}
         </div>
       </div>
     </section>

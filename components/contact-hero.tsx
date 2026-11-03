@@ -16,7 +16,7 @@ export function ContactHero() {
         src="/images/store/exterior.jpg"
         alt="TaiwanWay 店門口 — 26 South St, Middletown, NY"
         fill
-        priority
+        preload fetchPriority="high"
         className="object-cover"
         sizes="100vw"
       />
@@ -26,6 +26,7 @@ export function ContactHero() {
         <h1 className="font-heading text-4xl font-bold text-white drop-shadow-md md:text-5xl">{title}</h1>
         <p className="mt-2 font-heading text-lg italic text-white/90">{sub}</p>
       </div>
+      <div className="gingham-band absolute inset-x-0 bottom-0 z-10" aria-hidden />
     </section>
   )
 }
