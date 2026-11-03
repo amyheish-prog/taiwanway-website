@@ -38,8 +38,8 @@ PHOTOS = [
     ("../products/taiwan-roasted-black-bean-tea-15bags.jpg", DESKTOP / "暖陽下的烘焙黑豆茶.webp", (3, 2), 1200, 0.5, 0.5, 1.0),
     ("../products/jin-he-tai-licorice-preserved-plum.jpg", DESKTOP / "暖陽下的甘草金頌李.webp", (3, 2), 1200, 0.5, 0.5, 1.0),
     ("../products/liao-hsin-lan-dried-tofu-shacha.jpg", DESKTOP / "暖陽下的廖心蘭豆干_香菇.webp", (3, 2), 1200, 0.5, 0.5, 1.0),
+    ("../products/fullten-dried-guava.jpg", DESKTOP / "台灣芭樂乾暖心茶點擺拍.png", (3, 2), 1200, 0.5, 0.5, 1.0),
     # 原包裝實拍（1:1 → 裁成 2:3 海報）
-    ("../products/fullten-dried-guava.jpg", PACKAGING / "10_Dried_Bamboo_Shoots.jpg", (2, 3), 800, 0.5, 0.5, 1.0),  # 檔名誤標，實為金和泰芭樂乾
     ("bakery-pineapple-cake.jpg", DESKTOP / "暖陽下的鳳梨酥與鳳梨.png", (4, 5), 800, 0.42, 0.55, 1.0),
     ("bakery-egg-rolls.jpg", DESKTOP / "暖陽下的蛋捲.webp", (4, 5), 800, 0.45, 0.55, 1.0),
     ("bakery-cookie-chocolate.jpg", DESKTOP / "暖陽下的巧克力軟餅乾.webp", (8, 5), 800, 0.47, 0.55, 0.85),

@@ -31,4 +31,5 @@ export const LANDSCAPE = new Set([
   'taiwan-roasted-black-bean-tea-15bags',
   'jin-he-tai-licorice-preserved-plum',
   'liao-hsin-lan-dried-tofu-shacha',
+  'fullten-dried-guava',
 ]);
