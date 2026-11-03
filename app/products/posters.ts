@@ -5,7 +5,7 @@
 export const POSTERS: Record<string, string> = {
   'honey-aroma-oolong-tea': '/images/products/honey-aroma-oolong-tea.png',
   'dong-pian-oolong-tea': '/images/products/dong-pian-oolong-tea.png',
-  'taiwan-roasted-black-bean-tea-15bags': '/images/products/taiwan-roasted-black-bean-tea-15bags.png',
+  'taiwan-roasted-black-bean-tea-15bags': '/images/products/taiwan-roasted-black-bean-tea-15bags.jpg',
   'fullten-dried-guava': '/images/products/fullten-dried-guava.jpg',
   'taiwan-osmanthus-plum': '/images/products/taiwan-osmanthus-plum.png',
   'taiwan-perilla-plum': '/images/products/taiwan-perilla-plum.png',
@@ -28,4 +28,5 @@ export const LANDSCAPE = new Set([
   'jin-he-tai-sugar-kumquat-candy',
   'tang-ding-brown-sugar-longan-red-date',
   'huixiang-red-date-chips',
+  'taiwan-roasted-black-bean-tea-15bags',
 ]);

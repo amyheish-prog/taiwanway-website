@@ -35,6 +35,7 @@ PHOTOS = [
     ("../products/jin-he-tai-sugar-kumquat-candy.jpg", DESKTOP / "暖陽下的糖金橘.webp", (3, 2), 1200, 0.5, 0.5, 1.0),
     ("../products/tang-ding-brown-sugar-longan-red-date.jpg", DESKTOP / "暖陽下的桂圓紅棗黑糖磚.webp", (3, 2), 1200, 0.5, 0.5, 1.0),
     ("../products/huixiang-red-date-chips.jpg", DESKTOP / "暖陽下的紅棗脆片.webp", (3, 2), 1200, 0.5, 0.5, 1.0),
+    ("../products/taiwan-roasted-black-bean-tea-15bags.jpg", DESKTOP / "暖陽下的烘焙黑豆茶.webp", (3, 2), 1200, 0.5, 0.5, 1.0),
     # 原包裝實拍（1:1 → 裁成 2:3 海報）
     ("../products/jin-he-tai-licorice-preserved-plum.jpg", PACKAGING / "07_Dried_Sour_Plum.jpg", (2, 3), 800, 0.5, 0.5, 1.0),
     ("../products/fullten-dried-guava.jpg", PACKAGING / "10_Dried_Bamboo_Shoots.jpg", (2, 3), 800, 0.5, 0.5, 1.0),  # 檔名誤標，實為金和泰芭樂乾
